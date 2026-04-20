@@ -119,6 +119,12 @@ public class SecurityConfig {
                                 "/search/**")
                         .permitAll()
 
+                        // IM WebSocket 握手端点（握手阶段JWT校验）
+                        .requestMatchers(
+                                "/ws-im",
+                                "/ws-im/**")
+                        .permitAll()
+
                         // 轮播图公开接口
                         .requestMatchers(HttpMethod.GET,
                                 "/banners",

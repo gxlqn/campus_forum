@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -118,22 +119,38 @@ public class MessageServiceImpl implements MessageService {
         validateInitiatorSendRule(conversationId, senderId, request.getReceiverId());
         Integer contentType = request.getContentType() == null ? 1 : request.getContentType();
         String content = request.getContent().trim();
+        String clientMessageId = StringUtils.hasText(request.getClientMessageId())
+            ? request.getClientMessageId().trim()
+            : UUID.randomUUID().toString();
 
-        messageMapper.insertPrivateMessage(conversationId, senderId, request.getReceiverId(), content, contentType);
+        Map<String, Object> duplicated = messageMapper.selectMessageByClientMessageId(senderId, clientMessageId);
+        if (duplicated != null) {
+            return buildSendMessageResult(duplicated, senderId, request.getReceiverId(), contentType);
+        }
+
+        messageMapper.insertPrivateMessage(conversationId, senderId, request.getReceiverId(), content, contentType,
+            clientMessageId);
+
+        Map<String, Object> inserted = messageMapper.selectMessageByClientMessageId(senderId, clientMessageId);
+        Long messageId = inserted == null ? null : parseLong(inserted.get("id"));
 
         String preview = content.length() > 80 ? content.substring(0, 80) + "..." : content;
-        messageMapper.upsertConversation(conversationId, senderId, request.getReceiverId(), preview, 0);
-        messageMapper.upsertConversation(conversationId, request.getReceiverId(), senderId, preview, 1);
+        messageMapper.upsertConversation(conversationId, senderId, request.getReceiverId(), preview, messageId, 0);
+        messageMapper.upsertConversation(conversationId, request.getReceiverId(), senderId, preview, messageId, 1);
 
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("conversationId", conversationId);
-        data.put("senderId", senderId);
-        data.put("receiverId", request.getReceiverId());
-        data.put("content", content);
-        data.put("contentType", contentType);
-        data.put("createTime", LocalDateTime.now());
-        data.put("sendPolicy", buildSendPolicy(conversationId, senderId, request.getReceiverId()));
-        return data;
+        if (inserted == null) {
+            inserted = new LinkedHashMap<>();
+            inserted.put("id", messageId);
+            inserted.put("conversationId", conversationId);
+            inserted.put("senderId", senderId);
+            inserted.put("receiverId", request.getReceiverId());
+            inserted.put("content", content);
+            inserted.put("contentType", contentType);
+            inserted.put("clientMessageId", clientMessageId);
+            inserted.put("createTime", LocalDateTime.now());
+        }
+
+        return buildSendMessageResult(inserted, senderId, request.getReceiverId(), contentType);
     }
 
     @Override
@@ -252,6 +269,31 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception ignore) {
             return null;
         }
+    }
+
+    private Map<String, Object> buildSendMessageResult(Map<String, Object> message, Long senderId, Long receiverId,
+            Integer defaultContentType) {
+        Long resolvedSenderId = parseLong(message.get("senderId"));
+        Long resolvedReceiverId = parseLong(message.get("receiverId"));
+        Long targetSenderId = resolvedSenderId == null ? senderId : resolvedSenderId;
+        Long targetReceiverId = resolvedReceiverId == null ? receiverId : resolvedReceiverId;
+        String conversationId = String.valueOf(message.get("conversationId"));
+
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("messageId", parseLong(message.get("id")));
+        data.put("clientMessageId", message.get("clientMessageId"));
+        data.put("conversationId", conversationId);
+        data.put("senderId", targetSenderId);
+        data.put("receiverId", targetReceiverId);
+        data.put("content", message.get("content"));
+        Integer contentType = message.get("contentType") instanceof Number number
+                ? number.intValue()
+                : defaultContentType;
+        data.put("contentType", contentType);
+        Object createTime = message.get("createTime");
+        data.put("createTime", createTime == null ? LocalDateTime.now() : createTime);
+        data.put("sendPolicy", buildSendPolicy(conversationId, targetSenderId, targetReceiverId));
+        return data;
     }
 
     @Override

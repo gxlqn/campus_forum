@@ -198,23 +198,85 @@ public interface MessageMapper {
 
     @Insert("""
             INSERT INTO message_private(conversation_id, sender_id, receiver_id, content, content_type,
-              is_read, create_time, deleted)
-            VALUES(#{conversationId}, #{senderId}, #{receiverId}, #{content}, #{contentType}, 0, NOW(), 0)
+              client_message_id, is_read, create_time, deleted)
+            VALUES(#{conversationId}, #{senderId}, #{receiverId}, #{content}, #{contentType}, #{clientMessageId}, 0, NOW(), 0)
             """)
     int insertPrivateMessage(@Param("conversationId") String conversationId,
             @Param("senderId") Long senderId,
             @Param("receiverId") Long receiverId,
             @Param("content") String content,
-            @Param("contentType") Integer contentType);
+            @Param("contentType") Integer contentType,
+            @Param("clientMessageId") String clientMessageId);
+
+    @Select("""
+            SELECT id, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId,
+              content, content_type AS contentType, client_message_id AS clientMessageId,
+              is_read AS isRead, read_time AS readTime, create_time AS createTime
+            FROM message_private
+            WHERE sender_id = #{senderId}
+              AND client_message_id = #{clientMessageId}
+              AND deleted = 0
+            LIMIT 1
+            """)
+    Map<String, Object> selectMessageByClientMessageId(@Param("senderId") Long senderId,
+            @Param("clientMessageId") String clientMessageId);
+
+    @Select("""
+            SELECT m.id, m.conversation_id AS conversationId, m.sender_id AS senderId, m.receiver_id AS receiverId,
+              m.content, m.content_type AS contentType, m.client_message_id AS clientMessageId,
+              m.is_read AS isRead, m.read_time AS readTime, m.create_time AS createTime,
+              COALESCE(su.nickname, su.username) AS senderName, su.avatar AS senderAvatar,
+              COALESCE(ru.nickname, ru.username) AS receiverName, ru.avatar AS receiverAvatar
+            FROM message_private m
+            LEFT JOIN sys_user su ON su.id = m.sender_id
+            LEFT JOIN sys_user ru ON ru.id = m.receiver_id
+            WHERE m.id = #{messageId}
+              AND m.deleted = 0
+            LIMIT 1
+            """)
+    Map<String, Object> selectRealtimeMessageById(@Param("messageId") Long messageId);
+
+    @Select("""
+            SELECT id, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId,
+              client_message_id AS clientMessageId, is_read AS isRead
+            FROM message_private
+            WHERE id = #{messageId}
+              AND deleted = 0
+            LIMIT 1
+            """)
+    Map<String, Object> selectMessageSimpleById(@Param("messageId") Long messageId);
+
+    @Select("""
+            SELECT m.id, m.conversation_id AS conversationId, m.sender_id AS senderId, m.receiver_id AS receiverId,
+              m.content, m.content_type AS contentType, m.client_message_id AS clientMessageId,
+              m.is_read AS isRead, m.read_time AS readTime, m.create_time AS createTime,
+              COALESCE(su.nickname, su.username) AS senderName, su.avatar AS senderAvatar,
+              COALESCE(ru.nickname, ru.username) AS receiverName, ru.avatar AS receiverAvatar
+            FROM message_private m
+            LEFT JOIN sys_user su ON su.id = m.sender_id
+            LEFT JOIN sys_user ru ON ru.id = m.receiver_id
+            WHERE m.deleted = 0
+              AND m.conversation_id = #{conversationId}
+              AND (m.sender_id = #{userId} OR m.receiver_id = #{userId})
+              AND m.id > #{cursorId}
+            ORDER BY m.id ASC
+            LIMIT #{size}
+            """)
+    List<Map<String, Object>> selectConversationMessagesAfterCursor(@Param("conversationId") String conversationId,
+            @Param("userId") Long userId,
+            @Param("cursorId") Long cursorId,
+            @Param("size") Integer size);
 
     @Insert("""
             INSERT INTO message_conversation(conversation_id, user_id, target_user_id, last_message_content,
-              last_message_time, unread_count, is_top, is_muted, status, update_time)
+              last_message_id, last_message_time, unread_count, is_top, is_muted, status, update_time)
             VALUES(#{conversationId}, #{userId}, #{targetUserId}, #{lastMessageContent},
+              #{lastMessageId},
               NOW(), #{unreadIncrement}, 0, 0, 1, NOW())
             ON DUPLICATE KEY UPDATE
               target_user_id = VALUES(target_user_id),
               last_message_content = VALUES(last_message_content),
+              last_message_id = VALUES(last_message_id),
               last_message_time = NOW(),
               unread_count = CASE
                   WHEN status = 0 THEN VALUES(unread_count)
@@ -227,7 +289,40 @@ public interface MessageMapper {
             @Param("userId") Long userId,
             @Param("targetUserId") Long targetUserId,
             @Param("lastMessageContent") String lastMessageContent,
+            @Param("lastMessageId") Long lastMessageId,
             @Param("unreadIncrement") Integer unreadIncrement);
+
+    @Update("""
+            UPDATE message_private
+            SET is_read = 1,
+                read_time = NOW()
+            WHERE id = #{messageId}
+              AND receiver_id = #{userId}
+              AND deleted = 0
+              AND is_read = 0
+            """)
+    int markSingleMessageRead(@Param("messageId") Long messageId, @Param("userId") Long userId);
+
+    @Update("""
+            UPDATE message_conversation
+            SET unread_count = CASE WHEN unread_count > 0 THEN unread_count - 1 ELSE 0 END,
+                update_time = NOW()
+            WHERE conversation_id = #{conversationId}
+              AND user_id = #{userId}
+              AND status = 1
+            """)
+    int decreaseConversationUnread(@Param("conversationId") String conversationId, @Param("userId") Long userId);
+
+    @Insert("""
+            INSERT INTO message_read_receipt(message_id, user_id, receipt_type, client_message_id, receipt_time, create_time)
+            VALUES(#{messageId}, #{userId}, #{receiptType}, #{clientMessageId}, NOW(), NOW())
+            ON DUPLICATE KEY UPDATE
+              receipt_time = VALUES(receipt_time)
+            """)
+    int insertReadReceipt(@Param("messageId") Long messageId,
+            @Param("userId") Long userId,
+            @Param("receiptType") String receiptType,
+            @Param("clientMessageId") String clientMessageId);
 
     @Update("""
             UPDATE message_private

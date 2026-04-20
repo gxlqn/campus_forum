@@ -1,18 +1,18 @@
-package com.campus.forum.dto.message;
+package com.campus.forum.dto.im;
 
-public class SendMessageRequest {
+public class ImSendMessageRequest {
 
-    private Long receiverId;
+    private Long toUserId;
     private String content;
     private Integer contentType;
     private String clientMessageId;
 
-    public Long getReceiverId() {
-        return receiverId;
+    public Long getToUserId() {
+        return toUserId;
     }
 
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
     }
 
     public String getContent() {

@@ -137,3 +137,19 @@ search:
       fixed-delay-ms: 30000
       batch-size: 20
       max-backoff-seconds: 600
+
+# IM 实时通信配置
+im:
+  endpoint: /ws-im
+  heartbeat-server-ms: 10000
+  heartbeat-client-ms: 10000
+  ack-timeout-ms: 10000
+  sync-batch-size: 50
+  retry-scan-interval-ms: 5000
+  max-retry-attempts: 6
+  rate-limit-per-minute: 120
+  cluster:
+    # local: 单机分发; redis: 跨节点分发
+    mode: local
+    channel: im:dispatch
+    node-id: ${HOSTNAME:node}-${random.uuid}
