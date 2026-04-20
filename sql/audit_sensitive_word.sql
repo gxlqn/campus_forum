@@ -1,0 +1,12 @@
+CREATE TABLE audit_sensitive_word (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    word VARCHAR(255) NOT NULL COMMENT '敏感词',
+    category INT DEFAULT 0 COMMENT '分类',
+    level INT DEFAULT 1 COMMENT '级别: 1弱 2中 3强',
+    replacement VARCHAR(255) COMMENT '替换词',
+    is_enabled INT DEFAULT 1 COMMENT '是否启用: 1是 0否',
+    remark VARCHAR(500) COMMENT '备注',
+    creator_id BIGINT COMMENT '创建人ID',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='敏感词表';

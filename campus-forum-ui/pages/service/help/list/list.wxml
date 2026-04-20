@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索互助需求" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="onSearch" />
+    <button class="search-button" bindtap="onSearch">搜索</button>
+  </view>
+
+  <scroll-view class="tab-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
+    <view class="tab-row">
+      <view
+        wx:for="{{statusTabs}}"
+        wx:key="value"
+        class="tab-item {{activeStatus === item.value ? 'tab-item-active' : ''}}"
+        data-status="{{item.value}}"
+        bindtap="onChangeStatusTab"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="list-container">
+    <block wx:for="{{list}}" wx:key="id">
+      <view class="card" bindtap="viewHelp" data-id="{{item.id}}">
+        <view class="card-head">
+          <text class="card-title">{{item.title}}</text>
+          <text class="status-tag">{{item.statusText}}</text>
+        </view>
+        <text class="card-desc">{{item.description || '暂无需求描述'}}</text>
+        <view class="card-footer">
+          <text>{{item.displayLocation}}</text>
+          <text class="reward">¥{{item.rewardText}}</text>
+        </view>
+        <view class="card-footer">
+          <text>{{item.displayTime}}</text>
+        </view>
+        <view class="helper-credit" wx:if="{{item.helperId && item.helper && item.statusKey !== 'pending'}}">
+          <text class="helper-name">接单人：{{item.helperName}}</text>
+          <text class="helper-score">信誉积分(累计)：{{item.helperCreditScore}}</text>
+        </view>
+      </view>
+    </block>
+
+    <view wx:if="{{!list.length && !loading}}" class="empty-state">
+      <text>暂无互助需求，试试刷新</text>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-state">
+      <text>加载中...</text>
+    </view>
+  </view>
+
+  <button class="publish-btn" bindtap="goPublish">＋</button>
+</view>

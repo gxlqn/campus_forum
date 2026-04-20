@@ -1,0 +1,113 @@
+<view class="container">
+  <view class="header-section">
+    <view class="mode-row">
+      <view
+        wx:for="{{modeTabs}}"
+        wx:key="key"
+        class="mode-chip {{mode === item.key ? 'active' : ''}}"
+        data-mode="{{item.key}}"
+        bindtap="onModeTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <view class="wanted-status-row" wx:if="{{mode === 'wanted'}}">
+      <view
+        wx:for="{{wantedStatusTabs}}"
+        wx:key="key"
+        class="wanted-status-chip {{wantedStatus === item.key ? 'active' : ''}}"
+        data-status="{{item.key}}"
+        bindtap="onWantedStatusTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <view class="search-bar">
+      <icon type="search" size="14"></icon>
+      <input type="text" placeholder="搜索商品..." bindinput="onSearchInput" value="{{keyword}}"/>
+    </view>
+    
+    <scroll-view class="category-scroll" scroll-x>
+      <view class="category-item {{currentCategory === '' ? 'active' : ''}}" 
+            bindtap="onCategoryTap" 
+            data-id="">全部</view>
+      <view class="category-item {{currentCategory === item.id ? 'active' : ''}}" 
+            wx:for="{{categories}}" 
+            wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="onCategoryTap">{{item.name}}</view>
+    </scroll-view>
+  </view>
+  
+  <view class="product-waterfall">
+    <view class="product-column">
+      <view class="product-card" 
+            wx:for="{{leftProducts}}" 
+            wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="goDetail">
+        <image class="product-img" src="{{item.image}}" mode="widthFix"></image>
+        <view class="product-info">
+          <view class="sell-status-badge trading" wx:if="{{!item.isWanted && item.status == 3}}">交易中</view>
+          <view class="wanted-tag" wx:if="{{item.isWanted}}">求购</view>
+          <view class="wanted-status-badge {{item.wantedStatusClass}}" wx:if="{{item.isWanted}}">{{item.wantedStatusText}}</view>
+          <view class="product-title text-ellipsis-2">{{item.title}}</view>
+          <view class="price-row flex-between">
+            <text class="price">¥<text class="price-num">{{item.price}}</text></text>
+            <text class="want-count">{{item.wantCount || 0}}人想要</text>
+          </view>
+          <view class="user-row flex">
+            <image class="avatar-xs" src="{{item.user.avatar || '/static/images/default-avatar.png'}}"></image>
+            <text class="user-name text-ellipsis">{{item.user.nickname}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="product-column">
+      <view class="product-card" 
+            wx:for="{{rightProducts}}" 
+            wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="goDetail">
+        <image class="product-img" src="{{item.image}}" mode="widthFix"></image>
+        <view class="product-info">
+          <view class="sell-status-badge trading" wx:if="{{!item.isWanted && item.status == 3}}">交易中</view>
+          <view class="wanted-tag" wx:if="{{item.isWanted}}">求购</view>
+          <view class="wanted-status-badge {{item.wantedStatusClass}}" wx:if="{{item.isWanted}}">{{item.wantedStatusText}}</view>
+          <view class="product-title text-ellipsis-2">{{item.title}}</view>
+          <view class="price-row flex-between">
+            <text class="price">¥<text class="price-num">{{item.price}}</text></text>
+            <text class="want-count">{{item.wantCount || 0}}人想要</text>
+          </view>
+          <view class="user-row flex">
+            <image class="avatar-xs" src="{{item.user.avatar || '/static/images/default-avatar.png'}}"></image>
+            <text class="user-name text-ellipsis">{{item.user.nickname}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:if="{{!loading && products.length === 0}}">
+    <image src="/static/images/empty.png"></image>
+    <text>暂无商品</text>
+  </view>
+  
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  
+  <view class="action-dock">
+    <view class="dock-btn sell" bindtap="goPublish">
+      <text class="dock-icon">+</text>
+      <text class="dock-text">卖闲置</text>
+    </view>
+    <view class="dock-btn wanted" bindtap="goWantedPublish">
+      <text class="dock-icon">🔎</text>
+      <text class="dock-text">发求购</text>
+    </view>
+    </view>
+    </view>

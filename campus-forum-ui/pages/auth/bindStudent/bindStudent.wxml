@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="card">
+    <view class="title">校内身份绑定</view>
+    <view class="desc">首次登录请绑定学号或工号，完成实名认证后可使用完整功能。</view>
+
+    <view class="field">
+      <text class="label">身份类型</text>
+      <picker mode="selector" range="{{typeOptions}}" bindchange="onTypeChange">
+        <view class="picker">{{userType === 1 ? '学生' : '教师'}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">学号/工号</text>
+      <input
+        class="input"
+        placeholder="请输入学号或工号"
+        value="{{studentId}}"
+        bindinput="onStudentIdInput"
+      />
+    </view>
+
+    <button class="submit" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitBind">
+      立即绑定
+    </button>
+  </view>
+</view>

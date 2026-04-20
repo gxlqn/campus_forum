@@ -1,0 +1,390 @@
+/* 聊天详情�?- 青春可爱风格 */
+
+/* 页面容器 */
+.chat-container {
+  height: 100vh;
+  background: linear-gradient(180deg, #FFF5F7 0%, #F8F9FE 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== 聊天头部信息�?========== */
+.chat-header-bar {
+  padding: 24rpx 32rpx;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20rpx);
+  border-bottom: 1rpx solid rgba(240, 244, 255, 0.8);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6rpx;
+}
+
+.user-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1A1D29;
+  margin-right: 16rpx;
+}
+
+.online-status {
+  font-size: 22rpx;
+  color: #10B981;
+  font-weight: 500;
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+}
+
+.chat-hint {
+  font-size: 22rpx;
+  color: #B0B8C9;
+}
+
+.policy-hint {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  border-radius: 999rpx;
+  padding: 6rpx 16rpx;
+  display: inline-flex;
+  align-items: center;
+}
+
+.policy-hint.policy-restricted {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.policy-hint.policy-free {
+  color: #166534;
+  background: #dcfce7;
+}
+
+/* ========== 消息列表区域 ========== */
+.message-area {
+  flex: 1;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+}
+
+/* 加载状�?*/
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.loading-dots {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  background: #4A90E2;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot.delay-1 {
+  animation-delay: -0.32s;
+}
+
+.dot.delay-2 {
+  animation-delay: -0.64s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { 
+    transform: scale(0);
+    opacity: 0.5;
+  } 
+  40% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 空状�?*/
+.empty-chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-avatar-wrap {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28rpx;
+}
+
+.empty-emoji {
+  font-size: 72rpx;
+}
+
+.empty-greeting {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12rpx;
+  text-align: center;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: #9CA3AF;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ========== 消息列表 ========== */
+.msg-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 时间分隔�?*/
+.time-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx 0 28rpx;
+}
+
+.time-text {
+  font-size: 22rpx;
+  color: #9CA3AF;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8rpx 24rpx;
+  border-radius: 999rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 消息�?*/
+.msg-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28rpx;
+  position: relative;
+}
+
+.msg-item.self {
+  justify-content: flex-end;
+}
+
+.msg-item.other {
+  justify-content: flex-start;
+}
+
+/* 头像 */
+.msg-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #FFDDE8;
+  flex-shrink: 0;
+  border: 3rpx solid #FFFFFF;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 157, 0.08);
+}
+
+.other-avatar {
+  margin-right: 14rpx;
+}
+
+.self-avatar {
+  margin-left: 14rpx;
+  order: 2;
+}
+
+/* 气泡包装�?*/
+.msg-bubble-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 68%;
+  position: relative;
+}
+
+.msg-bubble-wrapper.self {
+  align-items: flex-end;
+}
+
+.msg-bubble-wrapper.other {
+  align-items: flex-start;
+}
+
+/* 气泡 */
+.msg-bubble {
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 157, 0.08);
+}
+
+.msg-bubble.other {
+  background: #FFFFFF;
+  border-top-left-radius: 6rpx;
+  border: 1rpx solid rgba(240, 244, 255, 0.8);
+}
+
+.msg-bubble.self {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-top-right-radius: 6rpx;
+}
+
+/* 消息内容 */
+.msg-content {
+  font-size: 28rpx;
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: pre-wrap;
+  display: block;
+}
+
+.msg-bubble.other .msg-content {
+  color: #1F2937;
+}
+
+.msg-bubble.self .msg-content {
+  color: #FFFFFF;
+}
+
+/* 消息时间 */
+.msg-time {
+  display: block;
+  font-size: 20rpx;
+  margin-top: 10rpx;
+  text-align: right;
+}
+
+.msg-bubble.other .msg-time {
+  color: #B0B8C9;
+}
+
+.msg-bubble.self .msg-time {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 发送状�?*/
+.send-status {
+  margin-top: 6rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-icon {
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.status-icon.sent {
+  color: #10B981;
+}
+
+/* 底部占位 */
+.bottom-spacer {
+  height: 30rpx;
+}
+
+/* ========== 输入区域 ========== */
+.input-bar {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20rpx);
+  border-top: 1rpx solid rgba(240, 244, 255, 0.8);
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #F8F9FE;
+  border-radius: 48rpx;
+  padding: 8rpx 8rpx 8rpx 28rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+  background: #FFFFFF;
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 4rpx rgba(74, 144, 226, 0.1);
+}
+
+.msg-input {
+  flex: 1;
+  height: 72rpx;
+  font-size: 28rpx;
+  color: #1A1D29;
+  background: transparent;
+}
+
+.input-placeholder {
+  color: #B0B8C9;
+  font-size: 28rpx;
+}
+
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-left: 12rpx;
+}
+
+.char-count {
+  font-size: 20rpx;
+  color: #B0B8C9;
+  white-space: nowrap;
+}
+
+/* 发送按�?*/
+.send-btn {
+  height: 68rpx;
+  line-height: 68rpx;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 34rpx;
+  border: none;
+  padding: 0 36rpx;
+  box-shadow: 0 4rpx 16rpx rgba(74, 144, 226, 0.3);
+  transition: all 0.2s ease;
+}
+
+.send-btn.disabled {
+  background: linear-gradient(135deg, #D1D5DB 0%, #B0B8C9 100%);
+  box-shadow: none;
+}
+
+.btn-label {
+  color: #FFFFFF;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.send-btn.disabled .btn-label {
+  color: #FFFFFF;
+  opacity: 0.7;
+}
+
+/* 安全提示 */
+.security-notice {
+  display: flex;
+  justify-content: center;
+  margin-top: 12rpx;
+}
+
+.notice-text {
+  font-size: 20rpx;
+  color: #B0B8C9;
+}
+

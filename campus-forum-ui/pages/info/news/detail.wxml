@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+
+  <view class="card" wx:if="{{detail}}">
+    <image wx:if="{{detail.coverImage}}" class="cover" src="{{detail.coverImage}}" mode="aspectFill"></image>
+    <view class="body">
+      <text class="title">{{detail.title}}</text>
+      <view class="meta">
+        <text class="source">{{detail.source || '校园平台'}}</text>
+        <text class="time">{{formatTime(detail.publishTime || detail.createTime)}}</text>
+        <text class="view">浏览 {{detail.viewCount || 0}}</text>
+      </view>
+      <text class="summary" wx:if="{{detail.summary}}">{{detail.summary}}</text>
+      <text class="content">{{detail.content || '暂无正文'}}</text>
+      <button wx:if="{{detail.sourceUrl}}" class="copy-btn" bindtap="copySourceUrl">复制原文链接</button>
+    </view>
+  </view>
+</view>

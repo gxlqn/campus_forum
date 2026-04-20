@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索活动" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="onSearch" />
+    <button class="search-button" bindtap="onSearch">搜索</button>
+  </view>
+
+  <scroll-view class="tab-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
+    <view class="tab-row">
+      <view
+        wx:for="{{statusTabs}}"
+        wx:key="value"
+        class="tab-item {{activeStatus === item.value ? 'tab-item-active' : ''}}"
+        data-status="{{item.value}}"
+        bindtap="onChangeStatusTab"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="list-container">
+    <block wx:for="{{list}}" wx:key="id">
+      <view class="card" bindtap="viewActivity" data-id="{{item.id}}">
+        <view class="card-head">
+          <text class="card-title">{{item.title}}</text>
+          <text class="status-tag {{item.isEnded ? 'status-ended' : 'status-on'}}">{{item.statusText}}</text>
+        </view>
+        <text class="card-desc">{{item.description || '暂无活动描述'}}</text>
+        <view class="card-footer">
+          <text>{{item.displayTime}}</text>
+        </view>
+        <view class="card-footer">
+          <text>{{item.displayLocation}}</text>
+          <text>{{item.hasSignedUp ? '已报名' : (item.maxParticipants ? (item.joinCount + '/' + item.maxParticipants + ' 人') : (item.joinCount + ' 人已报名'))}}</text>
+        </view>
+      </view>
+    </block>
+
+    <view wx:if="{{!list.length && !loading && !refreshing}}" class="empty-state">
+      <text>暂无活动数据，稍后再来</text>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-state">
+      <text>加载中...</text>
+    </view>
+  </view>
+
+  <button class="publish-btn" bindtap="goPublish">＋</button>
+</view>

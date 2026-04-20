@@ -1,0 +1,41 @@
+<view class="container" wx:if="{{product}}">
+  <swiper class="product-swiper" indicator-dots autoplay circular>
+    <swiper-item wx:for="{{product.imageList}}" wx:key="index">
+      <image class="swiper-image" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewImage"></image>
+    </swiper-item>
+  </swiper>
+  <view class="product-info card">
+    <view class="price-row">
+      <text class="price">Y{{product.price}}</text>
+    </view>
+    <view class="wanted-hint" wx:if="{{product.isWanted}}">这是求购信息，若你有该物品可直接私信对方</view>
+    <view class="wanted-status" wx:if="{{product.isWanted}}">当前状态：{{product.wantedStatusText}}</view>
+    <view class="wanted-time" wx:if="{{product.isWanted && product.wantedMeetTime}}">期望交易时间：{{product.wantedMeetTime}}</view>
+    <view class="product-title">{{product.title}}</view>
+  </view>
+  <view class="product-desc card">
+    <view class="section-title">商品描述</view>
+    <view class="desc-content">{{product.displayDescription || product.description}}</view>
+  </view>
+  <view class="seller-info card">
+    <view class="section-title">卖家信息</view>
+    <view class="seller-row" bindtap="goToUserProfile" data-user-id="{{product.sellerId || product.userId || product.seller.id}}">
+      <image class="seller-avatar" src="{{product.seller.avatar}}"></image>
+      <text class="seller-name">{{product.seller.nickname}}</text>
+    </view>
+  </view>
+  <view class="bottom-bar" wx:if="{{!(product.isWanted && product.isOwner)}}">
+    <button class="action-btn" bindtap="contactSeller">{{product.isWanted ? '联系求购方' : '私信卖家'}}</button>
+    <button class="action-btn primary" bindtap="buyNow" disabled="{{creatingOrder}}">{{product.isWanted ? '我能提供' : (creatingOrder ? '申请中...' : '我想要（申请）')}}</button>
+    <view class="report-float-btn" bindtap="onShowReport" wx:if="{{product && product.sellerId != currentUserId}}">⚠ 举报</view>
+  </view>
+
+  <view class="wanted-owner-actions" wx:if="{{product.isWanted && product.isOwner}}">
+    <button class="owner-btn" wx:if="{{product.status != 3}}" data-status="3" bindtap="onUpdateWantedStatus">标记已匹配</button>
+    <button class="owner-btn" wx:if="{{product.status != 0}}" data-status="0" bindtap="onUpdateWantedStatus">关闭求购</button>
+    <button class="owner-btn primary" wx:if="{{product.status != 1}}" data-status="1" bindtap="onUpdateWantedStatus">重新开放</button>
+  </view>
+
+  <!-- 举报弹窗 -->
+  <report-dialog id="reportDialog" visible="{{showReportDialog}}"></report-dialog>
+</view>

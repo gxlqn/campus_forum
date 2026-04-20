@@ -1,0 +1,193 @@
+/* pages/auth/login/login.wxss */
+
+/* 整体容器 */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 80rpx 48rpx;
+  background: linear-gradient(180deg, #F0F5FF 0%, #FFFFFF 100%);
+  box-sizing: border-box;
+}
+
+/* ========== Logo 区域 ========== */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0 40rpx;
+}
+
+.logo {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 32rpx;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 16rpx;
+}
+
+.app-desc {
+  font-size: 28rpx;
+  color: #9CA3AF;
+}
+
+/* ========== 用户信息获取区域 ========== */
+.user-info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 20rpx 0 40rpx;
+  padding: 40rpx 30rpx;
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* 微信用户信息显示 */
+.wx-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.wx-user-info .user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #f3f4f6;
+  border: 3rpx solid #FFFFFF;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  margin-bottom: 20rpx;
+}
+
+.user-nickname {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 12rpx;
+}
+
+.wx-info-tip {
+  font-size: 26rpx;
+  color: #10B981;
+  background-color: #ECFDF5;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+/* 获取微信信息按钮 */
+.get-wx-info-btn {
+  width: 200rpx;
+  height: 200rpx;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+  transition: all 0.3s;
+}
+
+.get-wx-info-btn::after {
+  border: none;
+}
+
+.get-wx-info-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
+}
+
+.btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.btn-text {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* ========== 功能特性区�?========== */
+.features-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  margin-bottom: 40rpx;
+}
+
+.feature-item {
+  width: calc(50% - 12rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32rpx 20rpx;
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  font-size: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.feature-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 8rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: #9CA3AF;
+}
+
+/* ========== 登录按钮区域 ========== */
+.login-section {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login-btn {
+  width: 100%;
+  height: 96rpx;
+  line-height: 96rpx;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8FAB 100%);
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  border: none;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+  transition: opacity 0.3s;
+}
+
+.login-btn[disabled] {
+  background: #9CA3AF;
+  box-shadow: none;
+  opacity: 0.8;
+}
+
+.login-tips {
+  margin-top: 32rpx;
+  font-size: 24rpx;
+  color: #9CA3AF;
+  text-align: center;
+}
+

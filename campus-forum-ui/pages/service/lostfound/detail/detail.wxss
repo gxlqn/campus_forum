@@ -1,0 +1,364 @@
+/* 失物招领详情页样�?*/
+.detail-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.loading, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400rpx;
+  color: #666;
+}
+
+.detail-content {
+  background-color: #fff;
+  margin: 20rpx;
+  border-radius: 28rpx;
+  overflow: hidden;
+}
+
+/* 头部 */
+.header {
+  padding: 32rpx;
+  position: relative;
+}
+
+.type-tag {
+  position: absolute;
+  top: 32rpx;
+  right: 32rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.type-tag.seek {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.type-tag.found {
+  background-color: #2ed573;
+  color: #fff;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.4;
+  margin-top: 16rpx;
+}
+
+/* 图片轮播 */
+.image-swiper {
+  height: 500rpx;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 信息区域 */
+.info-section {
+  padding: 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 24rpx;
+  align-items: flex-start;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 160rpx;
+  flex-shrink: 0;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+/* 描述区域 */
+.desc-section, .contact-section, .publisher-section {
+  padding: 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.desc-section:last-child, .contact-section:last-child, .publisher-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+.description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 联系方式 */
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.call-btn, .copy-btn {
+  margin-left: 16rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  line-height: 1;
+}
+
+.call-btn {
+  background-color: #FF6B9D;
+  color: #fff;
+}
+
+.copy-btn {
+  background-color: #07c160;
+  color: #fff;
+}
+
+/* 发布者信�?*/
+.publisher-info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar, .avatar-placeholder {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+
+.avatar-placeholder {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.publisher-detail {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.report-float-btn {
+  display: inline-block;
+  margin: 20rpx auto 0;
+  padding: 14rpx 32rpx;
+  background: #fff5f5;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  color: #e74c3c;
+  text-align: center;
+}
+
+/* 认领按钮 */
+.footer-btns {
+  padding: 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.claim-btn {
+  background-color: #FF6B9D;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  padding: 20rpx 0;
+}
+
+.status-tip {
+  padding: 20rpx;
+  text-align: center;
+  font-size: 28rpx;
+  margin: 20rpx;
+  border-radius: 28rpx;
+}
+
+.status-tip.completed {
+  background-color: #f0f9eb;
+  color: #67c23a;
+  border: 1rpx solid #e1f3d8;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.modal.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-top-left-radius: 32rpx;
+  border-top-right-radius: 32rpx;
+  padding: 40rpx;
+  transform: translateY(100%);
+  transition: all 0.3s;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.form-textarea {
+  width: 100%;
+  height: 200rpx;
+  background-color: #f8f8f8;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.image-item {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.image-item image {
+  width: 100%;
+  height: 100%;
+  border-radius: 28rpx;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+}
+
+.upload-btn {
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #f8f8f8;
+  border: 2rpx dashed #ddd;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60rpx;
+  color: #999;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.cancel-btn, .confirm-btn {
+  flex: 1;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.confirm-btn {
+  background-color: #FF6B9D;
+  color: #fff;
+}
+

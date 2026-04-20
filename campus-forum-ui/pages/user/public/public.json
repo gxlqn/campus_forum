@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "用户主页",
+  "usingComponents": {
+    "report-dialog": "/components/report-dialog/report-dialog"
+  }
+}

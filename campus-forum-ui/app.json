@@ -1,0 +1,94 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/forum/list/list",
+    "pages/forum/detail/detail",
+    "pages/user/public/public",
+    "pages/forum/publish/publish",
+    "pages/search/search",
+    "pages/service/product/list/list",
+    "pages/service/product/detail/detail",
+    "pages/service/product/publish/publish",
+    "pages/service/product/orders/orders",
+    "pages/service/lostfound/list/list",
+    "pages/service/lostfound/detail/detail",
+    "pages/service/lostfound/publish/publish",
+    "pages/service/activity/list/list",
+    "pages/service/activity/detail/detail",
+    "pages/service/activity/publish/publish",
+    "pages/service/help/list/list",
+    "pages/service/help/publish/publish",
+    "pages/service/help/detail/detail",
+    "pages/message/list/list",
+    "pages/message/detail/detail",
+    "pages/message/chat/chat",
+    "pages/info/news/list",
+    "pages/info/news/detail",
+    "pages/info/nav/list",
+    "pages/mine/index/index",
+    "pages/mine/records/records",
+    "pages/mine/profile/profile",
+    "pages/mine/wallet/wallet",
+    "pages/auth/login/login",
+    "pages/auth/bindStudent/bindStudent",
+    "pages/auth/switchAccount/switchAccount",
+    "pages/webview/webview"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF6B9D",
+    "navigationBarTitleText": "校园服务论坛",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8F9FE"
+  },
+  "tabBar": {
+    "color": "#9CA3AF",
+    "selectedColor": "#FF6B9D",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/tabbar/home.png",
+        "selectedIconPath": "/static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/forum/list/list",
+        "text": "论坛",
+        "iconPath": "/static/tabbar/forum.png",
+        "selectedIconPath": "/static/tabbar/forum-active.png"
+      },
+      {
+        "pagePath": "pages/service/product/list/list",
+        "text": "服务",
+        "iconPath": "/static/tabbar/service.png",
+        "selectedIconPath": "/static/tabbar/service-active.png"
+      },
+      {
+        "pagePath": "pages/message/list/list",
+        "text": "消息",
+        "iconPath": "/static/tabbar/message.png",
+        "selectedIconPath": "/static/tabbar/message-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index/index",
+        "text": "我的",
+        "iconPath": "/static/tabbar/mine.png",
+        "selectedIconPath": "/static/tabbar/mine-active.png"
+      }
+    ]
+  },
+  "requiredPrivateInfos": ["chooseLocation", "getLocation"],
+  "__usePrivacyCheck__": false,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于选择失物招领地点，帮助您确定发布位置"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存图片到相册，方便您分享精彩内容"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

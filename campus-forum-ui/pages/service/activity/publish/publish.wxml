@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="form-group">
+    <view class="label">活动标题 <text class="required">*</text></view>
+    <input class="input" placeholder="请输入活动名称" data-field="title" value="{{form.title}}" bindinput="onInputChange" />
+  </view>
+
+  <view class="form-group">
+    <view class="label">活动简介 <text class="required">*</text></view>
+    <textarea class="textarea" placeholder="请填写活动说明、流程和注意事项" data-field="description" value="{{form.description}}" bindinput="onInputChange" maxlength="600"></textarea>
+  </view>
+
+  <view class="form-group">
+    <view class="label">活动地点 <text class="required">*</text></view>
+    <view class="picker-row" bindtap="chooseLocation">
+      <text class="{{form.location ? 'value-text' : 'placeholder'}}">{{form.location || '点击选择活动地点'}}</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <view class="label">活动开始时间 <text class="required">*</text></view>
+    <view class="picker-grid">
+      <picker mode="date" value="{{form.startDate}}" bindchange="onPickStartDate">
+        <view class="picker-row picker-half">
+          <text class="{{form.startDate ? 'value-text' : 'placeholder'}}">{{form.startDate || '开始日期'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+      <picker mode="time" value="{{form.startClock}}" bindchange="onPickStartClock">
+        <view class="picker-row picker-half">
+          <text class="{{form.startClock ? 'value-text' : 'placeholder'}}">{{form.startClock || '开始时间'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <view class="label">活动结束时间</view>
+    <view class="picker-grid">
+      <picker mode="date" value="{{form.endDate}}" bindchange="onPickEndDate">
+        <view class="picker-row picker-half">
+          <text class="{{form.endDate ? 'value-text' : 'placeholder'}}">{{form.endDate || '结束日期'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+      <picker mode="time" value="{{form.endClock}}" bindchange="onPickEndClock">
+        <view class="picker-row picker-half">
+          <text class="{{form.endClock ? 'value-text' : 'placeholder'}}">{{form.endClock || '结束时间'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <view class="label">人数上限</view>
+    <input class="input" type="number" placeholder="不填则不限人数" data-field="maxParticipants" value="{{form.maxParticipants}}" bindinput="onInputChange" />
+  </view>
+
+  <button class="submit-btn" bindtap="submit" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交活动申请'}}</button>
+</view>

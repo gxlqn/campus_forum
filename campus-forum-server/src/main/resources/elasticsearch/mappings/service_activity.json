@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "default": {
+          "type": "standard"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "id": { "type": "long" },
+      "title": { "type": "text" },
+      "description": { "type": "text" },
+      "location": { "type": "keyword" },
+      "organizer": { "type": "keyword" },
+      "startTime": { "type": "date", "format": "strict_date_optional_time||epoch_millis" },
+      "updateTime": { "type": "date", "format": "strict_date_optional_time||epoch_millis" }
+    }
+  }
+}

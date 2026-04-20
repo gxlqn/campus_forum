@@ -1,0 +1,139 @@
+# ======================================
+# 校园服务论坛系统 - 应用配置
+# ======================================
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: campus-forum-server
+  
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/campus_forum?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: gxlqn
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      pool-name: CampusForumHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 50MB
+      # 临时目录配置（修正：放在 spring.servlet.multipart 下）
+      location: D:/graduationProject/campus-forum/campus-forum-server/temp
+
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+  # 静态资源配置（新增）
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - classpath:/public/
+        - file:${file.upload.path}
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.campus.forum.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-prefix: ""
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT配置
+jwt:
+  secret: CampusForumSecretKey2026VeryLongSecureKeyForJWTTokenGeneration
+  expiration: 604800000  # 7天，单位毫秒
+  header: Authorization
+  prefix: "Bearer "
+
+# 微信小程序配置
+wechat:
+  miniapp:
+    app-id: ${WECHAT_MINIAPP_APP_ID:wxfb58414dd82c7aba}
+    app-secret: ${WECHAT_MINIAPP_APP_SECRET:b1682a6f5937dab8fca309979176424c}
+
+# 文件上传配置（自定义）
+file:
+  upload:
+    path: D:/graduationProject/campus-forum/campus-forum-server/uploads/
+    access-path: /uploads/**
+    max-size: 10485760  # 10MB
+    allowed-types: jpg,jpeg,png,gif,webp,mp4,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar
+
+# Knife4j API文档配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: '全部接口'
+      paths-to-match: '/**'
+      packages-to-scan: com.campus.forum.controller
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体类
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.campus.forum: DEBUG
+    com.baomidou.mybatisplus: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+
+# 用户认证配置
+auth:
+  # 学号格式正则表达式 (12位数字)
+  student-id-pattern: "^[0-9]{12}$"
+  # 工号格式正则表达式 (1位大写字母+6位数字)
+  teacher-id-pattern: "^[A-Z][0-9]{6}$"
+  # 开发模式（允许通过用户ID切换账号，生产环境请设为false）
+  dev-mode: true
+
+# 统一搜索配置（db|es）
+search:
+  engine: db
+  es:
+    index:
+      posts: forum_post
+      products: service_product
+      activities: service_activity
+      helps: service_help_request
+  sync:
+    retry:
+      fixed-delay-ms: 30000
+      batch-size: 20
+      max-backoff-seconds: 600

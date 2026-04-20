@@ -1,0 +1,52 @@
+<!-- pages/auth/login/login.wxml -->
+<view class="login-container">
+  <!-- Logo 部分 -->
+  <view class="logo-section">
+    <image class="logo" src="/static/images/logo.png" mode="aspectFit"></image>
+    <text class="app-name">校园服务论坛</text>
+    <text class="app-desc">连接校园生活的每一刻</text>
+  </view>
+
+  <!-- 微信登录提示 -->
+  <view class="user-info-section">
+    <view class="wx-login-tip">
+      <text class="tip-icon">👤</text>
+      <text class="tip-text">点击下方按钮使用微信登录</text>
+    </view>
+  </view>
+
+  <!-- 功能特性展示（保持不变） -->
+  <view class="features-section">
+    <view class="feature-item">
+      <text class="feature-icon">💬</text>
+      <text class="feature-title">论坛交流</text>
+      <text class="feature-desc">分享校园生活</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">🛒</text>
+      <text class="feature-title">二手交易</text>
+      <text class="feature-desc">闲置物品买卖</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">🔍</text>
+      <text class="feature-title">失物招领</text>
+      <text class="feature-desc">丢失物品找回</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">🤝</text>
+      <text class="feature-title">互助服务</text>
+      <text class="feature-desc">校园互帮互助</text>
+    </view>
+  </view>
+
+  <!-- 登录按钮区域 -->
+  <view class="login-section">
+    <button class="login-btn" 
+            loading="{{loading}}" 
+            disabled="{{loading}}"
+            bindtap="handleLogin">
+      微信登录
+    </button>
+    <text class="login-tips">登录即表示同意《用户协议》和《隐私政策》</text>
+  </view>
+</view>

@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="sticky-header">
+    <view class="search-box">
+      <icon type="search" size="14" color="#999"></icon>
+      <input placeholder="搜索失物/拾取物品" confirm-type="search" bindconfirm="onSearch"/>
+    </view>
+    <view class="tab-bar">
+      <view class="tab-item {{currentTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="index" data-index="{{index}}" bindtap="switchTab">
+        {{item}}
+        <view class="indicator" wx:if="{{currentTab === index}}"></view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="list-container">
+    <view class="lost-card card" wx:for="{{list}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="card-header flex-between">
+        <view class="header-left flex">
+          <view class="type-tag {{item.type === 1 ? 'lost' : 'found'}}">
+            {{item.type === 1 ? '寻物' : '招领'}}
+          </view>
+          <text class="item-title text-ellipsis">{{item.title}}</text>
+        </view>
+        <view class="status-tag" wx:if="{{item.status === 2}}">已完成</view>
+      </view>
+      
+      <view class="card-body">
+        <view class="item-desc text-ellipsis-2">{{item.desc}}</view>
+        <view class="item-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image class="preview-img" src="{{item.images[0]}}" mode="aspectFill" lazy-load></image>
+          <view class="img-count" wx:if="{{item.images.length > 1}}">+{{item.images.length}}</view>
+        </view>
+      </view>
+      
+      <view class="card-footer">
+        <view class="location-row flex">
+          <view class="icon-wrap"></view>
+          <text class="location-text text-ellipsis">{{item.location}}</text>
+        </view>
+        <view class="info-row flex-between">
+          <view class="user-info flex">
+            <image class="avatar-xs" src="{{item.user.avatar || '/static/images/default-avatar.png'}}"></image>
+            <text class="nickname">{{item.user.nickname}}</text>
+          </view>
+          <text class="time">{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="empty-box" wx:if="{{!loading && list.length === 0}}">
+      <image class="empty-img" src="/static/images/empty.png"></image>
+      <text>暂无相关信息</text>
+    </view>
+  </view>
+  
+  <view class="fab-btn" bindtap="goPublish">
+    <text class="fab-icon">+</text>
+    <text class="fab-text">发布</text>
+  </view>
+</view>

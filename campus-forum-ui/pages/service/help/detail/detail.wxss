@@ -1,0 +1,52 @@
+.container { padding-bottom: 140rpx; background: #f8f9fe; min-height: 100vh; }
+
+.header { padding: 32rpx 30rpx; background: #fff; display: flex; justify-content: space-between; align-items: flex-start; }
+.title { font-size: 38rpx; font-weight: bold; color: #1F2937; line-height: 1.4; flex: 1; margin-right: 20rpx; }
+.reward-badge { background: linear-gradient(135deg, #FF6B9D, #FF8A80); padding: 8rpx 20rpx; border-radius: 16rpx; display: flex; align-items: center; flex-shrink: 0; }
+.reward-label { font-size: 22rpx; color: rgba(255,255,255,0.85); margin-right: 4rpx; }
+.reward-value { font-size: 30rpx; color: #fff; font-weight: bold; }
+
+.status-bar { padding: 16rpx 30rpx; background: #fff; display: flex; align-items: center; gap: 16rpx; border-top: 1rpx solid #f5f5f5; }
+.status-tag { font-size: 22rpx; padding: 4rpx 14rpx; border-radius: 8rpx; font-weight: 500; }
+.status-pending { background: #E8FFF5; color: #00B578; }
+.status-0 { background: #E8FFF5; color: #00B578; }
+.status-accepted { background: #FFF7E6; color: #FA8C16; }
+.status-1 { background: #FFF7E6; color: #FA8C16; }
+.status-completed { background: #F3F4F6; color: #9CA3AF; }
+.status-2 { background: #F3F4F6; color: #9CA3AF; }
+.status-cancelled { background: #FFECEC; color: #F56C6C; }
+.status-3 { background: #F3F4F6; color: #9CA3AF; }
+.status-4 { background: #FFECEC; color: #F56C6C; }
+.time-info { font-size: 22rpx; color: #bbb; }
+
+.section { padding: 30rpx; background: #fff; margin-top: 16rpx; }
+.section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 16rpx; }
+.desc-text { font-size: 28rpx; color: #555; line-height: 1.7; white-space: pre-wrap; }
+
+.info-section { background: #fff; margin-top: 16rpx; padding: 10rpx 0; }
+.info-item { display: flex; align-items: center; padding: 24rpx 30rpx; border-bottom: 1rpx solid #f5f5f5; }
+.info-icon { font-size: 36rpx; margin-right: 20rpx; width: 50rpx; text-align: center; }
+.info-content { flex: 1; }
+.info-label { font-size: 24rpx; color: #9CA3AF; display: block; margin-bottom: 6rpx; }
+.info-value { font-size: 28rpx; color: #333; }
+.copy-hint { font-size: 22rpx; color: #ccc; }
+
+.publisher-section { display: block; }
+.publisher-header { display: flex; align-items: center; }
+.avatar { width: 72rpx; height: 72rpx; border-radius: 50%; margin-right: 18rpx; }
+.nickname { font-size: 28rpx; color: #333; font-weight: 500; display: block; }
+.publish-time { font-size: 22rpx; color: #bbb; margin-top: 4rpx; display: block; }
+
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 16rpx 30rpx; background: #fff; box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.06); z-index: 100; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 12rpx; }
+.btn-contact { flex: 1 1 32%; min-width: 200rpx; height: 84rpx; line-height: 84rpx; background: #f5f5f5; color: #666; font-size: 26rpx; border-radius: 40rpx; border: none; }
+.btn-accept { flex: 1 1 48%; min-width: 320rpx; height: 84rpx; line-height: 84rpx; background: linear-gradient(135deg, #FF6B9D, #FF8A80); color: #fff; font-size: 30rpx; font-weight: 600; border-radius: 40rpx; box-shadow: 0 8rpx 24rpx rgba(255,107,157,0.35); border: none; }
+.btn-cancel { flex: 1 1 48%; min-width: 320rpx; height: 84rpx; line-height: 84rpx; background: #fff1f0; color: #e74c3c; font-size: 28rpx; font-weight: 600; border-radius: 40rpx; border: 1rpx solid #ffc7c2; }
+.btn-accept[disabled] { background: #ccc; box-shadow: none; color: #999; }
+.btn-cancel[disabled] { background: #f5f5f5; color: #aaa; border-color: #e5e5e5; }
+.btn-appeal { flex: 1 1 48%; min-width: 320rpx; height: 84rpx; line-height: 84rpx; background: #eef6ff; color: #2f73d9; font-size: 28rpx; font-weight: 600; border-radius: 40rpx; border: 1rpx solid #b8d3ff; }
+.btn-appeal[disabled] { background: #f5f5f5; color: #aaa; border-color: #e5e5e5; }
+
+.bottom-bar-done { display: flex; align-items: center; justify-content: center; }
+.done-text { font-size: 28rpx; color: #999; }
+
+.loading-state { display: flex; justify-content: center; align-items: center; min-height: 400rpx; color: #999; font-size: 28rpx; }

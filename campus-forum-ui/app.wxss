@@ -1,0 +1,263 @@
+/* ============================================
+   Campus Forum - 青春可爱风格全局主题
+   Color Palette: 马卡龙色系 | Soft Pastel
+   ============================================ */
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+  font-size: 28rpx;
+  color: #4A4A4A;
+  background: linear-gradient(180deg, #FFF5F7 0%, #FFF0F5 50%, #F8F9FE 100%);
+  line-height: 1.6;
+}
+
+/* ========== 色彩变量（通过class使用） ========== */
+.color-primary { color: #FF6B9D; }
+.color-secondary { color: #A78BFA; }
+.color-accent { color: #FBBF24; }
+.color-success { color: #34D399; }
+.color-info { color: #60A5FA; }
+
+.bg-primary { background-color: #FF6B9D; }
+.bg-pink-light { background-color: #FFE4EC; }
+.bg-purple-light { background-color: #EDE9FE; }
+.bg-amber-light { background-color: #FEF3C7; }
+.bg-mint-light { background-color: #D1FAE5; }
+.bg-sky-light { background-color: #DBEAFE; }
+
+/* ========== 物理动效系统 (Micro-interactions) ========== */
+/* 小程序按压态可在此类加上 hover-class 触发 */
+.active-scale {
+  transform: scale(0.96);
+  opacity: 0.9;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hover-opacity {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+/* ========== 高级玻璃态 (Glassmorphism) ========== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1rpx solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8rpx 32rpx rgba(167, 139, 250, 0.08);
+}
+
+/* ========== 卡片系统 - 轻拟物/凝胶感 (Claymorphism) ========== */
+.card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 36rpx;
+  box-shadow:
+    0 12rpx 36rpx rgba(255, 107, 157, 0.06),
+    0 4rpx 12rpx rgba(167, 139, 250, 0.03),
+    inset 0 2rpx 4rpx rgba(255, 255, 255, 1);
+  overflow: hidden;
+  border: 2rpx solid rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.card-cute {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 245, 247, 0.9) 100%);
+  border-radius: 40rpx;
+  box-shadow:
+    0 16rpx 40rpx rgba(255, 107, 157, 0.1),
+    0 4rpx 12rpx rgba(167, 139, 250, 0.06),
+    inset 0 4rpx 6rpx rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  position: relative;
+  border: 3rpx solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.card-cute::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #FF6B9D, #A78BFA, #60A5FA);
+  border-radius: 40rpx 40rpx 0 0;
+  opacity: 0.8;
+}
+
+/* ========== Flex 布局工具 ========== */
+.flex { display: flex; align-items: center; }
+.flex-column { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-around { display: flex; align-items: center; justify-content: space-around; }
+.flex-start { display: flex; align-items: center; justify-content: flex-start; }
+.flex-end { display: flex; align-items: center; justify-content: flex-end; }
+.flex-wrap { display: flex; flex-wrap: wrap; }
+.flex-1 { flex: 1; }
+
+/* ========== 标签/徽章 - 可爱气泡风 ========== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+.tag-primary {
+  background: linear-gradient(135deg, #FFE4EC, #FFDDE8);
+  color: #E11D48;
+  box-shadow: 0 2rpx 8rpx rgba(225, 29, 72, 0.15);
+}
+
+.tag-purple {
+  background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
+  color: #7C3AED;
+  box-shadow: 0 2rpx 8rpx rgba(124, 58, 237, 0.12);
+}
+
+.tag-success {
+  background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+  color: #059669;
+  box-shadow: 0 2rpx 8rpx rgba(5, 150, 105, 0.12);
+}
+
+.tag-amber {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  color: #D97706;
+  box-shadow: 0 2rpx 8rpx rgba(217, 119, 6, 0.12);
+}
+
+.tag-info {
+  background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+  color: #2563EB;
+  box-shadow: 0 2rpx 8rpx rgba(37, 99, 235, 0.12);
+}
+
+.tag-danger {
+  background: linear-gradient(135deg, #FEE2E2, #FECACA);
+  color: #DC2626;
+}
+
+/* ========== 头像 - 柔和光晕 ========== */
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFE4EC, #EDE9FE);
+  object-fit: cover;
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 157, 0.2);
+  border: 3rpx solid #FFFFFF;
+}
+
+.avatar-sm {
+  width: 56rpx;
+  height: 56rpx;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 157, 0.15);
+}
+
+.avatar-lg {
+  width: 128rpx;
+  height: 128rpx;
+  box-shadow: 0 6rpx 20rpx rgba(255, 107, 157, 0.25);
+  border: 4rpx solid #FFFFFF;
+}
+
+/* ========== 文本省略 ========== */
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ========== 图片默认样式 ========== */
+image {
+  background: linear-gradient(135deg, #FFF5F7, #F0F0F5);
+}
+
+/* ========== 按钮风格 ========== */
+.btn-cute {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 48rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8FAB 100%);
+  color: #FFFFFF;
+  box-shadow: 0 6rpx 20rpx rgba(255, 107, 157, 0.35);
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-cute:active {
+  transform: scale(0.96);
+  box-shadow: 0 3rpx 10rpx rgba(255, 107, 157, 0.3);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18rpx 40rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #FF6B9D;
+  background: #FFFFFF;
+  border: 2rpx solid #FFDDE8;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 157, 0.1);
+}
+
+/* ========== 分割线 ========== */
+.divider {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.15), transparent);
+  margin: 24rpx 0;
+}
+
+/* ========== 动画关键帧 ========== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10rpx); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse { animation: pulse-soft 2s ease-in-out infinite; }
+
+/* ========== 安全区域适配 ========== */
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}

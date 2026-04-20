@@ -1,0 +1,156 @@
+<view class="detail-container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 详情内容 -->
+  <view wx:elif="{{detail}}" class="detail-content">
+    <!-- 标题区域 -->
+    <view class="header">
+      <view class="type-tag {{detail.type === 1 ? 'seek' : 'found'}}">
+        {{detail.type === 1 ? '寻物' : '招领'}}
+      </view>
+      <view class="title">{{detail.title}}</view>
+    </view>
+
+    <!-- 图片轮播 -->
+    <view wx:if="{{images.length > 0}}" class="image-swiper">
+      <swiper indicator-dots="{{true}}" autoplay="{{false}}" circular="{{true}}">
+        <swiper-item wx:for="{{images}}" wx:key="*this">
+          <image src="{{item}}" mode="aspectFit" class="swiper-image" />
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="info-section">
+      <view class="info-item">
+        <text class="label">物品名称：</text>
+        <text class="value">{{detail.itemName || '未填写'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">物品类别：</text>
+        <text class="value">{{detail.itemCategory || '未填写'}}</text>
+      </view>
+      <view wx:if="{{detail.type === 1}}" class="info-item">
+        <text class="label">丢失时间：</text>
+        <text class="value">{{detail.lostTime || '未填写'}}</text>
+      </view>
+      <view wx:if="{{detail.type === 2}}" class="info-item">
+        <text class="label">拾取时间：</text>
+        <text class="value">{{detail.lostTime || '未填写'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">丢失地点：</text>
+        <text class="value">{{detail.lostLocation || '未填写'}}</text>
+      </view>
+      <view wx:if="{{detail.reward}}" class="info-item">
+        <text class="label">悬赏金额：</text>
+        <text class="value">¥{{detail.reward}}</text>
+      </view>
+    </view>
+
+    <!-- 详细描述 -->
+    <view class="desc-section">
+      <view class="section-title">详细描述</view>
+      <view class="description">{{detail.description}}</view>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="contact-section">
+      <view class="section-title">联系方式</view>
+      <view wx:if="{{detail.contactName}}" class="contact-item">
+        <text class="label">联系人：</text>
+        <text class="value">{{detail.contactName}}</text>
+      </view>
+      <view wx:if="{{detail.contactPhone}}" class="contact-item">
+        <text class="label">电话：</text>
+        <text class="value">{{detail.contactPhone}}</text>
+        <button class="call-btn" bindtap="makeCall" data-phone="{{detail.contactPhone}}">拨打</button>
+      </view>
+      <view wx:if="{{detail.contactWechat}}" class="contact-item">
+        <text class="label">微信：</text>
+        <text class="value">{{detail.contactWechat}}</text>
+        <button class="copy-btn" bindtap="copyWechat" data-wechat="{{detail.contactWechat}}">复制</button>
+      </view>
+    </view>
+
+    <!-- 发布者信息 -->
+    <view class="publisher-section">
+      <view class="section-title">发布者信息</view>
+      <view class="publisher-info" bindtap="goToUserProfile" data-user-id="{{detail.userId || detail.publisher.id}}">
+        <image wx:if="{{detail.publisher.avatar}}" src="{{detail.publisher.avatar}}" class="avatar" />
+        <view wx:else class="avatar-placeholder">匿名</view>
+        <view class="publisher-detail">
+          <view class="nickname">{{detail.publisher.nickname || '匿名用户'}}</view>
+          <view class="time">{{detail.createTime}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 认领人信息 -->
+    <view class="publisher-section" wx:if="{{detail.status === 2 && detail.claimer}}">
+      <view class="section-title">认领人信息</view>
+      <view class="publisher-info" bindtap="goToUserProfile" data-user-id="{{detail.claimerId || detail.claimer.id}}">
+        <image wx:if="{{detail.claimer.avatar}}" src="{{detail.claimer.avatar}}" class="avatar" />
+        <view wx:else class="avatar-placeholder">匿名</view>
+        <view class="publisher-detail">
+          <view class="nickname">{{detail.claimer.nickname || '未知用户'}}</view>
+          <view class="time">已成功认领此物品</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 举报按钮 -->
+    <view class="report-float-btn" bindtap="onShowReport" wx:if="{{detail && detail.userId != currentUserId}}">
+      ⚠ 举报此信息
+    </view>
+
+    <!-- 认领按钮 (仅招领类型且进行中显示) -->
+    <view class="footer-btns" wx:if="{{detail && detail.type == 2 && detail.status == 1 && detail.userId != currentUserId}}">
+      <button class="claim-btn" bindtap="onShowClaim">我要认领</button>
+    </view>
+
+    <!-- 认领状态显示 -->
+    <view class="status-tip completed" wx:if="{{detail.status === 2}}">
+      本物品已被成功认领
+    </view>
+  </view>
+
+  <view wx:elif="{{!loading && !detail}}" class="error">
+    <text>加载失败，请重试</text>
+    <button bindtap="loadDetail">重新加载</button>
+  </view>
+
+  <!-- 认领弹窗 -->
+  <view class="modal {{showClaimModal ? 'show' : ''}}">
+    <view class="modal-mask" bindtap="onHideClaim"></view>
+    <view class="modal-content">
+      <view class="modal-header">认领申请</view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">认领理由及证据证明</text>
+          <textarea class="form-textarea" placeholder="请详细说明物品特征、丢失经过或提供相关证明，以便管理员审核..." bindinput="onClaimDescInput" value="{{claimDesc}}"></textarea>
+        </view>
+        <view class="form-item">
+          <text class="form-label">上传证据图片 (可选)</text>
+          <view class="image-list">
+            <view class="image-item" wx:for="{{claimImages}}" wx:key="*this">
+              <image src="{{item}}" mode="aspectFill" />
+              <view class="remove-btn" bindtap="removeClaimImage" data-index="{{index}}">×</view>
+            </view>
+            <view class="upload-btn" bindtap="chooseClaimImage" wx:if="{{claimImages.length < 3}}">+</view>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="onHideClaim">取消</button>
+        <button class="confirm-btn" bindtap="submitClaim" loading="{{submittingClaim}}">提交申请</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 举报弹窗 -->
+  <report-dialog id="reportDialog" visible="{{showReportDialog}}"></report-dialog>
+</view>

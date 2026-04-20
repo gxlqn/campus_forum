@@ -1,0 +1,85 @@
+<view class="container" wx:if="{{!loading && detail}}">
+  <!-- 头部 -->
+  <view class="header">
+    <text class="title">{{detail.title}}</text>
+    <view class="reward-badge">
+      <text class="reward-label">悬赏</text>
+      <text class="reward-value">¥{{detail.rewardText}}</text>
+    </view>
+  </view>
+
+  <!-- 状态标签 -->
+  <view class="status-bar">
+    <text class="status-tag status-{{statusClass}}">{{statusText}}</text>
+    <text class="time-info">发布于 {{detail.createTime}}</text>
+  </view>
+
+  <!-- 需求描述 -->
+  <view class="section">
+    <view class="section-title">需求描述</view>
+    <text class="desc-text">{{detail.description || '暂无详细描述'}}</text>
+  </view>
+
+  <!-- 时间地点 -->
+  <view class="info-section">
+    <view class="info-item" bindtap="copyLocation">
+      <view class="info-icon">📍</view>
+      <view class="info-content">
+        <text class="info-label">地点</text>
+        <text class="info-value">{{detail.displayLocation}}</text>
+      </view>
+      <text class="copy-hint">点击复制</text>
+    </view>
+
+    <view class="info-item">
+      <view class="info-icon">🕐</view>
+      <view class="info-content">
+        <text class="info-label">期望时间</text>
+        <text class="info-value">{{detail.displayTime}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布者信息 -->
+  <view class="section publisher-section" wx:if="{{detail.publisher}}">
+    <view class="publisher-header" bindtap="goToUserProfile" data-user-id="{{detail.publisherId || detail.userId || detail.publisher.id}}">
+      <image class="avatar" src="{{detail.publisher.avatar || '/static/images/default-avatar.png'}}"></image>
+      <view class="publisher-info">
+        <text class="nickname">{{detail.publisher.nickname || '匿名用户'}}</text>
+        <text class="publish-time">{{detail.createTime}} 发布</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{canAccept || canContact || canCancel || canCompleteByHelper || canPublisherConfirm || canPublisherComplain || canHelperAppeal}}">
+    <button class="btn-contact" wx:if="{{canContact}}" bindtap="onContact">私信沟通</button>
+    <button class="btn-accept" wx:if="{{canAccept}}" bindtap="onAccept" disabled="{{accepting}}">
+      {{accepting ? '处理中...' : '立即接单'}}
+    </button>
+    <button class="btn-cancel" wx:if="{{canCancel}}" bindtap="onCancelOrder" disabled="{{cancelling}}">
+      {{cancelling ? '取消中...' : '取消订单'}}
+    </button>
+    <button class="btn-accept" wx:if="{{canCompleteByHelper}}" bindtap="onCompleteByHelper" disabled="{{completing}}">
+      {{completing ? '提交中...' : '提交完成'}}
+    </button>
+    <button class="btn-accept" wx:if="{{canPublisherConfirm}}" bindtap="onPublisherConfirm" disabled="{{confirming}}">
+      {{confirming ? '确认中...' : '确认完成'}}
+    </button>
+    <button class="btn-cancel" wx:if="{{canPublisherComplain}}" bindtap="onPublisherComplain" disabled="{{complaining}}">
+      {{complaining ? '提交中...' : '投诉申诉'}}
+    </button>
+    <button class="btn-appeal" wx:if="{{canHelperAppeal}}" bindtap="onHelperAppeal" disabled="{{appealing}}">
+      {{appealing ? '提交中...' : '发起申诉'}}
+    </button>
+  </view>
+  
+  <!-- 已完成/已接单状态提示 -->
+  <view class="bottom-bar bottom-bar-done" wx:else>
+    <text class="done-text">{{statusText}}</text>
+  </view>
+</view>
+
+<view class="loading-state" wx:if="{{loading}}">
+  <text>加载中...</text>
+</view>

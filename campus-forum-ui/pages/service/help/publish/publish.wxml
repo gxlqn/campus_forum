@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="form-group">
+    <view class="label">任务标题 <text class="required">*</text></view>
+    <input class="input" placeholder="简述您需要的互助帮助" model:value="{{form.title}}" data-field="title" bindinput="onInputChange" />
+  </view>
+
+  <view class="form-group">
+    <view class="label">需求详情 <text class="required">*</text></view>
+    <textarea class="textarea" placeholder="详细描述您的需求，包括具体要求、注意事项等" model:value="{{form.description}}" data-field="description" bindinput="onInputChange" maxlength="500"></textarea>
+  </view>
+
+  <view class="form-group">
+    <view class="label">期望地点</view>
+    <view class="picker-row" bindtap="chooseLocation">
+      <text class="{{form.location ? 'value-text' : 'placeholder'}}">{{ form.location || '点击选择地点（可选）' }}</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <view class="label">期望日期</view>
+    <picker mode="date" value="{{form.expectedDate}}" bindchange="onDateChange">
+      <view class="picker-row">
+        <text class="{{form.expectedDate ? 'value-text' : 'placeholder'}}">{{ form.expectedDate || '请选择日期（可选）' }}</text>
+        <text class="arrow">></text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="form-group">
+    <view class="label">时间段（每3小时）</view>
+    <picker mode="selector" range="{{timeSlots}}" value="{{form.timeSlotIndex}}" bindchange="onTimeSlotChange">
+      <view class="picker-row">
+        <text class="{{form.timeSlotLabel ? 'value-text' : 'placeholder'}}">{{ form.timeSlotLabel || '请选择时间段（可选）' }}</text>
+        <text class="arrow">></text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="form-group">
+    <view class="label">悬赏金额(元) <text class="required">*</text></view>
+    <input class="input" type="digit" placeholder="输入赏金" model:value="{{form.reward}}" data-field="reward" bindinput="onInputChange" />
+  </view>
+
+  <!-- 钱包确认区 -->
+  <view class="wallet-confirm">
+    <view>您的钱包余额: <text class="highlight">{{balance}} 元</text></view>
+    <view class="hint" wx:if="{{rewardInsufficient}}">
+      余额不足，请前往充值或调整悬赏金额
+    </view>
+  </view>
+
+  <button class="btn-submit" bindtap="handleSubmit" disabled="{{submitting || rewardInsufficient}}">{{ submitting ? '提交中...' : '确认发布并冻结悬赏金' }}</button>
+</view>

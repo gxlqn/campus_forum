@@ -1,0 +1,121 @@
+<view class="chat-container">
+  <!-- 聊天头部信息 -->
+  <view class="chat-header-bar">
+    <view class="user-info">
+      <text class="user-name">{{targetNickname}}</text>
+      <text class="online-status">在线</text>
+    </view>
+    <text class="chat-hint">消息已加密保护</text>
+    <view class="policy-hint {{sendRestricted ? 'policy-restricted' : 'policy-free'}}" wx:if="{{sendPolicyText}}">
+      <text>{{sendPolicyText}}</text>
+    </view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view 
+    class="message-area" 
+    scroll-y 
+    scroll-into-view="{{scrollIntoView}}"
+    enhanced 
+    show-scrollbar="{{false}}"
+    scroll-with-animation
+  >
+    <!-- 加载中 -->
+    <view class="loading-overlay" wx:if="{{loading}}">
+      <view class="loading-dots">
+        <view class="dot"></view>
+        <view class="dot delay-1"></view>
+        <view class="dot delay-2"></view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-chat" wx:if="{{!loading && messages.length === 0}}">
+      <view class="empty-avatar-wrap">
+        <text class="empty-emoji">👋</text>
+      </view>
+      <text class="empty-greeting">开始和 {{targetNickname}} 的对话吧</text>
+      <text class="empty-tip">发送第一条消息，开启愉快的交流</text>
+    </view>
+
+    <!-- 消息列表 -->
+    <view class="msg-list" wx:if="{{messages.length > 0}}">
+      <!-- 时间分隔线 -->
+      <view class="time-divider" wx:if="{{messages.length > 0}}">
+        <text class="time-text">{{messages[0].createTime || '今天'}}</text>
+      </view>
+
+      <view 
+        class="msg-item {{item.isSelf ? 'self' : 'other'}}" 
+        wx:for="{{messages}}" 
+        wx:key="id"
+        id="msg-{{item.id}}"
+      >
+        <!-- 对方头像（非自己） -->
+        <image 
+          class="msg-avatar other-avatar" 
+          src="/static/images/default-avatar.png" 
+          mode="aspectFill"
+          wx:if="{{!item.isSelf}}"
+        ></image>
+
+        <!-- 消息气泡 -->
+        <view class="msg-bubble-wrapper {{item.isSelf ? 'self' : 'other'}}">
+          <view class="msg-bubble {{item.isSelf ? 'self' : 'other'}}">
+            <text class="msg-content">{{item.content}}</text>
+            <text class="msg-time">{{item.createTime}}</text>
+          </view>
+          
+          <!-- 发送状态 -->
+          <view class="send-status" wx:if="{{item.isSelf}}">
+            <text class="status-icon sent">✓✓</text>
+          </view>
+        </view>
+
+        <!-- 自己头像 -->
+        <image 
+          class="msg-avatar self-avatar" 
+          src="/static/images/default-avatar.png" 
+          mode="aspectFill"
+          wx:if="{{item.isSelf}}"
+        ></image>
+      </view>
+    </view>
+
+    <!-- 底部占位 -->
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-bar">
+    <view class="input-wrapper">
+      <input 
+        class="msg-input"
+        value="{{content}}"
+        placeholder="输入消息..."
+        placeholder-class="input-placeholder"
+        bindinput="onInput"
+        confirm-type="send"
+        bindconfirm="send"
+        maxlength="500"
+        cursor-spacing="16"
+      />
+      <view class="input-actions">
+        <text class="char-count">{{content.length}}/500</text>
+        <button 
+          class="send-btn {{!canSend ? 'disabled' : ''}}" 
+          bindtap="send" 
+          disabled="{{!canSend}}"
+          loading="{{sending}}"
+        >
+          <text class="btn-label">{{sending ? '发送中' : '发送'}}</text>
+        </button>
+      </view>
+    </view>
+    
+    <!-- 安全提示 -->
+    <view class="security-notice">
+      <text class="notice-text">🔒 端到端加密传输</text>
+    </view>
+  </view>
+</view>

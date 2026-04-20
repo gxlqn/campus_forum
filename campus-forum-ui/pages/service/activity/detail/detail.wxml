@@ -1,0 +1,68 @@
+<view class="container" wx:if="{{!loading && detail}}">
+  <!-- 头部信息 -->
+  <view class="header">
+    <text class="title">{{detail.title}}</text>
+    <view class="meta-row">
+      <text class="tag {{isEnded ? 'tag-ended' : 'tag-active'}}">
+        {{statusText}}
+      </text>
+      <text class="join-count">{{joinCount}}人已报名</text>
+    </view>
+  </view>
+
+  <!-- 封面图 -->
+  <image wx:if="{{detail.coverImage}}" class="cover-image" src="{{detail.coverImage}}" mode="aspectFill"></image>
+
+  <!-- 详情内容 -->
+  <view class="section">
+    <view class="section-title">活动详情</view>
+    <text class="desc-text">{{detail.description}}</text>
+  </view>
+
+  <!-- 时间地点 -->
+  <view class="info-section">
+    <view class="info-item" bindtap="copyLocation">
+      <view class="info-icon">📍</view>
+      <view class="info-content">
+        <text class="info-label">活动地点</text>
+        <text class="info-value">{{detail.location || '待定'}}</text>
+      </view>
+    </view>
+
+    <view class="info-item">
+      <view class="info-icon">🕐</view>
+      <view class="info-content">
+        <text class="info-label">活动时间</text>
+        <text class="info-value">{{detail.displayTime}}</text>
+      </view>
+    </view>
+
+    <view class="info-item" wx:if="{{detail.organizer}}">
+      <view class="info-icon">👤</view>
+      <view class="info-content">
+        <text class="info-label">主办方</text>
+        <text class="info-value">{{detail.organizer}}</text>
+      </view>
+    </view>
+
+    <view class="info-item" wx:if="{{detail.maxParticipants}}">
+      <view class="info-icon">👥</view>
+      <view class="info-content">
+        <text class="info-label">人数上限</text>
+        <text class="info-value">{{joinCount}} / {{detail.maxParticipants}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <button class="btn-signup" bindtap="onSignup" disabled="{{signingUp || hasSignedUp || isEnded}}">
+      {{signingUp ? '报名中...' : (hasSignedUp ? '已报名 ✓' : '立即报名')}}
+    </button>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading-state" wx:if="{{loading}}">
+  <text>加载中...</text>
+</view>

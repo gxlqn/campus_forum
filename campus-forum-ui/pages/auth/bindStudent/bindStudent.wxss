@@ -1,0 +1,61 @@
+.container {
+  min-height: 100vh;
+  padding: 40rpx 28rpx;
+  background: #f6f8fb;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 36rpx 28rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.desc {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.field {
+  margin-top: 28rpx;
+}
+
+.label {
+  display: block;
+  font-size: 26rpx;
+  color: #374151;
+  margin-bottom: 12rpx;
+}
+
+.picker,
+.input {
+  height: 84rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid #d1d5db;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #1F2937;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.submit {
+  margin-top: 40rpx;
+  height: 88rpx;
+  border-radius: 14rpx;
+  background: #FF6B9D;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+

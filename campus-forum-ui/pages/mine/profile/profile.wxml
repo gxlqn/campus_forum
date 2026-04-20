@@ -1,0 +1,200 @@
+﻿﻿﻿<view class="container">
+  <!-- 顶部渐变背景区域 -->
+  <view class="header-bg">
+    <view class="bg-circle c1"></view>
+    <view class="bg-circle c2"></view>
+    <view class="bg-circle c3"></view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner">
+      <view class="spinner-ring"></view>
+    </view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 主内容区 -->
+  <scroll-view scroll-y class="main-scroll" enhanced show-scrollbar="{{false}}" wx:if="{{!loading}}">
+    
+    <!-- 头像卡片区域 -->
+    <view class="avatar-card">
+      <view class="avatar-wrapper" bindtap="chooseAvatar">
+        <image 
+          class="user-avatar" 
+          src="{{form.avatar || '/static/images/default-avatar.png'}}" 
+          mode="aspectFill"
+        ></image>
+        <view class="avatar-edit-badge">
+          <text class="edit-icon">📷</text>
+        </view>
+        <view class="avatar-ring"></view>
+      </view>
+      <text class="avatar-tip">点击更换头像</text>
+    </view>
+
+    <!-- 基本信息卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <view class="header-icon-wrap basic">
+          <text class="header-icon">👤</text>
+        </view>
+        <text class="card-title">基本信息</text>
+      </view>
+      
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">✏️</text>
+          <text class="label-text">昵称</text>
+          <text class="required-mark">*</text>
+        </view>
+        <input 
+          class="item-input {{form.nickname ? 'has-value' : ''}}" 
+          value="{{form.nickname}}" 
+          data-field="nickname" 
+          bindinput="onInput" 
+          placeholder="请输入您的昵称"
+          placeholder-class="input-placeholder"
+          maxlength="20"
+        />
+      </view>
+
+      <view class="form-item textarea-item">
+        <view class="item-label">
+          <text class="label-icon">💬</text>
+          <text class="label-text">个人简介</text>
+        </view>
+        <textarea 
+          class="item-textarea {{form.bio ? 'has-value' : ''}}" 
+          value="{{form.bio}}" 
+          data-field="bio" 
+          bindinput="onInput" 
+          maxlength="200" 
+          placeholder="介绍一下自己吧~"
+          placeholder-class="input-placeholder"
+          auto-height
+        ></textarea>
+        <view class="char-count">
+          <text class="{{form.bio && form.bio.length > 180 ? 'warn' : ''}}">{{form.bio ? form.bio.length : 0}}</text>
+          <text>/200</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 联系方式卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <view class="header-icon-wrap contact">
+          <text class="header-icon">📱</text>
+        </view>
+        <text class="card-title">联系方式</text>
+      </view>
+      
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📞</text>
+          <text class="label-text">手机号</text>
+        </view>
+        <input 
+          class="item-input {{form.phone ? 'has-value' : ''}}" 
+          type="number"
+          value="{{form.phone}}" 
+          data-field="phone" 
+          bindinput="onInput" 
+          placeholder="选填，方便联系您"
+          placeholder-class="input-placeholder"
+          maxlength="11"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📧</text>
+          <text class="label-text">邮箱</text>
+        </view>
+        <input 
+          class="item-input {{form.email ? 'has-value' : ''}}" 
+          value="{{form.email}}" 
+          data-field="email" 
+          bindinput="onInput" 
+          placeholder="选填，用于接收通知"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+    </view>
+
+    <!-- 学校信息卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <view class="header-icon-wrap school">
+          <text class="header-icon">🎓</text>
+        </view>
+        <text class="card-title">学校信息</text>
+      </view>
+      
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">🏫</text>
+          <text class="label-text">学院</text>
+        </view>
+        <input 
+          class="item-input {{form.college ? 'has-value' : ''}}" 
+          value="{{form.college}}" 
+          data-field="college" 
+          bindinput="onInput" 
+          placeholder="例如：计算机科学与技术学院"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📚</text>
+          <text class="label-text">专业</text>
+        </view>
+        <input 
+          class="item-input {{form.major ? 'has-value' : ''}}" 
+          value="{{form.major}}" 
+          data-field="major" 
+          bindinput="onInput" 
+          placeholder="例如：软件工程"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+
+      <view class="form-item last-item">
+        <view class="item-label">
+          <text class="label-icon">📅</text>
+          <text class="label-text">年级</text>
+        </view>
+        <input 
+          class="item-input {{form.grade ? 'has-value' : ''}}" 
+          value="{{form.grade}}" 
+          data-field="grade" 
+          bindinput="onInput" 
+          placeholder="例如：2024级"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+    </view>
+
+    <!-- 底部保存按钮 -->
+    <view class="bottom-action">
+      <button 
+        class="save-btn {{submitting ? 'submitting' : ''}}" 
+        loading="{{submitting}}" 
+        disabled="{{submitting || !canSubmit}}" 
+        bindtap="submit"
+      >
+        <view class="btn-content" wx:if="{{!submitting}}">
+          <text class="btn-icon">💾</text>
+          <text class="btn-text">保存资料</text>
+        </view>
+      </button>
+      <text class="save-tip">修改后将实时更新您的个人资料</text>
+    </view>
+
+    <!-- 底部安全距离 -->
+    <view class="safe-bottom"></view>
+  </scroll-view>
+</view>

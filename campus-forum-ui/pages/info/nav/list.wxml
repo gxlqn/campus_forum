@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索服务名/地点" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="onSearch" />
+    <button class="search-btn" bindtap="onSearch">搜索</button>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-item {{item === currentCategory ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="*this"
+          data-category="{{item}}"
+          bindtap="onCategoryTap">
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <view class="nav-list">
+    <view class="nav-item card" wx:for="{{list}}" wx:key="id">
+      <view class="top">
+        <text class="name">{{item.name}}</text>
+        <text class="category">{{item.category}}</text>
+      </view>
+      <text class="desc" wx:if="{{item.description}}">{{item.description}}</text>
+      <text class="row" wx:if="{{item.phone}}">电话：{{item.phone}}</text>
+      <text class="row" wx:if="{{item.address}}">地址：{{item.address}}</text>
+      <view class="actions">
+        <button class="btn btn-call" wx:if="{{item.phone}}" data-phone="{{item.phone}}" bindtap="callPhone">拨打电话</button>
+        <button class="btn btn-copy" wx:if="{{item.address}}" data-address="{{item.address}}" bindtap="copyAddress">复制地址</button>
+        <button class="btn btn-link" wx:if="{{item.url}}" data-url="{{item.url}}" bindtap="copyUrl">复制链接</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!loading && list.length === 0}}">暂无服务导航数据</view>
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+</view>

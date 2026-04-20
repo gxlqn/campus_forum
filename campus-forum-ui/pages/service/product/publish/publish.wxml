@@ -1,0 +1,171 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">{{modeText}}</text>
+    <text class="page-subtitle">{{mode === 'wanted' ? '发布求购需求，让校友更快联系您' : '填写商品信息，让更多人看到您的宝贝'}}</text>
+  </view>
+
+  <!-- 表单卡片 -->
+  <view class="form-card">
+    <view class="card-title">
+      <text class="title-icon">📦</text>
+      <text>基本信息</text>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">商品分类</text>
+        <text class="required">*</text>
+      </view>
+      <picker mode="selector" range="{{categories}}" range-key="name" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="picker-box">
+          <text class="picker-value">{{categories[categoryIndex] ? categories[categoryIndex].name : '请选择分类'}}</text>
+          <text class="arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">商品标题</text>
+        <text class="required">*</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="{{mode === 'wanted' ? '请输入求购标题，例如：求购高数教材' : '请输入吸引人的商品标题'}}" 
+        data-field="title" 
+        value="{{title}}" 
+        bindinput="onInput"
+        maxlength="50"
+      />
+      <text class="input-hint">{{title.length || 0}}/50字</text>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">{{mode === 'wanted' ? '预算金额' : '商品价格'}}</text>
+        <text class="required">*</text>
+      </view>
+      <view class="price-input-wrapper">
+        <text class="price-symbol">¥</text>
+        <input 
+          class="price-input" 
+          placeholder="0.00" 
+          data-field="price" 
+          value="{{price}}" 
+          bindinput="onInput" 
+          type="digit"
+          maxlength="10"
+        />
+      </view>
+    </view>
+
+    <view class="form-item" wx:if="{{mode === 'wanted'}}">
+      <view class="form-label">
+        <text class="label-text">期望交易时间</text>
+        <text class="required">*</text>
+      </view>
+      <view class="datetime-row">
+        <picker mode="date" value="{{wantedDate}}" start="{{todayDate}}" bindchange="onWantedDateChange" class="datetime-picker">
+          <view class="picker-box compact">
+            <text class="picker-value">{{wantedDate || '请选择日期'}}</text>
+            <text class="arrow">›</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{timeOptions}}" value="{{timeIndex}}" bindchange="onWantedTimeChange" class="datetime-picker">
+          <view class="picker-box compact">
+            <text class="picker-value">{{timeOptions[timeIndex] || '请选择时间'}}</text>
+            <text class="arrow">›</text>
+          </view>
+        </picker>
+      </view>
+      <text class="time-tip">将按 YYYY-MM-DD HH:mm 格式提交，避免时间格式不一致</text>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">
+      <text class="title-icon">📝</text>
+      <text>详细描述</text>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">{{mode === 'wanted' ? '求购描述' : '商品描述'}}</text>
+        <text class="required">*</text>
+      </view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="{{mode === 'wanted' ? '请描述求购物品要求、成色、期望交易方式等...' : '详细描述商品的成色、功能、使用情况等，让买家更了解您的商品...'}}" 
+        data-field="description" 
+        value="{{description}}" 
+        bindinput="onInput"
+        maxlength="500"
+        auto-height
+      ></textarea>
+      <text class="textarea-hint">{{description.length || 0}}/500字</text>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">
+      <text class="title-icon">📷</text>
+      <text>商品图片</text>
+      <text class="optional">(选填)</text>
+    </view>
+
+    <view class="upload-section">
+      <view class="image-grid">
+        <block wx:for="{{images}}" wx:key="*this">
+          <view class="image-wrapper">
+            <image class="preview-image" src="{{item}}" mode="aspectFill"></image>
+            <view class="delete-overlay" catchtap="removeImage" data-index="{{index}}">
+              <text class="delete-icon">×</text>
+            </view>
+          </view>
+        </block>
+        
+        <view class="add-image-btn" bindtap="chooseImage" wx:if="{{images.length < 5}}">
+          <text class="plus-icon">+</text>
+          <text class="add-text">添加图片</text>
+          <text class="count-hint">{{images.length}}/5</text>
+        </view>
+      </view>
+      
+      <view class="upload-tips">
+        <text class="tip-item">• 建议上传清晰实物图</text>
+        <text class="tip-item">• 支持JPG、PNG格式</text>
+        <text class="tip-item">• 单张图片不超过5MB</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">
+      <text class="title-icon">💬</text>
+      <text>联系说明</text>
+    </view>
+
+    <view class="form-item">
+      <text class="input-hint">发布后买家将通过站内私信联系您，请勿在描述中填写微信号、手机号等联系方式。</text>
+    </view>
+  </view>
+
+  <!-- 底部提交区域 -->
+  <view class="submit-section">
+    <button 
+      class="submit-btn {{submitting ? 'disabled' : ''}}" 
+      bindtap="submit" 
+      disabled="{{submitting}}"
+    >
+      <text class="btn-text">{{submitting ? '发布中...' : (mode === 'wanted' ? '立即发布求购' : '立即发布')}}</text>
+    </button>
+    
+    <view class="agreement">
+      <text class="agree-text">点击发布即表示同意</text>
+      <text class="link">《用户协议》</text>
+      <text class="agree-text">和</text>
+      <text class="link">《隐私政策》</text>
+    </view>
+  </view>
+</view>

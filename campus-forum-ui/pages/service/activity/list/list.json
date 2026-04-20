@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "report-dialog": "/components/report-dialog/report-dialog"
+  },
+  "navigationBarTitleText": "校园活动",
+  "enablePullDownRefresh": true
+}

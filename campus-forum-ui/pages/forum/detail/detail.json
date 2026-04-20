@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "report-dialog": "/components/report-dialog/report-dialog"
+  },
+  "navigationBarTitleText": "帖子详情"
+}

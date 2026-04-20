@@ -1,0 +1,177 @@
+<view class="container">
+  <!-- 顶部装饰 -->
+  <view class="top-decor">
+    <view class="decor-circle decor-1"></view>
+    <view class="decor-circle decor-2"></view>
+    <view class="decor-circle decor-3"></view>
+  </view>
+
+  <!-- 搜索栏 - 可爱胶囊风 -->
+  <view class="search-bar" bindtap="goToSearch">
+    <view class="search-inner">
+      <text class="search-icon">🔍</text>
+      <text class="search-text">搜你想知道的...</text>
+    </view>
+  </view>
+
+  <!-- 轮播图 - 渐变遮罩 + 文字叠加 + 自定义指示器 -->
+  <view class="banner-wrapper" wx:if="{{banners.length > 0}}">
+    <swiper
+      class="banner"
+      indicator-dots="{{false}}"
+      autoplay
+      circular
+      interval="4000"
+      duration="500"
+      bindchange="onBannerChange"
+      previous-margin="0rpx"
+      next-margin="0rpx">
+      <swiper-item wx:for="{{banners}}" wx:key="id" data-idx="{{index}}" bindtap="onBannerTap">
+        <view class="banner-item" style="--banner-bg: {{item.bgColor || 'linear-gradient(135deg, #FF6B9D, #A78BFA)'}}">
+          <!-- 背景图 -->
+          <image
+            class="banner-bg"
+            src="{{item.image}}"
+            mode="aspectFill"
+            lazy-load></image>
+          <!-- 渐变遮罩层（从下往上渐变） -->
+          <view class="banner-overlay"></view>
+          <!-- 文字内容区 -->
+          <view class="banner-content">
+            <view class="banner-tag">热门推荐</view>
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-subtitle">{{item.subtitle}}</text>
+            <view class="banner-action" wx:if="{{item.linkType !== 'none' && item.linkUrl}}">
+              <text class="action-text">查看详情</text>
+              <text class="action-arrow">›</text>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 自定义指示器 - 底部居中，带进度条效果 -->
+    <view class="banner-indicators">
+      <view
+        class="indicator-dot {{currentBanner === index ? 'active' : ''}}"
+        wx:for="{{banners}}"
+        wx:key="id"
+        style="--dot-index: {{index}}; --active-index: {{currentBanner}};"></view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 - 彩色气泡风 -->
+  <view class="quick-entries card-cute">
+    <view class="entry-grid">
+      <view class="entry-item" 
+            wx:for="{{quickEntries}}" 
+            wx:key="name"
+            data-url="{{item.url}}"
+            data-istab="{{item.isTab}}"
+            bindtap="goToEntry">
+        <view class="entry-icon-wrap {{item.bgClass || 'bg-pink'}}">
+          <text class="entry-emoji">{{item.icon}}</text>
+        </view>
+        <text class="entry-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 板块标题 -->
+  <view class="section-header">
+    <view class="section-title-row">
+      <view class="title-badge">📚</view>
+      <text class="section-title">论坛板块</text>
+    </view>
+    <text class="more-link" bindtap="goToSection" data-id="">更多 ›</text>
+  </view>
+  
+  <!-- 板块列表 - 横向滚动 -->
+  <scroll-view class="sections-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="section-item" 
+          wx:for="{{sections}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          data-name="{{item.sectionName}}"
+          bindtap="goToSection"
+          style="--accent-color: {{item.color || '#FF6B9D'}}">
+      <view class="section-icon-wrap">{{item.icon || '💬'}}</view>
+      <text class="section-name">{{item.sectionName}}</text>
+      <text class="section-count">{{item.postCount || 0}}帖</text>
+    </view>
+  </scroll-view>
+
+  <!-- 热门帖子标题 -->
+  <view class="section-header">
+    <view class="section-title-row">
+      <view class="title-badge">🔥</view>
+      <text class="section-title">热门帖子</text>
+    </view>
+    <text class="more-link">更多 ›</text>
+  </view>
+
+  <!-- 帖子列表 - 可爱卡片 -->
+  <view class="post-list">
+    <view class="post-card" 
+          wx:for="{{hotPosts}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="goToPost">
+      <!-- 卡片顶部装饰条 -->
+      <view class="card-top-accent"></view>
+      
+      <view class="post-card-body">
+        <view class="post-header">
+          <image class="avatar avatar-sm" src="{{item.author.avatar || '/static/images/default-avatar.png'}}" catchtap="goToUserProfile" data-user-id="{{item.author.id || item.userId}}"></image>
+          <view class="author-col">
+            <text class="author-name">{{item.author.nickname || '匿名用户'}}</text>
+            <text class="post-time">{{item.createTime}}</text>
+          </view>
+        </view>
+
+        <view class="post-title ellipsis-2">{{item.title}}</view>
+        <view class="post-content ellipsis-2" wx:if="{{item.content}}">{{item.content}}</view>
+
+        <view class="post-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image class="post-image" 
+                wx:for="{{item.images}}" 
+                wx:for-item="img" 
+                wx:key="index"
+                src="{{img}}" 
+                mode="aspectFill"
+                binderror="onImageError"
+                data-postindex="{{index}}"
+                data-imgindex="{{index}}"></image>
+        </view>
+
+        <view class="post-footer flex-between">
+          <view class="tag tag-primary">{{item.section.sectionName}}</view>
+          <view class="post-stats flex">
+            <view class="stat-dot stat-dot-pink"></view>
+            <text class="stat-text">{{item.viewCount || 0}}</text>
+            <view class="stat-dot stat-dot-red"></view>
+            <text class="stat-text">{{item.likeCount || 0}}</text>
+            <view class="stat-dot stat-dot-blue"></view>
+            <text class="stat-text">{{item.commentCount || 0}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 - 可爱插画风 -->
+  <view class="empty-state" wx:if="{{!loading && hotPosts.length === 0}}">
+    <text class="empty-emoji">🌱</text>
+    <text class="empty-text">还没有帖子哦~</text>
+    <text class="empty-sub">快来发布第一个帖子吧！</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-dots">
+      <view class="dot dot-1"></view>
+      <view class="dot dot-2"></view>
+      <view class="dot dot-3"></view>
+    </view>
+  </view>
+</view>

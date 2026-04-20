@@ -1,0 +1,221 @@
+<view class="container">
+  <!-- 帖子内容卡片 -->
+  <scroll-view scroll-y class="post-scroll" enhanced show-scrollbar="{{false}}">
+    <!-- 帖子主体 -->
+    <view class="post-card" wx:if="{{post}}">
+      <!-- 作者信息区 -->
+      <view class="author-header">
+        <view class="author-left" bindtap="onAvatarTap" data-user-id="{{post.author.id || post.userId}}" data-anonymous="{{post.isAnonymous}}">
+          <image 
+            class="author-avatar" 
+            src="{{post.isAnonymous ? '/static/images/anonymous.png' : (post.author.avatar || '/static/images/default-avatar.png')}}" 
+            mode="aspectFill"
+          ></image>
+          <view class="author-meta">
+            <text class="author-name">{{post.isAnonymous ? '匿名用户' : (post.author.nickname || '用户')}}</text>
+            <view class="author-sub">
+              <text class="post-time">{{post.createTime}}</text>
+              <text class="time-dot">·</text>
+              <text class="post-section">{{post.section.sectionName}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="section-badge">
+          <text class="badge-text">{{post.section.sectionName}}</text>
+        </view>
+      </view>
+
+      <!-- 帖子标题 -->
+      <view class="post-title-area">
+        <text class="post-title">{{post.title}}</text>
+      </view>
+
+      <!-- 帖子正文 -->
+      <view class="post-body">
+        <text class="post-content">{{post.content}}</text>
+      </view>
+
+      <!-- 图片展示区 -->
+      <view class="image-grid" wx:if="{{post.imageList && post.imageList.length > 0}}">
+        <image 
+          class="grid-image {{post.imageList.length === 1 ? 'single' : (post.imageList.length <= 2 ? 'double' : 'multi')}}"
+          wx:for="{{post.imageList}}" 
+          wx:key="index"
+          src="{{item}}" 
+          mode="{{post.imageList.length === 1 ? 'widthFix' : 'aspectFill'}}"
+          data-url="{{item}}"
+          data-field="image"
+          data-index="{{index}}"
+          bindtap="previewImage"
+          binderror="onImageError"
+        ></image>
+      </view>
+
+      <!-- 互动栏 - B站风格 -->
+      <view class="interaction-bar">
+        <!-- 左侧：浏览 + 评论 -->
+        <view class="interaction-left">
+          <view class="inter-item view-item">
+            <text class="inter-icon">👁</text>
+            <text class="inter-num">{{post.viewCountFormatted}}</text>
+          </view>
+          <view class="inter-divider"></view>
+          <view class="inter-item comment-item">
+            <text class="inter-icon">💬</text>
+            <text class="inter-num">{{post.commentCountFormatted}}</text>
+          </view>
+        </view>
+
+        <!-- 右侧：点赞 + 收藏（可交互） -->
+        <view class="interaction-right">
+          <!-- 点赞按钮 - B站风格 -->
+          <view 
+            class="bili-like-btn {{post.isLiked ? 'is-liked' : ''}} {{liking ? 'animating' : ''}}"
+            bindtap="handleLike"
+            hover-class="like-hover"
+            hover-stay-time="150"
+          >
+            <!-- 点赞图标容器 -->
+            <view class="like-icon-wrap">
+              <!-- 未点赞状态 -->
+              <view class="icon-unliked {{post.isLiked ? 'hide' : ''}}">
+                <view class="heart-outline"></view>
+              </view>
+              <!-- 已点赞状态 -->
+              <view class="icon-liked {{post.isLiked ? '' : 'hide'}}">
+                <view class="heart-filled"></view>
+                <view class="heart-particles">
+                  <view class="particle p1"></view>
+                  <view class="particle p2"></view>
+                  <view class="particle p3"></view>
+                  <view class="particle p4"></view>
+                  <view class="particle p5"></view>
+                  <view class="particle p6"></view>
+                </view>
+              </view>
+            </view>
+            <text class="like-num {{post.isLiked ? 'liked-num' : ''}}">{{post.likeCountFormatted}}</text>
+          </view>
+
+          <!-- 收藏按钮 - B站风格 -->
+          <view 
+            class="bili-fav-btn {{post.isFavorited ? 'is-favorited' : ''}} {{favoriting ? 'animating' : ''}}"
+            bindtap="handleFavorite"
+            hover-class="fav-hover"
+            hover-stay-time="150"
+          >
+            <!-- 收藏图标容器 -->
+            <view class="fav-icon-wrap">
+              <!-- 未收藏状态 -->
+              <view class="icon-unfavored {{post.isFavorited ? 'hide' : ''}}">
+                <view class="star-outline"></view>
+              </view>
+              <!-- 已收藏状态 -->
+              <view class="icon-favored {{post.isFavorited ? '' : 'hide'}}">
+                <view class="star-filled"></view>
+                <view class="star-sparkles">
+                  <view class="sparkle s1">✦</view>
+                  <view class="sparkle s2">✦</view>
+                  <view class="sparkle s3">✦</view>
+                  <view class="sparkle s4">✦</view>
+                </view>
+              </view>
+            </view>
+            <text class="fav-num {{post.isFavorited ? 'favored-num' : ''}}">{{post.favoriteCountFormatted}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 评论区 -->
+    <view class="comment-section">
+      <view class="section-title-bar">
+        <text class="section-title">评论</text>
+        <text class="comment-count">({{post.commentCount || 0}})</text>
+      </view>
+
+      <!-- 评论列表 -->
+      <view class="comment-list" wx:if="{{comments.length > 0}}">
+        <view class="comment-card" wx:for="{{comments}}" wx:key="id">
+          <view class="comment-author-row">
+            <image class="comment-avatar" src="{{item.author.avatar || '/static/images/default-avatar.png'}}" mode="aspectFill" bindtap="onAvatarTap" data-user-id="{{item.author.id || item.userId}}"></image>
+            <view class="comment-info-col">
+              <text class="comment-nickname">{{item.author.nickname || '匿名用户'}}</text>
+              <text class="comment-date">{{item.createTime}}</text>
+            </view>
+          </view>
+          <view class="comment-body-wrap">
+            <text class="comment-text">{{item.content}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空评论状态 -->
+      <view class="empty-comment" wx:if="{{comments.length === 0 && !loading}}">
+        <view class="empty-emoji-box">
+          <text class="empty-emoji">💬</text>
+        </view>
+        <text class="empty-main-text">暂无评论</text>
+        <text class="empty-sub-text">快来抢沙发，发表你的看法吧~</text>
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{loading}}">
+        <view class="loading-dots-mini">
+          <view class="mini-dot"></view>
+          <view class="mini-dot delay"></view>
+          <view class="mini-dot delay-2"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部占位 -->
+    <view class="bottom-placeholder"></view>
+  </scroll-view>
+
+  <!-- 底部评论输入栏 -->
+  <view class="bottom-comment-bar">
+    <view class="comment-input-area">
+      <view class="input-box-wrapper">
+        <input 
+          class="comment-input-field" 
+          placeholder="说点什么..." 
+          placeholder-class="input-placeholder"
+          value="{{commentContent}}"
+          bindinput="onCommentInput"
+          confirm-type="send"
+          bindconfirm="submitComment"
+          maxlength="500"
+          cursor-spacing="12"
+          disabled="{{submittingComment}}"
+        />
+        <view class="input-focus-line"></view>
+      </view>
+      <button 
+        class="send-btn {{!canSubmitComment || submittingComment ? 'btn-disabled' : 'btn-active'}}" 
+        size="mini" 
+        bindtap="submitComment" 
+        disabled="{{!canSubmitComment || submittingComment}}"
+      >
+        <text class="send-btn-text">发送</text>
+      </button>
+    </view>
+    <button class="share-mini-btn" open-type="share">
+      <text class="share-icon-text">↗</text>
+    </button>
+    <view class="report-mini-btn" catchtap="onShowReport" wx:if="{{post && post.author.id != currentUserInfo.id}}">
+      <text class="report-icon-text">⚠</text>
+    </view>
+  </view>
+
+  <!-- 加载中遮罩 -->
+  <view class="loading-overlay" wx:if="{{!post && pageLoading}}">
+    <view class="loading-spinner-large">
+      <view class="spinner-ring"></view>
+    </view>
+    <text class="loading-hint">加载中...</text>
+  </view>
+
+  <!-- 举报弹窗 -->
+  <report-dialog id="reportDialog" visible="{{showReportDialog}}"></report-dialog>
+</view>

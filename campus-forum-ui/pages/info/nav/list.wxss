@@ -1,0 +1,135 @@
+.container {
+  min-height: 100vh;
+  background: #f3f4f6;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 74rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #FFDDE8;
+}
+
+.search-btn {
+  margin-left: 10rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  padding: 0 24rpx;
+  background: #FF6B9D;
+  color: #ffffff;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+}
+
+.category-scroll {
+  white-space: nowrap;
+  margin-bottom: 18rpx;
+}
+
+.category-item {
+  display: inline-block;
+  margin-right: 12rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 9999rpx;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 24rpx;
+  border: 1rpx solid #FFDDE8;
+}
+
+.category-item.active {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.nav-item {
+  background: #ffffff;
+  border-radius: 18rpx;
+  padding: 18rpx;
+  margin-bottom: 16rpx;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.category {
+  font-size: 22rpx;
+  color: #4338ca;
+  background: #e0e7ff;
+  padding: 4rpx 10rpx;
+  border-radius: 999rpx;
+}
+
+.desc {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #4b5563;
+}
+
+.row {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.actions {
+  margin-top: 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.btn {
+  height: 62rpx;
+  line-height: 62rpx;
+  padding: 0 18rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+}
+
+.btn-call {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.btn-copy {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.btn-link {
+  background: #FF6B9D;
+  color: #ffffff;
+}
+
+.empty,
+.loading {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 26rpx;
+  margin-top: 80rpx;
+}
+

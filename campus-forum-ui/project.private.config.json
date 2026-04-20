@@ -1,0 +1,87 @@
+{
+  "libVersion": "3.13.1",
+  "projectname": "campus-forum-ui",
+  "condition": {},
+  "setting": {
+    "urlCheck": false,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "showShadowRootInWxmlPanel": true,
+    "useStaticServer": false,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "compileHotReLoad": true,
+    "checkInvalidKey": true,
+    "ignoreDevUnusedFiles": true,
+    "bigPackageSizeSupport": false,
+    "useIsolateContext": true
+  },
+  "privacy": {
+    "privacyList": [
+      {
+        "privacyName": "用户信息",
+        "privacyDesc": "用于获取用户头像、昵称等基本信息，完善用户资料和登录体验",
+        "privacyKey": "getUserProfile"
+      },
+      {
+        "privacyName": "微信登录",
+        "privacyDesc": "用于微信一键登录，验证用户身份",
+        "privacyKey": "login"
+      },
+      {
+        "privacyName": "位置信息",
+        "privacyDesc": "用于提供基于位置的服务，包括选择地址、获取位置、位置更新等功能",
+        "privacyKey": "getLocation"
+      },
+      {
+        "privacyName": "地址选择",
+        "privacyDesc": "用于选择和获取地址信息",
+        "privacyKey": "chooseAddress"
+      },
+      {
+        "privacyName": "位置选择",
+        "privacyDesc": "用于在地图上选择具体位置",
+        "privacyKey": "chooseLocation"
+      },
+      {
+        "privacyName": "兴趣点选择",
+        "privacyDesc": "用于选择附近的兴趣点",
+        "privacyKey": "choosePoi"
+      },
+      {
+        "privacyName": "模糊定位",
+        "privacyDesc": "用于获取模糊位置信息，保护用户隐私",
+        "privacyKey": "getFuzzyLocation"
+      },
+      {
+        "privacyName": "位置变化监听",
+        "privacyDesc": "用于监听位置变化，提供实时位置服务",
+        "privacyKey": "onLocationChange"
+      },
+      {
+        "privacyName": "位置更新",
+        "privacyDesc": "用于启动位置更新服务",
+        "privacyKey": "startLocationUpdate"
+      },
+      {
+        "privacyName": "后台位置更新",
+        "privacyDesc": "用于在后台持续更新位置信息",
+        "privacyKey": "startLocationUpdateBackground"
+      },
+      {
+        "privacyName": "设备信息",
+        "privacyDesc": "用于获取设备信息，提升用户体验和问题排查",
+        "privacyKey": "getSystemInfo"
+      },
+      {
+        "privacyName": "网络状态",
+        "privacyDesc": "用于检测网络状态，确保功能正常运行",
+        "privacyKey": "getNetworkType"
+      }
+    ]
+  }
+}

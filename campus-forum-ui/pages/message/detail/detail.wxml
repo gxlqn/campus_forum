@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="card" wx:if="{{detail}}">
+    <view class="header">
+      <text class="title">{{detail.title || '通知详情'}}</text>
+      <text class="time">{{formatTime(detail.createTime)}}</text>
+    </view>
+
+    <view class="sender-row">
+      <image class="avatar" src="{{detail.senderAvatar || '/static/images/default-avatar.png'}}"></image>
+      <text class="sender">{{detail.senderName || '系统通知'}}</text>
+    </view>
+
+    <view class="content">{{detail.content || '暂无内容'}}</view>
+
+    <button wx:if="{{detail.targetId}}" class="btn" bindtap="goTarget">查看关联内容</button>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+</view>

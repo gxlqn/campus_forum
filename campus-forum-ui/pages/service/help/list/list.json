@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "report-dialog": "/components/report-dialog/report-dialog"
+  },
+  "navigationBarTitleText": "互助帮帮",
+  "enablePullDownRefresh": true
+}

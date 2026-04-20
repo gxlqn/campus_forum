@@ -1,0 +1,167 @@
+<view class="container">
+  <!-- 未登录状态 -->
+  <view class="login-section" wx:if="{{!isLogin}}">
+    <view class="login-card">
+      <view class="login-icon-wrapper">
+        <text class="login-emoji">💬</text>
+      </view>
+      <text class="login-title">登录查看消息</text>
+      <text class="login-desc">登录后可以接收系统通知、查看私信互动</text>
+      <button class="login-btn" bindtap="goLogin">
+        <text class="btn-text">立即登录</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 已登录状态 -->
+  <block wx:if="{{isLogin}}">
+    <!-- 页面头部 -->
+    <view class="page-header">
+      <text class="header-title">消息中心</text>
+      <text class="header-desc">{{currentTab === 'chat' ? '私信会话' : '通知消息'}}</text>
+    </view>
+
+    <!-- Tab切换栏 -->
+    <view class="tab-bar">
+      <view 
+        class="tab-item {{currentTab === item.key ? 'active' : ''}}" 
+        wx:for="{{tabs}}" 
+        wx:key="key"
+        bindtap="onTabTap" 
+        data-tab="{{item.key}}"
+      >
+        <view class="tab-icon-box">
+          <text class="tab-emoji">{{item.icon}}</text>
+          <view class="badge-dot" wx:if="{{item.count > 0}}">
+            <text class="badge-num">{{item.count > 99 ? '99+' : item.count}}</text>
+          </view>
+        </view>
+        <text class="tab-label {{currentTab === item.key ? 'active' : ''}}">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 消息列表 -->
+    <scroll-view scroll-y class="message-scroll" enhanced show-scrollbar="{{false}}">
+      <!-- 系统通知 -->
+      <block wx:if="{{currentTab === 'system'}}">
+        <view class="system-action-bar" wx:if="{{messages.length > 0}}">
+          <button
+            class="system-clear-btn"
+            bindtap="onClearSystemNotifications"
+            disabled="{{loading}}"
+          >清理通知</button>
+        </view>
+
+        <view class="notice-list" wx:if="{{messages.length > 0}}">
+          <view 
+            class="notice-card" 
+            wx:for="{{messages}}" 
+            wx:key="id"
+            bindtap="goToDetail"
+            data-id="{{item.id}}"
+          >
+            <view class="notice-header">
+              <view class="notice-type-tag">
+                <text class="tag-text">通知</text>
+              </view>
+              <text class="notice-time">{{item.createTime}}</text>
+            </view>
+            <text class="notice-title">{{item.title}}</text>
+            <text class="notice-content text-ellipsis">{{item.content}}</text>
+            <view class="unread-indicator" wx:if="{{!item.isRead}}"></view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 评论/点赞 -->
+      <block wx:if="{{currentTab === 'comment' || currentTab === 'like'}}">
+        <view class="interact-list" wx:if="{{messages.length > 0}}">
+          <view 
+            class="interact-card"
+            wx:for="{{messages}}"
+            wx:key="id"
+            bindtap="goToPost"
+            data-id="{{item.postId}}"
+            data-notice-id="{{item.id}}"
+          >
+            <image 
+              class="user-avatar" 
+              src="{{item.user.avatar || '/static/images/default-avatar.png'}}" 
+              mode="aspectFill"
+            ></image>
+            <view class="interact-content">
+              <view class="interact-top">
+                <text class="user-nickname">{{item.user.nickname || '匿名用户'}}</text>
+                <text class="interact-time">{{item.createTime}}</text>
+              </view>
+              
+              <view class="action-badge {{currentTab === 'like' ? 'like' : 'comment'}}">
+                <text class="action-text">{{currentTab === 'like' ? '👍 赞了你的帖子' : '💬 评论了你的帖子'}}</text>
+              </view>
+              
+              <view class="post-preview" wx:if="{{item.postTitle}}">
+                <text class="post-preview-text text-ellipsis">{{item.postTitle}}</text>
+              </view>
+              
+              <view class="comment-bubble" wx:if="{{currentTab === 'comment' && item.content}}">
+                <text class="comment-body">{{item.content}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 私信列表 -->
+      <block wx:if="{{currentTab === 'chat'}}">
+        <view class="chat-list" wx:if="{{messages.length > 0}}">
+          <view 
+            class="chat-card"
+            wx:for="{{messages}}"
+            wx:key="id"
+            bindtap="goToChat"
+            data-id="{{item.id}}"
+            data-target-user-id="{{item.targetUserId}}"
+            data-target-nickname="{{item.targetNickname}}"
+          >
+            <view class="avatar-wrapper">
+              <image 
+                class="chat-avatar" 
+                src="{{item.user.avatar || '/static/images/default-avatar.png'}}" 
+                mode="aspectFill"
+              ></image>
+              <view class="online-dot" wx:if="{{true}}"></view>
+            </view>
+            
+            <view class="chat-info">
+              <view class="chat-row">
+                <text class="chat-name">{{item.user.nickname || '未知用户'}}</text>
+                <text class="chat-time">{{item.lastTime}}</text>
+              </view>
+              <view class="chat-msg-row">
+                <text class="chat-last-msg text-ellipsis">{{item.lastMessage || '暂无消息'}}</text>
+                <view class="unread-badge" wx:if="{{item.unreadCount > 0}}">
+                  <text class="unread-num">{{item.unreadCount > 99 ? '99+' : item.unreadCount}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{!loading && messages.length === 0}}">
+        <view class="empty-icon-wrap">
+          <text class="empty-emoji">{{currentTab === 'chat' ? '📭' : '🔔'}}</text>
+        </view>
+        <text class="empty-title">{{currentTab === 'chat' ? '暂无私信会话' : '暂无通知消息'}}</text>
+        <text class="empty-desc">{{currentTab === 'chat' ? '给感兴趣的用户发条消息吧' : '有新消息时会在这里显示'}}</text>
+      </view>
+
+      <!-- 加载中 -->
+      <view class="loading-state" wx:if="{{loading}}">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+    </scroll-view>
+  </block>
+</view>

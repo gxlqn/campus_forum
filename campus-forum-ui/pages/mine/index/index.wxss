@@ -1,0 +1,315 @@
+/* ============================================
+   Mine Page (我的) - 青春可爱风格
+   ============================================ */
+
+.container {
+  padding: 0 24rpx 40rpx;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ========== 渐变背景头部 ========== */
+.header-bg {
+  position: relative;
+  height: 360rpx;
+  margin: -24rpx -24rpx 0;
+  overflow: hidden;
+}
+
+.bg-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(160deg, #FF6B9D 0%, #A78BFA 50%, #60A5FA 100%);
+  opacity: 0.92;
+}
+
+.decor-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  filter: blur(2rpx);
+}
+
+.blob-1 {
+  width: 280rpx;
+  height: 280rpx;
+  background: #FFFFFF;
+  top: -60rpx;
+  right: -40rpx;
+  animation: float-blob 6s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 180rpx;
+  height: 180rpx;
+  background: #FFE4EC;
+  bottom: 20rpx;
+  left: 30rpx;
+  animation: float-blob 8s ease-in-out infinite 1s;
+}
+
+.decor-star {
+  position: absolute;
+  font-size: 28rpx;
+  opacity: 0.4;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.star-1 { top: 80rpx; left: 60rpx; animation-delay: 0s; }
+.star-2 { top: 140rpx; right: 100rpx; animation-delay: 0.7s; font-size: 22rpx; }
+.star-3 { bottom: 80rpx; right: 60rpx; animation-delay: 1.4s; font-size: 24rpx; }
+
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15rpx, -10rpx) scale(1.05); }
+  66% { transform: translate(-10rpx, 10rpx) scale(0.95); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* ========== 用户卡片 ========== */
+.user-card {
+  position: relative;
+  margin-top: -160rpx;
+  margin-bottom: 28rpx;
+  border-radius: 32rpx;
+  overflow: visible;
+}
+
+.card-glow {
+  position: absolute;
+  inset: -4rpx;
+  border-radius: 36rpx;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.25), rgba(167, 139, 250, 0.2), rgba(96, 165, 250, 0.15));
+  z-index: -1;
+  filter: blur(8rpx);
+}
+
+.user-card-inner {
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  padding: 32rpx 28rpx 24rpx;
+  box-shadow:
+    0 8rpx 40rpx rgba(255, 107, 157, 0.12),
+    0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 1;
+}
+
+.user-top {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrap {
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -6rpx;
+  border-radius: 50%;
+  border: 3rpx solid transparent;
+  background: linear-gradient(135deg, #FF6B9D, #A78BFA, #60A5FA) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: ring-rotate 4s linear infinite;
+}
+
+@keyframes ring-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.info-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #1F2937;
+  letter-spacing: 1rpx;
+}
+
+.tag-row {
+  margin-top: 8rpx;
+}
+
+.verify-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 21rpx;
+  color: #059669;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+.user-id {
+  font-size: 23rpx;
+  color: #C4B5CD;
+  margin-top: 6rpx;
+}
+
+.login-tip {
+  font-size: 30rpx;
+  color: #FF6B9D;
+  font-weight: 600;
+}
+
+.arrow-icon {
+  font-size: 36rpx;
+  color: #D4C5D9;
+  font-weight: 300;
+}
+
+.divider-line {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.12), transparent);
+  margin: 24rpx 0 20rpx;
+}
+
+/* ========== 统计数据 ========== */
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.stat-num {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #374151;
+}
+
+.color-pink { color: #FF6B9D !important; }
+.color-purple { color: #A78BFA !important; }
+
+.stat-label {
+  font-size: 23rpx;
+  color: #9CA3AF;
+  margin-top: 6rpx;
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: linear-gradient(180deg, transparent, rgba(255, 107, 157, 0.15), transparent);
+}
+
+/* ========== 功能菜单 ========== */
+.menu-section {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow:
+    0 4rpx 20rpx rgba(255, 107, 157, 0.08),
+    0 1rpx 3rpx rgba(0, 0, 0, 0.03);
+  margin-bottom: 28rpx;
+}
+
+.menu-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 28rpx;
+  border-bottom: 1rpx solid rgba(255, 107, 157, 0.06);
+  transition: background 0.2s ease;
+}
+
+.menu-card:last-child {
+  border-bottom: none;
+}
+
+.menu-card:active {
+  background: linear-gradient(135deg, #FFF5F7, #FFFFFF);
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon-wrap {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.menu-icon-text {
+  font-size: 30rpx;
+}
+
+.menu-title {
+  font-size: 29rpx;
+  color: #374151;
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
+}
+
+.menu-arrow {
+  font-size: 34rpx;
+  color: #D4C5D9;
+  font-weight: 300;
+}
+
+/* ========== 退出按钮 ========== */
+.logout-area {
+  padding: 16rpx 0;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #EF4444;
+  background: linear-gradient(135deg, #FEF2F2, #FFFFFF);
+  border: 2rpx solid #FECACA;
+  box-shadow: 0 2rpx 8rpx rgba(239, 68, 68, 0.08);
+  letter-spacing: 2rpx;
+}
+
+.logout-btn:active {
+  transform: scale(0.98);
+  background: #FEF2F2;
+}
+
+/* ========== 版本信息 ========== */
+.version-info {
+  text-align: center;
+  padding: 32rpx 0 16rpx;
+}
+
+.version-info text {
+  font-size: 22rpx;
+  color: #D4C5D9;
+  letter-spacing: 1rpx;
+}

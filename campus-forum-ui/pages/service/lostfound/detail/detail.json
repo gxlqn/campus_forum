@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "失物详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "report-dialog": "/components/report-dialog/report-dialog"
+  }
+}

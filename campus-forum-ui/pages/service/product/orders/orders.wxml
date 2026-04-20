@@ -1,0 +1,135 @@
+<view class="container">
+  <view class="tab-row role-tabs">
+    <view
+      wx:for="{{roleTabs}}"
+      wx:key="value"
+      class="tab-item {{role === item.value ? 'active' : ''}}"
+      data-role="{{item.value}}"
+      bindtap="onRoleTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="tab-row status-tabs">
+    <view
+      wx:for="{{statusTabs}}"
+      wx:key="value"
+      class="tab-item small {{status === item.value ? 'active' : ''}}"
+      data-status="{{item.value}}"
+      bindtap="onStatusTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="order-list">
+    <view class="order-card" wx:for="{{orders}}" wx:key="id" id="order-{{item.id}}">
+      <view class="order-head">
+        <text class="order-no">订单号：{{item.orderNo}}</text>
+        <text class="order-status status-{{item.status}}">{{item.statusText}}</text>
+      </view>
+
+      <view class="pending-hint" wx:if="{{item.status === 0}}">当前为意向申请，待卖家筛选确认后进入交易</view>
+
+      <view class="order-body" data-product-id="{{item.productId}}" bindtap="onGoProductDetail">
+        <image class="product-image" src="{{item.productImage}}" mode="aspectFill"></image>
+        <view class="body-main">
+          <text class="product-title">{{item.productTitle}}</text>
+          <text class="counterpart">{{role === 'buyer' ? '卖家' : '买家'}}：{{item.counterpart}}</text>
+          <text class="amount">¥{{item.amountText}}</text>
+        </view>
+      </view>
+
+      <view class="meetup-box" wx:if="{{item.status === 1}}">
+        <text class="meetup-line">约见地点：{{item.meetupPlace || '待确认'}}</text>
+        <text class="meetup-line">约见时间：{{item.meetupTime || '待确认'}}</text>
+        <text class="meetup-line" wx:if="{{item.meetupCode}}">见面码：{{item.meetupCode}}</text>
+        <text class="meetup-line meetup-ok" wx:if="{{item.meetupVerified}}">核销状态：已核销</text>
+      </view>
+
+      <view class="order-actions">
+        <button
+          wx:if="{{item.canSchedule && !item.meetupTime}}"
+          class="action-btn ghost"
+          data-order-id="{{item.id}}"
+          catchtap="onScheduleMeetup"
+        >安排约见</button>
+        <button
+          wx:if="{{item.canReschedule && item.meetupTime}}"
+          class="action-btn ghost"
+          data-order-id="{{item.id}}"
+          catchtap="onRescheduleMeetup"
+        >改约</button>
+        <button
+          wx:if="{{item.canVerify && item.meetupTime && !item.meetupVerified}}"
+          class="action-btn ghost"
+          data-order-id="{{item.id}}"
+          catchtap="onVerifyMeetup"
+        >见面码核销</button>
+        <button
+          wx:if="{{item.canCancel}}"
+          class="action-btn ghost"
+          data-order-id="{{item.id}}"
+          catchtap="onCancelOrder"
+        >{{item.cancelText}}</button>
+        <button
+          wx:if="{{item.canReject}}"
+          class="action-btn ghost"
+          data-order-id="{{item.id}}"
+          catchtap="onRejectOrder"
+        >拒绝申请</button>
+        <button
+          wx:if="{{item.canAccept}}"
+          class="action-btn primary"
+          data-order-id="{{item.id}}"
+          catchtap="onAcceptOrder"
+        >确认交易对象</button>
+        <button
+          wx:if="{{item.canConfirm}}"
+          class="action-btn primary"
+          data-order-id="{{item.id}}"
+          catchtap="onConfirmOrder"
+        >确认收货</button>
+      </view>
+    </view>
+
+    <view wx:if="{{!orders.length && !loading}}" class="empty-state">
+      <text>暂无订单记录</text>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-state">
+      <text>加载中...</text>
+    </view>
+  </view>
+
+  <view class="meetup-editor-mask" wx:if="{{showMeetupEditor}}" catchtap="closeMeetupEditor">
+    <view class="meetup-editor" catchtap="noop">
+      <view class="editor-title">{{meetupForm.mode === 'reschedule' ? '改约' : '安排约见'}}</view>
+
+      <view class="editor-row" bindtap="chooseMeetupLocation">
+        <text class="editor-label">约见地点</text>
+        <text class="editor-value {{meetupForm.place ? '' : 'placeholder'}}">{{meetupForm.place || '点击选择地图定位地点'}}</text>
+      </view>
+
+      <view class="editor-row">
+        <text class="editor-label">约见日期</text>
+        <picker mode="date" value="{{meetupForm.date}}" bindchange="onMeetupDateChange">
+          <view class="picker-val">{{meetupForm.date}}</view>
+        </picker>
+      </view>
+
+      <view class="editor-row">
+        <text class="editor-label">约见时间</text>
+        <picker mode="time" value="{{meetupForm.time}}" bindchange="onMeetupTimeChange">
+          <view class="picker-val">{{meetupForm.time}}</view>
+        </picker>
+      </view>
+
+      <view class="editor-actions">
+        <button class="editor-btn ghost" bindtap="closeMeetupEditor">取消</button>
+        <button class="editor-btn primary" bindtap="submitMeetupEditor">确认</button>
+      </view>
+    </view>
+  </view>
+</view>

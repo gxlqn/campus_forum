@@ -1,0 +1,28 @@
+.container { padding-bottom: 140rpx; background: #f8f9fe; min-height: 100vh; }
+
+.header { padding: 32rpx 30rpx; background: #fff; }
+.title { font-size: 38rpx; font-weight: bold; color: #1F2937; line-height: 1.4; display: block; margin-bottom: 20rpx; }
+.meta-row { display: flex; align-items: center; gap: 16rpx; }
+.tag { font-size: 22rpx; padding: 4rpx 14rpx; border-radius: 8rpx; font-weight: 500; }
+.tag-active { background: #E8FFF5; color: #00B578; }
+.tag-ended { background: #F3F4F6; color: #9CA3AF; }
+.join-count { font-size: 24rpx; color: #9CA3AF; }
+
+.cover-image { width: 100%; height: 360rpx; background: #eee; }
+
+.section { padding: 30rpx; background: #fff; margin-top: 16rpx; }
+.section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 16rpx; }
+.desc-text { font-size: 28rpx; color: #555; line-height: 1.7; white-space: pre-wrap; }
+
+.info-section { background: #fff; margin-top: 16rpx; padding: 10rpx 0; }
+.info-item { display: flex; align-items: center; padding: 24rpx 30rpx; border-bottom: 1rpx solid #f5f5f5; }
+.info-icon { font-size: 36rpx; margin-right: 20rpx; width: 50rpx; text-align: center; }
+.info-content { flex: 1; }
+.info-label { font-size: 24rpx; color: #9CA3AF; display: block; margin-bottom: 6rpx; }
+.info-value { font-size: 28rpx; color: #333; }
+
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 16rpx 30rpx; background: #fff; box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.06); z-index: 100; box-sizing: border-box; }
+.btn-signup { width: 100%; height: 88rpx; line-height: 88rpx; background: linear-gradient(135deg, #FF6B9D, #FF8A80); color: #fff; font-size: 32rpx; font-weight: 600; border-radius: 44rpx; box-shadow: 0 8rpx 24rpx rgba(255,107,157,0.35); }
+.btn-signup[disabled] { background: #ccc; box-shadow: none; color: #999; }
+
+.loading-state { display: flex; justify-content: center; align-items: center; min-height: 400rpx; color: #999; font-size: 28rpx; }

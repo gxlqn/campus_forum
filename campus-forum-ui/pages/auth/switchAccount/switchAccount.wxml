@@ -1,0 +1,102 @@
+<view class="container">
+  <view class="header-section">
+    <view class="header-icon">🔄</view>
+    <text class="header-title">开发模式 - 账号切换</text>
+    <text class="header-desc">选择要切换的账号（仅开发环境可用）</text>
+  </view>
+
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        value="{{searchKeyword}}" 
+        placeholder="搜索昵称/学号/用户ID" 
+        placeholder-class="search-placeholder"
+        bindinput="onSearchInput"
+      />
+      <text class="clear-btn" wx:if="{{searchKeyword}}" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <view class="user-count" wx:if="{{!loading}}">
+    共 {{filteredUsers.length}} 个账号
+    <text wx:if="{{searchKeyword}}" class="filter-hint">（已过滤）</text>
+  </view>
+
+  <scroll-view scroll-y class="user-list" enhanced show-scrollbar="{{false}}">
+    <view class="loading-state" wx:if="{{loading}}">
+      <view class="spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <view class="empty-state" wx:elif="{{filteredUsers.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text" wx:if="{{searchKeyword}}">未找到匹配的账号</text>
+      <text class="empty-text" wx:else>暂无可用账号</text>
+    </view>
+
+    <view class="user-card-wrap" wx:for="{{filteredUsers}}" wx:key="id">
+      <view 
+        class="user-card {{item.isCurrentUser ? 'current' : ''}} {{switchingId === item.id ? 'switching' : ''}}"
+        bindtap="switchToUser"
+        data-id="{{item.id}}"
+      >
+        <view class="card-left">
+          <image 
+            class="user-avatar" 
+            src="{{item.avatar}}" 
+            mode="aspectFill"
+            bindtap="previewAvatar"
+            data-avatar="{{item.avatar}}"
+          />
+          <view class="badge-current" wx:if="{{item.isCurrentUser}}">
+            <text>当前</text>
+          </view>
+        </view>
+
+        <view class="card-center">
+          <view class="user-name-row">
+            <text class="user-nickname">{{item.nickname || '用户' + item.id}}</text>
+            <view class="tag-row">
+              <text class="status-tag {{item.status === 1 ? 'active' : 'disabled'}}">{{item.statusText}}</text>
+              <text class="verify-tag verified" wx:if="{{item.is_verified === 1}}">{{item.verifiedText}}</text>
+            </view>
+          </view>
+          
+          <view class="user-info-row">
+            <text class="info-item">
+              <text class="info-label">ID:</text>
+              <text class="info-value">{{item.id}}</text>
+            </text>
+            <text class="info-item" wx:if="{{item.student_id}}">
+              <text class="info-label">学号:</text>
+              <text class="info-value">{{item.student_id}}</text>
+            </text>
+            <text class="info-item">
+              <text class="info-label">{{item.userTypeText}}</text>
+            </text>
+          </view>
+
+          <view class="user-time">
+            <text>注册于 {{item.create_time}}</text>
+          </view>
+        </view>
+
+        <view class="card-right">
+          <view class="switch-btn" wx:if="{{!item.isCurrentUser}}">
+            <text wx:if="{{switchingId !== item.id}}">切换</text>
+            <view class="btn-loading" wx:else></view>
+          </view>
+          <view class="current-badge" wx:else>
+            <text>✓</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-tip">
+    <text class="tip-text">⚠️ 此功能仅用于开发调试，生产环境将自动禁用</text>
+  </view>
+</view>

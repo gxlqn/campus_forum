@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "default": {
+          "type": "standard"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "id": { "type": "long" },
+      "title": { "type": "text" },
+      "content": { "type": "text" },
+      "sectionName": { "type": "keyword" },
+      "authorNickname": { "type": "keyword" },
+      "createTime": { "type": "date", "format": "strict_date_optional_time||epoch_millis" }
+    }
+  }
+}

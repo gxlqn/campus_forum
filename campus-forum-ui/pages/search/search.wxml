@@ -1,0 +1,94 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索帖子、商品、活动、互助" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="onSearch" />
+    <button class="search-button" bindtap="onSearch">搜索</button>
+  </view>
+
+  <view wx:if="{{recommendKeywords.length}}" class="result-block">
+    <view class="title-row">
+      <view class="block-title">推荐搜索</view>
+    </view>
+    <view class="chips">
+      <view wx:for="{{recommendKeywords}}" wx:key="*this" class="chip chip-recommend" bindtap="tapKeyword" data-keyword="{{item}}">{{item}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{historyKeywords.length}}" class="result-block">
+    <view class="title-row">
+      <view class="block-title">历史搜索</view>
+      <text class="clear-history" bindtap="clearHistory">清空</text>
+    </view>
+    <view class="chips">
+      <view wx:for="{{historyKeywords}}" wx:key="*this" class="chip" bindtap="tapKeyword" data-keyword="{{item}}">{{item}}</view>
+    </view>
+  </view>
+
+  <scroll-view class="result-list" scroll-y="true">
+    <view wx:if="{{sections.length}}" class="result-block">
+      <view class="block-title">热门板块</view>
+      <view class="chips">
+        <view wx:for="{{sections}}" wx:key="id" class="chip">{{item.sectionName}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{posts.length}}" class="result-block">
+      <view class="block-title">帖子</view>
+      <block wx:for="{{posts}}" wx:key="id">
+        <view class="card" bindtap="goToPost" data-id="{{item.id}}">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-desc text-ellipsis">{{item.content}}</text>
+          <view class="card-footer">
+            <text>{{item.sectionName}}</text>
+            <text>{{item.author.nickname}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view wx:if="{{products.length}}" class="result-block">
+      <view class="block-title">商品</view>
+      <block wx:for="{{products}}" wx:key="id">
+        <view class="card" bindtap="goToProduct" data-id="{{item.id}}">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-desc text-ellipsis">{{item.description}}</text>
+          <view class="card-footer">
+            <text>¥{{item.price}}</text>
+            <text>{{item.seller.nickname}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view wx:if="{{activities.length}}" class="result-block">
+      <view class="block-title">活动</view>
+      <block wx:for="{{activities}}" wx:key="id">
+        <view class="card">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-desc text-ellipsis">{{item.description}}</text>
+          <view class="card-footer">
+            <text>{{item.time}}</text>
+            <text>{{item.location}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view wx:if="{{helps.length}}" class="result-block">
+      <view class="block-title">互助</view>
+      <block wx:for="{{helps}}" wx:key="id">
+        <view class="card">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-desc text-ellipsis">{{item.description}}</text>
+          <view class="card-footer">
+            <text>{{item.location}}</text>
+            <text>{{item.time}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view wx:if="{{hasSearched && !sections.length && !posts.length && !products.length && !activities.length && !helps.length && !loading}}" class="empty-state">
+      <text>暂无搜索结果</text>
+    </view>
+  </scroll-view>
+</view>

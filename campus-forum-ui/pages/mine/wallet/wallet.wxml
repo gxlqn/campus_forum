@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="balance-card">
+    <text class="balance-label">当前可用余额</text>
+    <text class="balance-amount">¥ {{balanceText}}</text>
+    <text class="tip">该页面用于演示钱包充值和互助发布前余额确认</text>
+  </view>
+
+  <view class="charge-card">
+    <view class="title">快捷充值</view>
+    <view class="amount-grid">
+      <view wx:for="{{presetAmounts}}" wx:key="*this" class="amount-item" data-amount="{{item}}" bindtap="selectAmount">
+        ¥{{item}}
+      </view>
+    </view>
+    <view class="custom-row">
+      <input class="custom-input" type="digit" placeholder="自定义金额" value="{{customAmount}}" bindinput="onCustomInput" />
+      <button class="charge-btn" bindtap="recharge">充值</button>
+    </view>
+  </view>
+</view>

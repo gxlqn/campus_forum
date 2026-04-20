@@ -1,0 +1,83 @@
+<view class="container">
+  <!-- 渐变背景头部 -->
+  <view class="header-bg">
+    <view class="bg-gradient"></view>
+    <view class="decor-blob blob-1"></view>
+    <view class="decor-blob blob-2"></view>
+    <view class="decor-star star-1">✨</view>
+    <view class="decor-star star-2">⭐</view>
+    <view class="decor-star star-3">💫</view>
+  </view>
+
+  <!-- 用户卡片 -->
+  <view class="user-card">
+    <view class="card-glow"></view>
+    <view class="user-card-inner">
+      <view class="user-top" bindtap="goProfile">
+        <view class="avatar-wrap">
+          <image class="avatar avatar-lg" src="{{userInfo.avatar || '/static/images/default-avatar.png'}}"></image>
+          <view class="avatar-ring"></view>
+        </view>
+        <view class="info-col" wx:if="{{isLogin}}">
+          <text class="nickname">{{userInfo.nickname || '用户'}}</text>
+          <view class="tag-row" wx:if="{{userInfo.isVerified === 1}}">
+            <text class="verify-badge">✅ 已认证</text>
+          </view>
+          <text class="user-id" wx:else>ID: {{userInfo.id}}</text>
+        </view>
+        <view class="info-col" wx:else>
+          <text class="login-tip">👋 点击登录</text>
+        </view>
+        <text class="arrow-icon">›</text>
+      </view>
+
+      <view class="divider-line"></view>
+
+      <!-- 数据统计 -->
+      <view class="stats-row">
+        <view class="stat-item" bindtap="goToMyPosts">
+          <text class="stat-num">{{stats.post || 0}}</text>
+          <text class="stat-label">帖子</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-num color-pink">{{stats.like || 0}}</text>
+          <text class="stat-label">获赞</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-num color-purple">{{stats.fans || 0}}</text>
+          <text class="stat-label">粉丝</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-card" 
+          wx:for="{{menuList}}" 
+          wx:key="title"
+          data-url="{{item.url}}"
+          data-istab="{{item.isTab}}"
+          bindtap="navigateTo">
+      <view class="menu-left">
+        <view class="menu-icon-wrap {{item.iconBg || 'bg-pink-light'}}">
+          <text class="menu-icon-text">{{item.icon}}</text>
+        </view>
+        <text class="menu-title">{{item.title}}</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 退出按钮 -->
+  <view class="logout-area" wx:if="{{isLogin}}">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>🌸 校园服务论坛 v1.0.0 🌸</text>
+  </view>
+</view>
