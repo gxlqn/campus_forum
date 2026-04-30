@@ -3,6 +3,7 @@ package com.campus.forum.service.impl;
 import com.campus.forum.common.PageResult;
 import com.campus.forum.common.ResultCode;
 import com.campus.forum.entity.AuditLog;
+import com.campus.forum.entity.ForumModerator;
 import com.campus.forum.entity.ForumSection;
 import com.campus.forum.entity.ServiceProductCategory;
 import com.campus.forum.entity.SysPermission;
@@ -11,6 +12,7 @@ import com.campus.forum.entity.SysUser;
 import com.campus.forum.exception.BusinessException;
 import com.campus.forum.mapper.AdminSystemMapper;
 import com.campus.forum.mapper.AuditLogMapper;
+import com.campus.forum.mapper.ForumModeratorMapper;
 import com.campus.forum.mapper.MessageMapper;
 import com.campus.forum.mapper.ServiceLostFoundClaimMapper;
 import com.campus.forum.service.AdminSystemService;
@@ -20,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
@@ -50,6 +53,9 @@ public class AdminSystemServiceImpl implements AdminSystemService {
 
     @Autowired
     private LostFoundService lostFoundService;
+
+    @Autowired
+    private ForumModeratorMapper forumModeratorMapper;
 
     @Override
     public PageResult<Map<String, Object>> getUsers(Long current, Long size, String keyword, Integer status, Integer isVerified) {
@@ -461,6 +467,27 @@ public class AdminSystemServiceImpl implements AdminSystemService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void resolvePostReport(Long reportId, Long handlerId, Integer postAuditStatus, String postAuditRemark, String handleResult) {
+        if (reportId == null || handlerId == null || postAuditStatus == null || (postAuditStatus != 1 && postAuditStatus != 2)) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "举报帖子处理参数无效");
+        }
+
+        Map<String, Object> report = adminSystemMapper.selectReportById(reportId);
+        if (report == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND, "举报记录不存在");
+        }
+        Integer targetType = report.get("targetType") == null ? null : ((Number) report.get("targetType")).intValue();
+        if (targetType == null || targetType != 1) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "当前举报不是帖子类型");
+        }
+        Long targetId = report.get("targetId") == null ? null : ((Number) report.get("targetId")).longValue();
+
+        auditItem("post", targetId, postAuditStatus, StringUtils.hasText(postAuditRemark) ? postAuditRemark.trim() : handleResult);
+        handleReport(reportId, handlerId, 1, StringUtils.hasText(handleResult) ? handleResult : (postAuditStatus == 2 ? "举报内容已下线/驳回" : "举报内容已审核通过"));
+    }
+
+    @Override
     public PageResult<Map<String, Object>> getLostFoundClaims(Long current, Long size, Integer status) {
         return lostFoundService.getClaimList(current, size, status);
     }
@@ -565,5 +592,76 @@ public class AdminSystemServiceImpl implements AdminSystemService {
             result.put(day, count);
         }
         return result;
+    }
+
+    // ==================== 版主模块管理实现 ====================
+
+    @Override
+    public PageResult<Map<String, Object>> getModerators(Long current, Long size, String keyword, String moduleCode) {
+        long pageNo = current == null || current < 1 ? 1 : current;
+        long pageSize = size == null || size < 1 ? 10 : size;
+        long offset = (pageNo - 1) * pageSize;
+
+        List<Map<String, Object>> records = forumModeratorMapper.selectPage(keyword, moduleCode, offset, pageSize);
+        Long total = forumModeratorMapper.countPage(keyword, moduleCode);
+        return new PageResult<>(pageNo, pageSize, total == null ? 0L : total, records);
+    }
+
+    @Override
+    public void assignModerator(Long userId, String moduleCode, String moduleName, Long operatorId) {
+        if (userId == null || !StringUtils.hasText(moduleCode)) {
+            throw new BusinessException(ResultCode.PARAM_MISSING, "用户ID和模块编码不能为空");
+        }
+
+        // 检查是否已存在
+        int exists = forumModeratorMapper.checkExists(userId, moduleCode);
+        if (exists > 0) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "该用户已被分配此模块，请勿重复分配");
+        }
+
+        ForumModerator moderator = new ForumModerator();
+        moderator.setUserId(userId);
+        moderator.setModuleCode(moduleCode);
+        moderator.setModuleName(moduleName != null ? moduleName : moduleCode);
+        moderator.setAssignedBy(operatorId);
+
+        forumModeratorMapper.insert(moderator);
+        log.info("管理员 {} 为用户 {} 分配版主模块: {}", operatorId, userId, moduleCode);
+    }
+
+    @Override
+    public void removeModerator(Long id) {
+        if (id == null) {
+            throw new BusinessException(ResultCode.PARAM_MISSING);
+        }
+        int changed = forumModeratorMapper.deleteById(id);
+        if (changed == 0) {
+            throw new BusinessException(ResultCode.NOT_FOUND, "版主分配记录不存在");
+        }
+        log.info("移除版主模块分配记录: id={}", id);
+    }
+
+    @Override
+    public List<ForumModerator> getModeratorsByUserId(Long userId) {
+        if (userId == null) {
+            return List.of();
+        }
+        return forumModeratorMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List<String> getModeratorModuleCodes(Long userId) {
+        if (userId == null) {
+            return List.of();
+        }
+        return forumModeratorMapper.selectModuleCodesByUserId(userId);
+    }
+
+    @Override
+    public List<String> getUserRoleCodes(Long userId) {
+        if (userId == null) {
+            return List.of();
+        }
+        return adminSystemMapper.selectUserRoles(userId);
     }
 }

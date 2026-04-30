@@ -1,6 +1,7 @@
 package com.campus.forum.service;
 
 import com.campus.forum.common.PageResult;
+import com.campus.forum.entity.ForumModerator;
 import com.campus.forum.entity.ForumSection;
 import com.campus.forum.entity.ServiceProductCategory;
 import com.campus.forum.entity.SysPermission;
@@ -50,6 +51,7 @@ public interface AdminSystemService {
     PageResult<Map<String, Object>> getReports(Long current, Long size, Integer status, Integer targetType);
 
     void handleReport(Long reportId, Long handlerId, Integer status, String handleResult);
+    void resolvePostReport(Long reportId, Long handlerId, Integer postAuditStatus, String postAuditRemark, String handleResult);
     PageResult<Map<String, Object>> getLostFoundClaims(Long current, Long size, Integer status);
 
     void auditLostFoundClaim(Long claimId, Long operatorId, Integer auditStatus, String auditRemark);
@@ -58,4 +60,14 @@ public interface AdminSystemService {
     List<Map<String, Object>> getTrendStats(Integer days);
 
     List<Map<String, Object>> getSectionDistribution();
+
+    // ===== 版主模块管理 =====
+    PageResult<Map<String, Object>> getModerators(Long current, Long size, String keyword, String moduleCode);
+    void assignModerator(Long userId, String moduleCode, String moduleName, Long operatorId);
+    void removeModerator(Long id);
+    List<ForumModerator> getModeratorsByUserId(Long userId);
+    List<String> getModeratorModuleCodes(Long userId);
+
+    /** 获取用户的角色编码列表（如 ["ADMIN", "MODERATOR"]） */
+    List<String> getUserRoleCodes(Long userId);
 }

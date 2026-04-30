@@ -13,86 +13,157 @@ import java.util.Map;
 public interface UserCenterMapper {
 
     @Select("""
+            <script>
             SELECT id, title, content, create_time AS createTime, update_time AS updateTime,
               like_count AS likeCount, comment_count AS commentCount, favorite_count AS favoriteCount,
               audit_status AS auditStatus, status, 'post' AS type
             FROM forum_post
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyPostPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
-    @Select("SELECT COUNT(1) FROM forum_post WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyPostPublishes(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM forum_post
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyPostPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
+            <script>
             SELECT id, title, description AS content, create_time AS createTime, update_time AS updateTime,
               want_count AS likeCount, 0 AS commentCount, 0 AS favoriteCount,
               audit_status AS auditStatus, status, 'product' AS type
             FROM service_product
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyProductPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
-    @Select("SELECT COUNT(1) FROM service_product WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyProductPublishes(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM service_product
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyProductPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
+            <script>
             SELECT id, title, description AS content, create_time AS createTime, update_time AS updateTime,
               view_count AS likeCount, 0 AS commentCount, 0 AS favoriteCount,
               audit_status AS auditStatus, status, 'activity' AS type
             FROM service_activity
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyActivityPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
-    @Select("SELECT COUNT(1) FROM service_activity WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyActivityPublishes(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM service_activity
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyActivityPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
+            <script>
             SELECT id, title, description AS content, create_time AS createTime, update_time AS updateTime,
               view_count AS likeCount, 0 AS commentCount, 0 AS favoriteCount,
               audit_status AS auditStatus, status, 'help' AS type
             FROM service_help_request
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyHelpPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
-    @Select("SELECT COUNT(1) FROM service_help_request WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyHelpPublishes(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM service_help_request
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyHelpPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
+            <script>
             SELECT id, title, description AS content, create_time AS createTime, update_time AS updateTime,
               view_count AS likeCount, 0 AS commentCount, 0 AS favoriteCount,
               audit_status AS auditStatus, status, 'lostfound' AS type
             FROM service_lost_found
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyLostFoundPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
-    @Select("SELECT COUNT(1) FROM service_lost_found WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyLostFoundPublishes(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM service_lost_found
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyLostFoundPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
+            <script>
             SELECT *
             FROM (
               SELECT id, title, content, create_time AS createTime, update_time AS updateTime,
@@ -125,22 +196,44 @@ public interface UserCenterMapper {
               FROM service_lost_found
               WHERE deleted = 0 AND user_id = #{userId}
             ) t
+            <if test='keyword != null and keyword != ""'>
+              WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')
+            </if>
             ORDER BY createTime DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<Map<String, Object>> selectMyAllPublishes(@Param("userId") Long userId,
+            @Param("keyword") String keyword,
             @Param("offset") Long offset,
             @Param("size") Long size);
 
     @Select("""
+            <script>
             SELECT
-              (SELECT COUNT(1) FROM forum_post WHERE deleted = 0 AND user_id = #{userId})
-              + (SELECT COUNT(1) FROM service_product WHERE deleted = 0 AND user_id = #{userId})
-              + (SELECT COUNT(1) FROM service_activity WHERE deleted = 0 AND user_id = #{userId})
-              + (SELECT COUNT(1) FROM service_help_request WHERE deleted = 0 AND user_id = #{userId})
-              + (SELECT COUNT(1) FROM service_lost_found WHERE deleted = 0 AND user_id = #{userId})
+              (SELECT COUNT(1) FROM forum_post WHERE deleted = 0 AND user_id = #{userId}
+                <if test='keyword != null and keyword != ""'>
+                  AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+                </if>)
+              + (SELECT COUNT(1) FROM service_product WHERE deleted = 0 AND user_id = #{userId}
+                <if test='keyword != null and keyword != ""'>
+                  AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+                </if>)
+              + (SELECT COUNT(1) FROM service_activity WHERE deleted = 0 AND user_id = #{userId}
+                <if test='keyword != null and keyword != ""'>
+                  AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+                </if>)
+              + (SELECT COUNT(1) FROM service_help_request WHERE deleted = 0 AND user_id = #{userId}
+                <if test='keyword != null and keyword != ""'>
+                  AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+                </if>)
+              + (SELECT COUNT(1) FROM service_lost_found WHERE deleted = 0 AND user_id = #{userId}
+                <if test='keyword != null and keyword != ""'>
+                  AND (title LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%'))
+                </if>)
+            </script>
             """)
-    Long countMyAllPublishes(@Param("userId") Long userId);
+    Long countMyAllPublishes(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
             SELECT u.id, u.nickname, u.avatar, u.college, u.major, u.grade, u.user_type AS userType

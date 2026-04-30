@@ -8,6 +8,7 @@ import com.campus.forum.entity.SysUser;
 import com.campus.forum.exception.BusinessException;
 import com.campus.forum.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -245,6 +246,7 @@ public class ProductController {
     public Result<PageResult<ServiceProductOrder>> getMyOrders(
             @AuthenticationPrincipal SysUser currentUser,
             @RequestParam(required = false) String role,
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false) Long current,
             @RequestParam(required = false) Long page,
             @RequestParam(defaultValue = "10") Long size) {
@@ -252,9 +254,10 @@ public class ProductController {
         if (pageNo == null) {
             pageNo = 1L;
         }
-        return Result.success(productService.getMyOrders(currentUser.getId(), role, pageNo, size));
+        return Result.success(productService.getMyOrders(currentUser.getId(), role, keyword, pageNo, size));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('market:manage')")
     @GetMapping("/admin")
     public Result<PageResult<ServiceProduct>> getAdminProducts(
             @RequestParam(required = false) Long current,
@@ -272,6 +275,7 @@ public class ProductController {
         return Result.success(productService.getAdminProductList(pageNo, size, categoryId, status, auditStatus, tradeType, keyword));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('market:manage')")
     @PostMapping("/{id}/audit")
     public Result<Void> auditProduct(@PathVariable Long id,
             @RequestParam Integer auditStatus) {
@@ -279,10 +283,19 @@ public class ProductController {
         return Result.success();
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('market:manage')")
     @PostMapping("/admin/{id}/status")
     public Result<Void> updateProductStatusByAdmin(@PathVariable Long id,
             @RequestParam Integer status) {
         productService.updateSaleStatusByAdmin(id, status);
+        return Result.success();
+    }
+
+    /** 管理员删除商品（不限制 owner） */
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('market:manage')")
+    @DeleteMapping("/admin/{id}")
+    public Result<Void> deleteProductByAdmin(@PathVariable Long id) {
+        productService.deleteProductByAdmin(id);
         return Result.success();
     }
 

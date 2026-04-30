@@ -72,11 +72,11 @@ public class UserCenterServiceImpl implements UserCenterService {
         profile.put("createTime", targetUser.getCreateTime());
 
         Map<String, Object> stats = new LinkedHashMap<>();
-        Long postCount = safeLong(userCenterMapper.countMyPostPublishes(targetUserId));
-        Long productCount = safeLong(userCenterMapper.countMyProductPublishes(targetUserId));
-        Long activityCount = safeLong(userCenterMapper.countMyActivityPublishes(targetUserId));
-        Long helpCount = safeLong(userCenterMapper.countMyHelpPublishes(targetUserId));
-        Long lostFoundCount = safeLong(userCenterMapper.countMyLostFoundPublishes(targetUserId));
+        Long postCount = safeLong(userCenterMapper.countMyPostPublishes(targetUserId, null));
+        Long productCount = safeLong(userCenterMapper.countMyProductPublishes(targetUserId, null));
+        Long activityCount = safeLong(userCenterMapper.countMyActivityPublishes(targetUserId, null));
+        Long helpCount = safeLong(userCenterMapper.countMyHelpPublishes(targetUserId, null));
+        Long lostFoundCount = safeLong(userCenterMapper.countMyLostFoundPublishes(targetUserId, null));
         stats.put("publishCount", postCount + productCount + activityCount + helpCount + lostFoundCount);
         stats.put("postCount", postCount);
         stats.put("productCount", productCount);
@@ -146,38 +146,39 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public PageResult<Map<String, Object>> getMyPublishes(Long userId, String type, Long current, Long size) {
+    public PageResult<Map<String, Object>> getMyPublishes(Long userId, String type, String keyword, Long current, Long size) {
         long pageNo = current == null || current < 1 ? 1 : current;
         long pageSize = size == null || size < 1 ? 10 : size;
         long offset = (pageNo - 1) * pageSize;
         String publishType = normalizePublishType(type);
+        String searchKeyword = StringUtils.hasText(keyword) ? keyword.trim() : null;
 
         List<Map<String, Object>> records;
         Long total;
         switch (publishType) {
             case "post":
-                records = userCenterMapper.selectMyPostPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyPostPublishes(userId);
+                records = userCenterMapper.selectMyPostPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyPostPublishes(userId, searchKeyword);
                 break;
             case "product":
-                records = userCenterMapper.selectMyProductPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyProductPublishes(userId);
+                records = userCenterMapper.selectMyProductPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyProductPublishes(userId, searchKeyword);
                 break;
             case "activity":
-                records = userCenterMapper.selectMyActivityPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyActivityPublishes(userId);
+                records = userCenterMapper.selectMyActivityPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyActivityPublishes(userId, searchKeyword);
                 break;
             case "help":
-                records = userCenterMapper.selectMyHelpPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyHelpPublishes(userId);
+                records = userCenterMapper.selectMyHelpPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyHelpPublishes(userId, searchKeyword);
                 break;
             case "lostfound":
-                records = userCenterMapper.selectMyLostFoundPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyLostFoundPublishes(userId);
+                records = userCenterMapper.selectMyLostFoundPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyLostFoundPublishes(userId, searchKeyword);
                 break;
             default:
-                records = userCenterMapper.selectMyAllPublishes(userId, offset, pageSize);
-                total = userCenterMapper.countMyAllPublishes(userId);
+                records = userCenterMapper.selectMyAllPublishes(userId, searchKeyword, offset, pageSize);
+                total = userCenterMapper.countMyAllPublishes(userId, searchKeyword);
                 break;
         }
 
@@ -246,11 +247,11 @@ public class UserCenterServiceImpl implements UserCenterService {
     public Map<String, Object> getMyStats(Long userId) {
         Map<String, Object> data = new LinkedHashMap<>();
 
-        Long postCount = safeLong(userCenterMapper.countMyPostPublishes(userId));
-        Long productCount = safeLong(userCenterMapper.countMyProductPublishes(userId));
-        Long activityCount = safeLong(userCenterMapper.countMyActivityPublishes(userId));
-        Long helpCount = safeLong(userCenterMapper.countMyHelpPublishes(userId));
-        Long lostFoundCount = safeLong(userCenterMapper.countMyLostFoundPublishes(userId));
+        Long postCount = safeLong(userCenterMapper.countMyPostPublishes(userId, null));
+        Long productCount = safeLong(userCenterMapper.countMyProductPublishes(userId, null));
+        Long activityCount = safeLong(userCenterMapper.countMyActivityPublishes(userId, null));
+        Long helpCount = safeLong(userCenterMapper.countMyHelpPublishes(userId, null));
+        Long lostFoundCount = safeLong(userCenterMapper.countMyLostFoundPublishes(userId, null));
 
         data.put("publishCount", postCount + productCount + activityCount + helpCount + lostFoundCount);
         data.put("postCount", postCount);

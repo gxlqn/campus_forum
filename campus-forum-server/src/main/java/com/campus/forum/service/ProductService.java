@@ -16,6 +16,9 @@ public interface ProductService {
 
     void deleteProduct(Long id, Long userId);
 
+    /** 管理员删除（不限制 owner） */
+    void deleteProductByAdmin(Long id);
+
     void wantProduct(Long productId, Long userId);
 
     PageResult<ServiceProduct> getMyProducts(Long userId, Long current, Long size);
@@ -40,7 +43,7 @@ public interface ProductService {
 
     void confirmReceipt(Long orderId, Long userId);
 
-    PageResult<ServiceProductOrder> getMyOrders(Long userId, String role, Long current, Long size);
+    PageResult<ServiceProductOrder> getMyOrders(Long userId, String role, String keyword, Long current, Long size);
 
     PageResult<ServiceProduct> getAdminProductList(Long current, Long size, Long categoryId, Integer status, Integer auditStatus, Integer tradeType, String keyword);
 

@@ -23,6 +23,7 @@ Page({
     hasMore: true,
     loading: false,
     orders: [],
+    keyword: '',
     focusOrderId: null,
     showMeetupEditor: false,
     meetupForm: {
@@ -62,6 +63,7 @@ Page({
     try {
       const res = await api.getMyProductOrders({
         role: this.data.role,
+        keyword: this.data.keyword || undefined,
         current: this.data.page,
         size: this.data.size
       });
@@ -156,6 +158,19 @@ Page({
     this.setData({ status }, () => {
       this.loadOrders(true);
     });
+  },
+
+  onSearchInput(e) {
+    this.setData({ keyword: (e.detail.value || '').trim() });
+  },
+
+  onSearch() {
+    this.loadOrders(true);
+  },
+
+  onClearSearch() {
+    if (!this.data.keyword) return;
+    this.setData({ keyword: '' }, () => this.loadOrders(true));
   },
 
   noop() {},

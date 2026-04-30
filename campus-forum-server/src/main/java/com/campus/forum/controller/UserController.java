@@ -48,6 +48,7 @@ public class UserController {
     public Result<PageResult<Map<String, Object>>> getMyPublish(
             @AuthenticationPrincipal SysUser currentUser,
             @RequestParam(required = false) String type,
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false) Long current,
             @RequestParam(required = false) Long page,
             @RequestParam(defaultValue = "10") Long size) {
@@ -55,7 +56,7 @@ public class UserController {
         if (pageNo == null) {
             pageNo = 1L;
         }
-        return Result.success(userCenterService.getMyPublishes(currentUser.getId(), type, pageNo, size));
+        return Result.success(userCenterService.getMyPublishes(currentUser.getId(), type, keyword, pageNo, size));
     }
 
     @GetMapping("/follows")

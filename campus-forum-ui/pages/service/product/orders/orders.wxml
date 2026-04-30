@@ -23,6 +23,19 @@
     </view>
   </view>
 
+  <view class="search-bar">
+    <view class="search-inner">
+      <text class="search-icon">🔍</text>
+      <input class="search-input"
+             placeholder="搜索订单号、商品或地点"
+             value="{{keyword}}"
+             confirm-type="search"
+             bindinput="onSearchInput"
+             bindconfirm="onSearch" />
+      <text class="search-clear" wx:if="{{keyword}}" bindtap="onClearSearch">✕</text>
+    </view>
+  </view>
+
   <view class="order-list">
     <view class="order-card" wx:for="{{orders}}" wx:key="id" id="order-{{item.id}}">
       <view class="order-head">

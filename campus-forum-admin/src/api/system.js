@@ -93,6 +93,10 @@ export function handleReport(id, payload) {
   return http.patch(`/admin/system/reports/${id}/handle`, payload)
 }
 
+export function resolvePostReport(id, payload) {
+  return http.patch(`/admin/system/reports/${id}/resolve-post`, payload)
+}
+
 // 失物认领审核接口
 export function getLostFoundClaimList(params) {
   return http.get('/admin/system/lostfound-claims', { params })

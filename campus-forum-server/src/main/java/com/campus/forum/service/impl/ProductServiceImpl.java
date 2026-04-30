@@ -161,6 +161,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void deleteProductByAdmin(Long id) {
+        if (id == null) {
+            throw new BusinessException(ResultCode.PARAM_ERROR);
+        }
+        int changed = productMapper.deleteById(id);
+        if (changed == 0) {
+            throw new BusinessException(ResultCode.PRODUCT_NOT_FOUND, "商品不存在或已被删除");
+        }
+        searchSyncService.deleteProduct(id);
+    }
+
+    @Override
     public void wantProduct(Long productId, Long userId) {
         int changed = productMapper.insertWant(productId, userId);
         if (changed > 0) {
@@ -423,14 +435,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageResult<ServiceProductOrder> getMyOrders(Long userId, String role, Long current, Long size) {
+    public PageResult<ServiceProductOrder> getMyOrders(Long userId, String role, String keyword, Long current, Long size) {
         long pageNo = current == null || current < 1 ? 1 : current;
         long pageSize = size == null || size < 1 ? 10 : size;
         long offset = (pageNo - 1) * pageSize;
         String normalizedRole = "buyer".equalsIgnoreCase(role) ? "buyer" : ("seller".equalsIgnoreCase(role) ? "seller" : null);
-        List<ServiceProductOrder> records = productOrderMapper.selectMyOrders(userId, normalizedRole, offset, pageSize);
+        String searchKeyword = StringUtils.hasText(keyword) ? keyword.trim() : null;
+        List<ServiceProductOrder> records = productOrderMapper.selectMyOrders(userId, normalizedRole, searchKeyword, offset, pageSize);
         fillOrderRelations(records);
-        Long total = productOrderMapper.countMyOrders(userId, normalizedRole);
+        Long total = productOrderMapper.countMyOrders(userId, normalizedRole, searchKeyword);
         return new PageResult<>(pageNo, pageSize, total == null ? 0L : total, records);
     }
 

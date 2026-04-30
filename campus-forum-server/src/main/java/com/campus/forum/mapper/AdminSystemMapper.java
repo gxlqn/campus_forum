@@ -86,6 +86,14 @@ public interface AdminSystemMapper {
             """)
     List<Map<String, Object>> selectUserRoleInfo(@Param("userId") Long userId);
 
+    @Select("""
+            SELECT r.role_code
+            FROM sys_role r
+            INNER JOIN sys_user_role ur ON ur.role_id = r.id
+            WHERE ur.user_id = #{userId}
+            """)
+    List<String> selectUserRoles(@Param("userId") Long userId);
+
     @Select("SELECT * FROM sys_role ORDER BY sort ASC, id ASC")
     List<SysRole> selectRoles();
 
@@ -486,10 +494,19 @@ public interface AdminSystemMapper {
                    r.reason_type AS reasonType, r.reason, r.images, r.status, r.handle_user_id AS handleUserId,
                    r.handle_result AS handleResult, r.handle_time AS handleTime, r.create_time AS createTime,
                    COALESCE(u.nickname, u.username) AS reporterName,
-                   COALESCE(h.nickname, h.username) AS handlerName
+                   COALESCE(h.nickname, h.username) AS handlerName,
+                   COALESCE(r.target_title, p.title) AS targetTitle,
+                   COALESCE(r.target_content, p.content) AS targetContent,
+                   COALESCE(r.target_audit_status, p.audit_status) AS targetAuditStatus,
+                   COALESCE(r.target_status, p.status) AS targetStatus,
+                   COALESCE(r.target_audit_remark, p.audit_remark) AS targetAuditRemark,
+                   COALESCE(r.target_create_time, p.create_time) AS targetCreateTime,
+                   COALESCE(r.target_author_name, COALESCE(pa.nickname, pa.username)) AS targetAuthorName
             FROM sys_report r
             LEFT JOIN sys_user u ON u.id = r.user_id
             LEFT JOIN sys_user h ON h.id = r.handle_user_id
+            LEFT JOIN forum_post p ON p.id = r.target_id AND r.target_type = 1 AND p.deleted = 0
+            LEFT JOIN sys_user pa ON pa.id = p.user_id
             WHERE 1 = 1
             <if test='status != null'>
               AND r.status = #{status}
@@ -545,6 +562,17 @@ public interface AdminSystemMapper {
 
     @Select("SELECT user_id AS userId FROM forum_post WHERE id = #{id} AND deleted = 0 LIMIT 1")
     Long selectPostAuthorId(@Param("id") Long id);
+
+    @Select("""
+            SELECT p.title AS targetTitle, p.content AS targetContent, p.audit_status AS targetAuditStatus,
+                   p.status AS targetStatus, p.audit_remark AS targetAuditRemark, p.create_time AS targetCreateTime,
+                   COALESCE(u.nickname, u.username) AS targetAuthorName
+            FROM forum_post p
+            LEFT JOIN sys_user u ON u.id = p.user_id
+            WHERE p.id = #{id} AND p.deleted = 0
+            LIMIT 1
+            """)
+    Map<String, Object> selectPostReportSnapshot(@Param("id") Long id);
 
     @Select("SELECT user_id AS userId FROM forum_comment WHERE id = #{id} AND deleted = 0 LIMIT 1")
     Long selectCommentAuthorId(@Param("id") Long id);
@@ -612,8 +640,12 @@ public interface AdminSystemMapper {
                             @Param("targetId") Long targetId);
 
     @Insert("""
-            INSERT INTO sys_report(user_id, target_type, target_id, reason_type, reason, images, status)
-            VALUES(#{report.userId}, #{report.targetType}, #{report.targetId}, #{report.reasonType}, #{report.reason}, #{report.images}, 0)
+            INSERT INTO sys_report(user_id, target_type, target_id, reason_type, reason, images, status,
+              target_title, target_content, target_audit_status, target_status, target_audit_remark,
+              target_create_time, target_author_name)
+            VALUES(#{report.userId}, #{report.targetType}, #{report.targetId}, #{report.reasonType}, #{report.reason}, #{report.images}, 0,
+              #{report.targetTitle}, #{report.targetContent}, #{report.targetAuditStatus}, #{report.targetStatus}, #{report.targetAuditRemark},
+              #{report.targetCreateTime}, #{report.targetAuthorName})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "report.id")
     int insertReport(@Param("report") SysReport report);

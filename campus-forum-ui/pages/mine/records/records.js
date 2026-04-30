@@ -11,7 +11,8 @@ Page({
     current: 1,
     size: 10,
     hasMore: true,
-    loading: false
+    loading: false,
+    keyword: ''
   },
 
   onLoad() {
@@ -42,11 +43,15 @@ Page({
     this.setData({ loading: true });
     try {
       const type = this.data.tab === 'help' ? 'help' : 'activity';
-      const res = await api.getMyPublish({
+      const params = {
         type,
         current: this.data.current,
         size: this.data.size
-      });
+      };
+      if (this.data.keyword) {
+        params.keyword = this.data.keyword;
+      }
+      const res = await api.getMyPublish(params);
 
       const records = res?.data?.records || res?.records || [];
       const normalized = records.map((item) => ({
@@ -107,5 +112,18 @@ Page({
     if (a === 1) return '已通过';
     if (a === 2) return '已拒绝';
     return '待审核';
+  },
+
+  onSearchInput(e) {
+    this.setData({ keyword: (e.detail.value || '').trim() });
+  },
+
+  onSearch() {
+    this.loadRecords(true);
+  },
+
+  onClearSearch() {
+    if (!this.data.keyword) return;
+    this.setData({ keyword: '' }, () => this.loadRecords(true));
   }
 });

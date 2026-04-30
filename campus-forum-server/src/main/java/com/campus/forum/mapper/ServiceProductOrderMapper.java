@@ -142,12 +142,29 @@ public interface ServiceProductOrderMapper {
                 </if>
               )
             </if>
+            <if test='keyword != null and keyword != ""'>
+              AND (
+                order_no LIKE CONCAT('%', #{keyword}, '%')
+                OR meetup_place LIKE CONCAT('%', #{keyword}, '%')
+                OR cancel_reason LIKE CONCAT('%', #{keyword}, '%')
+                OR EXISTS (
+                  SELECT 1 FROM service_product p
+                  WHERE p.id = service_product_order.product_id
+                    AND p.deleted = 0
+                    AND (
+                      p.title LIKE CONCAT('%', #{keyword}, '%')
+                      OR p.description LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                )
+              )
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
             </script>
             """)
     List<ServiceProductOrder> selectMyOrders(@Param("userId") Long userId,
                                              @Param("role") String role,
+                                             @Param("keyword") String keyword,
                                              @Param("offset") Long offset,
                                              @Param("size") Long size);
 
@@ -168,7 +185,23 @@ public interface ServiceProductOrderMapper {
                 </if>
               )
             </if>
+            <if test='keyword != null and keyword != ""'>
+              AND (
+                order_no LIKE CONCAT('%', #{keyword}, '%')
+                OR meetup_place LIKE CONCAT('%', #{keyword}, '%')
+                OR cancel_reason LIKE CONCAT('%', #{keyword}, '%')
+                OR EXISTS (
+                  SELECT 1 FROM service_product p
+                  WHERE p.id = service_product_order.product_id
+                    AND p.deleted = 0
+                    AND (
+                      p.title LIKE CONCAT('%', #{keyword}, '%')
+                      OR p.description LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                )
+              )
+            </if>
             </script>
             """)
-    Long countMyOrders(@Param("userId") Long userId, @Param("role") String role);
+    Long countMyOrders(@Param("userId") Long userId, @Param("role") String role, @Param("keyword") String keyword);
 }

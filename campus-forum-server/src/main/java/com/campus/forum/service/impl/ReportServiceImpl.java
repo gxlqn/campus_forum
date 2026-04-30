@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Map;
+
 @Service
 public class ReportServiceImpl implements ReportService {
 
@@ -57,6 +59,20 @@ public class ReportServiceImpl implements ReportService {
         report.setReason(StringUtils.hasText(reason) ? reason.trim() : "");
         report.setImages(StringUtils.hasText(images) ? images : null);
         report.setStatus(0);
+
+        if (Integer.valueOf(1).equals(targetType)) {
+            Map<String, Object> snapshot = adminSystemMapper.selectPostReportSnapshot(targetId);
+            if (snapshot != null) {
+                report.setTargetTitle((String) snapshot.get("targetTitle"));
+                report.setTargetContent((String) snapshot.get("targetContent"));
+                report.setTargetAuditStatus(snapshot.get("targetAuditStatus") == null ? null : ((Number) snapshot.get("targetAuditStatus")).intValue());
+                report.setTargetStatus(snapshot.get("targetStatus") == null ? null : ((Number) snapshot.get("targetStatus")).intValue());
+                report.setTargetAuditRemark((String) snapshot.get("targetAuditRemark"));
+                report.setTargetCreateTime(snapshot.get("targetCreateTime") instanceof java.time.LocalDateTime
+                        ? (java.time.LocalDateTime) snapshot.get("targetCreateTime") : null);
+                report.setTargetAuthorName((String) snapshot.get("targetAuthorName"));
+            }
+        }
 
         adminSystemMapper.insertReport(report);
         log.info("用户 {} 提交举报: type={}, id={}, reason={}", userId, targetType, targetId,

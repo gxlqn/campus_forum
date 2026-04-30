@@ -19,6 +19,13 @@ public class SysReport {
     private String handleResult;
     private LocalDateTime handleTime;
     private LocalDateTime createTime;
+    private String targetTitle;
+    private String targetContent;
+    private Integer targetAuditStatus;
+    private Integer targetStatus;
+    private String targetAuditRemark;
+    private LocalDateTime targetCreateTime;
+    private String targetAuthorName;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -55,4 +62,25 @@ public class SysReport {
 
     public LocalDateTime getCreateTime() { return createTime; }
     public void setCreateTime(LocalDateTime createTime) { this.createTime = createTime; }
+
+    public String getTargetTitle() { return targetTitle; }
+    public void setTargetTitle(String targetTitle) { this.targetTitle = targetTitle; }
+
+    public String getTargetContent() { return targetContent; }
+    public void setTargetContent(String targetContent) { this.targetContent = targetContent; }
+
+    public Integer getTargetAuditStatus() { return targetAuditStatus; }
+    public void setTargetAuditStatus(Integer targetAuditStatus) { this.targetAuditStatus = targetAuditStatus; }
+
+    public Integer getTargetStatus() { return targetStatus; }
+    public void setTargetStatus(Integer targetStatus) { this.targetStatus = targetStatus; }
+
+    public String getTargetAuditRemark() { return targetAuditRemark; }
+    public void setTargetAuditRemark(String targetAuditRemark) { this.targetAuditRemark = targetAuditRemark; }
+
+    public LocalDateTime getTargetCreateTime() { return targetCreateTime; }
+    public void setTargetCreateTime(LocalDateTime targetCreateTime) { this.targetCreateTime = targetCreateTime; }
+
+    public String getTargetAuthorName() { return targetAuthorName; }
+    public void setTargetAuthorName(String targetAuthorName) { this.targetAuthorName = targetAuthorName; }
 }

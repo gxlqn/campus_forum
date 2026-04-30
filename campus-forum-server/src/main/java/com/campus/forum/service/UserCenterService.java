@@ -14,7 +14,7 @@ public interface UserCenterService {
 
     Map<String, Object> updateUserInfo(Long userId, SysUser update);
 
-    PageResult<Map<String, Object>> getMyPublishes(Long userId, String type, Long current, Long size);
+    PageResult<Map<String, Object>> getMyPublishes(Long userId, String type, String keyword, Long current, Long size);
 
     PageResult<Map<String, Object>> getMyFollows(Long userId, Long current, Long size);
 
