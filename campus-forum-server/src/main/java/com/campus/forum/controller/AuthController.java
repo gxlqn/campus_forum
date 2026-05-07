@@ -68,11 +68,13 @@ public class AuthController {
         SysUser user = userService.adminLogin(request.getUsername(), request.getPassword());
         String token = jwtUtils.generateToken(user.getId(), user.getUsername());
         List<String> roles = userService.getUserRoles(user.getId());
+        List<String> permissions = userService.getUserPermissionCodes(user.getId());
 
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         response.setUser(user);
         response.setRoles(roles);
+        response.setPermissions(permissions);
 
         return Result.success(response);
     }

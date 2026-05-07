@@ -1,8 +1,9 @@
 /**
- * 消息列表页
+ * 消息列表页 - ui-ux-pro-max 升级版
  */
 const api = require('../../../utils/api');
 const imageHelper = require('../../../utils/imageHelper');
+const imSocket = require('../../../utils/imSocket');
 
 Page({
     data: {
@@ -24,12 +25,31 @@ Page({
         ]
     },
 
+    imHandlersBound: false,
+    refreshTimer: null,
+    fallbackPollTimer: null,
+
     onLoad() {
         this.checkLogin();
     },
 
     onShow() {
         this.checkLogin();
+        this.bindImEvents();
+        imSocket.ensureConnected();
+        if (!imSocket.isConnected()) {
+            this.startFallbackPolling();
+        }
+    },
+
+    onHide() {
+        this.stopFallbackPolling();
+        this.unbindImEvents();
+    },
+
+    onUnload() {
+        this.stopFallbackPolling();
+        this.unbindImEvents();
     },
 
     onPullDownRefresh() {
@@ -52,6 +72,7 @@ Page({
                 likeCount: 0,
                 chatCount: 0
             });
+            this.unbindImEvents();
             return;
         }
         this.setData({ isLogin: true });
@@ -60,6 +81,9 @@ Page({
 
     async loadMessages() {
         if (!this.data.isLogin) {
+            return;
+        }
+        if (this.data.loading) {
             return;
         }
         this.setData({ loading: true });
@@ -109,6 +133,50 @@ Page({
         this.applyTabMessages(tab);
     },
 
+    async onMarkAllRead() {
+        wx.showModal({
+            title: '全部已读',
+            content: '将标记当前标签页所有消息为已读，是否继续？',
+            confirmColor: '#FF6B9D',
+            success: async (res) => {
+                if (!res.confirm) {
+                    return;
+                }
+                try {
+                    if (this.data.currentTab === 'chat') {
+                        // 标记所有会话已读
+                        const conversations = this.data.conversations;
+                        for (const conv of conversations) {
+                            if (conv.unreadCount > 0) {
+                                await api.markConversationRead(conv.conversationId);
+                            }
+                        }
+                    } else if (this.data.currentTab === 'system') {
+                        await api.markAllNotificationsRead();
+                    } else {
+                        // 标记评论/点赞通知已读
+                        const notifications = this.data.notifications.filter((item) => {
+                            if (this.data.currentTab === 'comment') {
+                                return (item.type === 2 || item.type === 3) && item.isRead !== 1;
+                            } else if (this.data.currentTab === 'like') {
+                                return item.type === 4 && item.isRead !== 1;
+                            }
+                            return false;
+                        });
+                        for (const notice of notifications) {
+                            await api.markNotificationRead(notice.id);
+                        }
+                    }
+                    wx.showToast({ title: '已标记全部已读', icon: 'success' });
+                    this.loadMessages();
+                } catch (err) {
+                    console.error('标记已读失败', err);
+                    wx.showToast({ title: '操作失败', icon: 'none' });
+                }
+            }
+        });
+    },
+
     onClearSystemNotifications() {
         if (this.data.currentTab !== 'system') {
             return;
@@ -143,18 +211,22 @@ Page({
     applyTabMessages(tab) {
         let messages = [];
         if (tab === 'chat') {
-            messages = this.data.conversations.map((item) => ({
-                id: item.conversationId,
-                targetUserId: item.targetUserId,
-                targetNickname: item.targetNickname || '未知用户',
-                user: {
-                    nickname: item.targetNickname || '未知用户',
-                    avatar: imageHelper.getFullImageUrl(item.targetAvatar)
-                },
-                lastTime: this.formatTime(item.lastMessageTime),
-                lastMessage: item.lastMessageContent || '',
-                unreadCount: item.unreadCount || 0
-            }));
+            messages = this.data.conversations.map((item) => {
+                const userAvatar = item.targetAvatar || '';
+                return {
+                    id: item.conversationId,
+                    targetUserId: item.targetUserId,
+                    targetNickname: item.targetNickname || '未知用户',
+                    user: {
+                        nickname: item.targetNickname || '未知用户',
+                        avatar: imageHelper.getFullImageUrl(userAvatar)
+                    },
+                    lastTime: this.formatTime(item.lastMessageTime),
+                    lastMessage: item.lastMessageContent || '',
+                    unreadCount: item.unreadCount || 0,
+                    isOnline: !!item.isOnline
+                };
+            });
         } else {
             const types = tab === 'system' ? [1, 8, 9] : (tab === 'comment' ? [2, 3] : [4]);
             messages = this.data.notifications
@@ -268,5 +340,97 @@ Page({
         wx.navigateTo({
             url: '/pages/auth/login/login'
         });
+    },
+
+    scheduleRefresh(delay = 200) {
+        if (!this.data.isLogin) {
+            return;
+        }
+        if (this.refreshTimer) {
+            return;
+        }
+        this.refreshTimer = setTimeout(() => {
+            this.refreshTimer = null;
+            this.loadMessages();
+        }, delay);
+    },
+
+    bindImEvents() {
+        if (this.imHandlersBound) {
+            return;
+        }
+
+        this.onImConnected = () => {
+            console.log('[IM][List] socket connected');
+            this.stopFallbackPolling();
+            this.scheduleRefresh(50);
+        };
+        this.onImDisconnected = () => {
+            console.log('[IM][List] socket disconnected');
+            this.startFallbackPolling();
+        };
+        this.onImMessage = (msg) => {
+            console.log('[IM][List] im-message', msg);
+            this.scheduleRefresh(120);
+        };
+        this.onImDelivery = (data) => {
+            console.log('[IM][List] im-delivery', data);
+            this.scheduleRefresh(120);
+        };
+        this.onImSendAck = (data) => {
+            console.log('[IM][List] im-send-ack', data);
+            this.scheduleRefresh(120);
+        };
+        this.onImSync = (data) => {
+            console.log('[IM][List] im-sync', data);
+            this.scheduleRefresh(120);
+        };
+
+        imSocket.on('connected', this.onImConnected);
+        imSocket.on('disconnected', this.onImDisconnected);
+        imSocket.on('im-message', this.onImMessage);
+        imSocket.on('im-delivery', this.onImDelivery);
+        imSocket.on('im-send-ack', this.onImSendAck);
+        imSocket.on('im-sync', this.onImSync);
+
+        this.imHandlersBound = true;
+    },
+
+    unbindImEvents() {
+        if (!this.imHandlersBound) {
+            return;
+        }
+        imSocket.off('connected', this.onImConnected);
+        imSocket.off('disconnected', this.onImDisconnected);
+        imSocket.off('im-message', this.onImMessage);
+        imSocket.off('im-delivery', this.onImDelivery);
+        imSocket.off('im-send-ack', this.onImSendAck);
+        imSocket.off('im-sync', this.onImSync);
+
+        this.imHandlersBound = false;
+
+        if (this.refreshTimer) {
+            clearTimeout(this.refreshTimer);
+            this.refreshTimer = null;
+        }
+    },
+
+    startFallbackPolling() {
+        if (this.fallbackPollTimer) {
+            return;
+        }
+        this.fallbackPollTimer = setInterval(() => {
+            if (this.data.isLogin) {
+                this.loadMessages();
+            }
+        }, 4000);
+    },
+
+    stopFallbackPolling() {
+        if (!this.fallbackPollTimer) {
+            return;
+        }
+        clearInterval(this.fallbackPollTimer);
+        this.fallbackPollTimer = null;
     }
 });

@@ -20,13 +20,16 @@ public class ImDeliveryRetryScheduler {
     private final ImDeliveryTaskMapper taskMapper;
     private final ImClusterMessageBroadcaster broadcaster;
     private final ImProperties imProperties;
+    private final ImMetricsService imMetricsService;
 
     public ImDeliveryRetryScheduler(ImDeliveryTaskMapper taskMapper,
             ImClusterMessageBroadcaster broadcaster,
-            ImProperties imProperties) {
+            ImProperties imProperties,
+            ImMetricsService imMetricsService) {
         this.taskMapper = taskMapper;
         this.broadcaster = broadcaster;
         this.imProperties = imProperties;
+        this.imMetricsService = imMetricsService;
     }
 
     @Scheduled(fixedDelayString = "${im.retry-scan-interval-ms:5000}")
@@ -48,6 +51,7 @@ public class ImDeliveryRetryScheduler {
             }
             if (retryCount != null && retryCount >= maxRetry) {
                 taskMapper.markGiveUp(taskId, "ACK_TIMEOUT_MAX_RETRY_REACHED");
+                imMetricsService.incrementWithReason("im.retry.giveup.total", "max_retry");
                 continue;
             }
 
@@ -57,6 +61,8 @@ public class ImDeliveryRetryScheduler {
             long backoff = (long) imProperties.getAckTimeoutMs() * (1L << exponent);
             LocalDateTime nextRetry = LocalDateTime.now().plusNanos(backoff * 1_000_000L);
             taskMapper.increaseRetry(taskId, nextRetry, "ACK_TIMEOUT_RETRY");
+            imMetricsService.increment("im.retry.triggered.total", "reason", "ack_timeout");
+            imMetricsService.distribution("im.retry.count", safeRetry + 1L, "reason", "ack_timeout");
             log.debug("IM retry dispatched. taskId={}, messageId={}, retryCount={}", taskId, messageId, safeRetry + 1);
         }
     }

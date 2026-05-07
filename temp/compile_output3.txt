@@ -1,0 +1,22 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.campus:campus-forum-server >-------------------
+[INFO] Building campus-forum-server 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ campus-forum-server ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ campus-forum-server ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 158 source files with javac [debug release 17] to target\classes
+[INFO] /D:/graduationProject/campus-forum/campus-forum-server/src/main/java/com/campus/forum/service/impl/SearchServiceImpl.java: D:\graduationProject\campus-forum\campus-forum-server\src\main\java\com\campus\forum\service\impl\SearchServiceImpl.javaʹ����δ�����򲻰�ȫ�Ĳ�����
+[INFO] /D:/graduationProject/campus-forum/campus-forum-server/src/main/java/com/campus/forum/service/impl/SearchServiceImpl.java: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.396 s
+[INFO] Finished at: 2026-04-24T20:26:36+08:00
+[INFO] ------------------------------------------------------------------------

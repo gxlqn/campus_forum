@@ -72,6 +72,11 @@ public class SysUserServiceImpl implements SysUserService {
         return roles;
     }
 
+    @Override
+    public List<String> getUserPermissionCodes(Long userId) {
+        return userMapper.selectUserPermissionCodes(userId);
+    }
+
     @Autowired
     private WxMaService wxMaService;
 
@@ -128,10 +133,6 @@ public class SysUserServiceImpl implements SysUserService {
             boolean needUpdate = false;
             if (StringUtils.hasText(unionId) && !unionId.equals(user.getUnionId())) {
                 user.setUnionId(unionId);
-                needUpdate = true;
-            }
-            if (StringUtils.hasText(nickname) && (user.getNickname() == null || user.getNickname().startsWith("用户"))) {
-                user.setNickname(nickname);
                 needUpdate = true;
             }
             if (StringUtils.hasText(avatar) && (user.getAvatar() == null || user.getAvatar().contains("default-avatar"))) {
@@ -228,7 +229,12 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ResultCode.USER_PASSWORD_ERROR);
         }
         List<String> roles = getUserRoles(user.getId());
-        boolean canAdmin = roles.stream().anyMatch(role -> "ADMIN".equalsIgnoreCase(role) || "SUPER_ADMIN".equalsIgnoreCase(role));
+        // 允许 SUPER_ADMIN / ADMIN / MODERATOR / MODERATOR_*（6个特定版主）角色登录管理后台
+        boolean canAdmin = roles.stream().anyMatch(role ->
+                "ADMIN".equalsIgnoreCase(role)
+                        || "SUPER_ADMIN".equalsIgnoreCase(role)
+                        || "MODERATOR".equalsIgnoreCase(role)
+                        || role.startsWith("MODERATOR_"));
         if (!canAdmin) {
             throw new BusinessException(ResultCode.FORBIDDEN);
         }

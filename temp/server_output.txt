@@ -1,0 +1,193 @@
+[INFO] Scanning for projects...
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/jooq/maven-metadata.xml
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/io/github/git-commit-id/maven-metadata.xml
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/flywaydb/maven-metadata.xml
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/springframework/boot/maven-metadata.xml
+Progress (1): 250 BProgress (2): 250 B | 235 BProgress (3): 250 B | 235 B | 399 BProgress (4): 250 B | 235 B | 399 B | 256 B                                           Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/springframework/boot/maven-metadata.xml (250 B at 378 B/s)
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/jetbrains/kotlin/maven-metadata.xml
+Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/flywaydb/maven-metadata.xml (235 B at 351 B/s)
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/liquibase/maven-metadata.xml
+Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/jooq/maven-metadata.xml (399 B at 587 B/s)
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/graalvm/buildtools/maven-metadata.xml
+Progress (2): 256 B | 376 BProgress (3): 256 B | 376 B | 243 BProgress (4): 256 B | 376 B | 243 B | 395 B                                           Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/graalvm/buildtools/maven-metadata.xml (243 B at 2.5 kB/s)
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/apache/maven/plugins/maven-metadata.xml
+Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/jetbrains/kotlin/maven-metadata.xml (376 B at 3.2 kB/s)
+Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/codehaus/mojo/maven-metadata.xml
+Progress (3): 256 B | 395 B | 7.3/21 kBProgress (3): 256 B | 395 B | 7.7/21 kBProgress (3): 256 B | 395 B | 21 kB                                       Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/liquibase/maven-metadata.xml (395 B at 2.4 kB/s)
+Progress (3): 256 B | 21 kB | 7.3/10 kBProgress (3): 256 B | 21 kB | 10 kB                                       Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/codehaus/mojo/maven-metadata.xml (21 kB at 288 kB/s)
+Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/org/apache/maven/plugins/maven-metadata.xml (10 kB at 105 kB/s)
+[WARNING] Could not validate integrity of download from https://maven.aliyun.com/repository/public/io/github/git-commit-id/maven-metadata.xml
+org.eclipse.aether.transfer.ChecksumFailureException: Checksum validation failed, no checksums available
+    at org.eclipse.aether.internal.impl.AbstractChecksumPolicy.onNoMoreChecksums (AbstractChecksumPolicy.java:63)
+    at org.eclipse.aether.connector.basic.ChecksumValidator.validate (ChecksumValidator.java:112)
+    at org.eclipse.aether.connector.basic.BasicRepositoryConnector$GetTaskRunner.runTask (BasicRepositoryConnector.java:462)
+    at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run (BasicRepositoryConnector.java:392)
+    at org.eclipse.aether.util.concurrency.RunnableErrorForwarder.lambda$wrap$0 (RunnableErrorForwarder.java:66)
+    at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get (BasicRepositoryConnector.java:212)
+    at org.eclipse.aether.internal.impl.DefaultMetadataResolver$ResolveTask.run (DefaultMetadataResolver.java:556)
+    at org.eclipse.aether.util.concurrency.RunnableErrorForwarder.lambda$wrap$0 (RunnableErrorForwarder.java:66)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker (ThreadPoolExecutor.java:1136)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:635)
+    at java.lang.Thread.run (Thread.java:833)
+[WARNING] Checksum validation failed, no checksums available from aliyunmaven for https://maven.aliyun.com/repository/public/io/github/git-commit-id/maven-metadata.xml
+Downloaded from aliyunmaven: https://maven.aliyun.com/repository/public/io/github/git-commit-id/maven-metadata.xml (256 B at 252 B/s)
+[INFO] 
+[INFO] -------------------< com.campus:campus-forum-server >-------------------
+[INFO] Building campus-forum-server 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ campus-forum-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ campus-forum-server ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ campus-forum-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ campus-forum-server ---
+[INFO] skip non existing resourceDirectory D:\graduationProject\campus-forum\campus-forum-server\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ campus-forum-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ campus-forum-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ campus-forum-server ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-04-24 20:19:09 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Starting CampusForumServerApplication using Java 17.0.8 with PID 78580 (D:\graduationProject\campus-forum\campus-forum-server\target\classes started by 马炒饭 in D:\graduationProject\campus-forum\campus-forum-server)
+2026-04-24 20:19:09 [restartedMain] DEBUG com.campus.forum.CampusForumServerApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-04-24 20:19:09 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 20:19:09 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-24 20:19:09 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-24 20:19:11 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Searching for mappers annotated with @Mapper
+2026-04-24 20:19:11 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Using auto-configuration base package 'com.campus.forum'
+2026-04-24 20:19:11 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:19:11 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 0 Elasticsearch repository interfaces.
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-24 20:19:12 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-04-24 20:19:14 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-04-24 20:19:14 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.4].
+2026-04-24 20:19:14 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-04-24 20:19:14 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-24 20:19:14 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-04-24 20:19:14 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-24 20:19:14 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4538 ms
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+2026-04-24 20:19:14 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Registered plugin: 'com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor@3b8ac3e7'
+2026-04-24 20:19:14 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+Initialization Sequence datacenterId:21 workerId:13
+2026-04-24 20:19:15 [restartedMain] DEBUG com.campus.forum.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6165fc14] was not registered for synchronization because synchronization is not active
+2026-04-24 20:19:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Starting...
+2026-04-24 20:19:16 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - CampusForumHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e9f68d9
+2026-04-24 20:19:16 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Start completed.
+JDBC Connection [HikariProxyConnection@1378584687 wrapping com.mysql.cj.jdbc.ConnectionImpl@3e9f68d9] will not be managed by Spring
+==>  Preparing: SELECT * FROM audit_sensitive_word WHERE is_enabled = 1 ORDER BY level DESC, LENGTH(word) DESC
+==> Parameters: 
+<==    Columns: id, word, category, level, replacement, is_enabled, remark, creator_id, create_time, update_time
+<==        Row: 6, 天安门事件, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 24, 恐怖袭击, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 1, 法轮功, 1, 3, null, 1, 邪教组织, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 14, 一夜情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 2, 台独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 3, 藏独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 4, 疆独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 5, 六四, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 7, 反党, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 8, 推翻, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 9, 暴动, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 10, 颠覆, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 11, 色情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 12, 淫秽, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 13, 裸聊, 2, 3, null, 1, 色情服务, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 15, 约炮, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 16, 援交, 2, 3, null, 1, 色情交易, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 17, 包养, 2, 3, null, 1, 不当关系, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 23, 炸药, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 20, 黄片, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 21, 杀人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 22, 炸弹, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 25, 砍人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 37, 赌博, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 38, 博彩, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 40, 毒品, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 41, 吸毒, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 42, 假币, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 29, 扫码关注, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 30, 兼职赚钱, 4, 2, null, 1, 广告, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 27, 加微信, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 26, 血腥, 3, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 44, 办证, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 31, 日赚, 4, 2, null, 1, 诈骗嫌疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 32, 刷单, 4, 2, null, 1, 违规行为, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 39, 彩票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 43, 发票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 28, 加QQ, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 19, AV, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 18, sm, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 35, 优惠券, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 33, 代购, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 36, 打折, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 34, 代理, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==      Total: 44
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6165fc14]
+2026-04-24 20:19:16 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - DFA引擎重建完成，内置+DB词库已加载, DB自定义词数量=44
+2026-04-24 20:19:16 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - 敏感词DFA引擎初始化完成，DB自定义词库数量=44
+=== 静态资源配置 ===
+配置路径: D:/graduationProject/campus-forum/campus-forum-server/uploads/
+访问路径: /uploads/** -> file:///D:/graduationProject/campus-forum/campus-forum-server/uploads/
+2026-04-24 20:19:19 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-04-24 20:19:19 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45e97a74, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@454ce26b, org.springframework.security.web.context.SecurityContextHolderFilter@66b8e09a, org.springframework.security.web.header.HeaderWriterFilter@76246ad6, org.springframework.web.filter.CorsFilter@dfe75e, org.springframework.security.web.authentication.logout.LogoutFilter@5489269c, com.campus.forum.security.JwtAuthenticationFilter@6a36808f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38bffabe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@64e6d7c3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3e2d6e94, org.springframework.security.web.session.SessionManagementFilter@61c242e3, org.springframework.security.web.access.ExceptionTranslationFilter@6dcc6ca1, org.springframework.security.web.access.intercept.AuthorizationFilter@e688465]
+2026-04-24 20:19:19 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+2026-04-24 20:19:20 [restartedMain] WARN  o.s.b.d.autoconfigure.OptionalLiveReloadServer - Unable to start LiveReload server
+2026-04-24 20:19:20 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-04-24 20:19:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Shutdown initiated...
+2026-04-24 20:19:21 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Shutdown completed.
+2026-04-24 20:19:21 [restartedMain] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-24 20:19:21 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  20.678 s
+[INFO] Finished at: 2026-04-24T20:19:22+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:run (default-cli) on project campus-forum-server: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

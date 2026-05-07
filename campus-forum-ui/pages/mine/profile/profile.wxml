@@ -1,4 +1,4 @@
-﻿﻿﻿<view class="container">
+﻿﻿﻿﻿﻿<view class="container">
   <!-- 顶部渐变背景区域 -->
   <view class="header-bg">
     <view class="bg-circle c1"></view>

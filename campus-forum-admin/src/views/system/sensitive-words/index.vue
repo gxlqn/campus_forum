@@ -2,8 +2,11 @@
   <div class="page-card">
     <el-card class="search-card">
       <el-form :inline="true">
+        <el-form-item label="词库类型">
+          <el-segmented v-model="query.wordType" :options="typeOptions" @change="handleSearch" />
+        </el-form-item>
         <el-form-item label="词库分类">
-          <el-select v-model="query.category" clearable placeholder="全部分类" style="width: 160px" @change="loadData">
+          <el-select v-model="query.category" clearable placeholder="全部分类" style="width: 160px" @change="handleSearch">
             <el-option :value="1" label="政治敏感" />
             <el-option :value="2" label="色情低俗" />
             <el-option :value="3" label="暴力恐怖" />
@@ -12,12 +15,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="关键词搜索">
-          <el-input v-model="query.keyword" placeholder="输入敏感词" clearable @keyup.enter="loadData" style="width: 200px" />
+          <el-input v-model="query.keyword" placeholder="输入敏感词" clearable @keyup.enter="handleSearch" style="width: 200px" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="loadData">查询</el-button>
+          <el-button type="primary" @click="handleSearch">查询</el-button>
           <el-button @click="handleReset">重置</el-button>
-          <el-button type="success" @click="showAddDialog">+ 添加敏感词</el-button>
+          <el-button type="success" @click="showAddDialog">+ 添加词条</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -25,9 +28,9 @@
     <el-card>
       <template #header>
         <div class="card-header-row">
-          <span>敏感词库管理</span>
+          <span>{{ currentTypeLabel }}管理</span>
           <div class="header-stats">
-            <el-tag type="info">共 {{ totalCount }} 条</el-tag>
+            <el-tag type="info">共 {{ total }} 条</el-tag>
             <el-tag size="small" :type="'danger'" v-if="levelStats[3] > 0">强级 {{ levelStats[3] }}</el-tag>
             <el-tag size="small" :type="'warning'" v-if="levelStats[2] > 0">中级 {{ levelStats[2] }}</el-tag>
             <el-tag size="small" :type="'info'" v-if="levelStats[1] > 0">弱级 {{ levelStats[1] }}</el-tag>
@@ -35,11 +38,16 @@
         </div>
       </template>
 
-      <el-table :data="filteredData" stripe v-loading="loading" border size="small">
+      <el-table :data="tableData" stripe v-loading="loading" border size="small">
         <el-table-column prop="id" label="ID" width="70" />
         <el-table-column prop="word" label="敏感词" width="150">
           <template #default="{ row }">
-            <el-text type="danger">{{ row.word }}</el-text>
+            <el-text :type="row.wordType === 2 ? 'success' : 'danger'">{{ row.word }}</el-text>
+          </template>
+        </el-table-column>
+        <el-table-column label="类型" width="100">
+          <template #default="{ row }">
+            <el-tag :type="row.wordType === 2 ? 'success' : 'danger'" size="small">{{ typeText(row.wordType) }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="分类" width="120">
@@ -76,14 +84,32 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <div class="pagination-row">
+        <el-pagination
+          v-model:current-page="query.current"
+          v-model:page-size="query.size"
+          :page-sizes="[10, 20, 50]"
+          :total="total"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="loadData"
+          @current-change="loadData"
+        />
+      </div>
     </el-card>
 
     <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑敏感词' : '添加敏感词'" width="520px" destroy-on-close>
-      <el-form ref="formRef" :model="form" :rules="formRules" label-width="90px">
+      <el-form ref="formRef" :model="form" :rules="activeRules" label-width="90px">
+        <el-form-item label="词库类型" prop="wordType">
+          <el-radio-group v-model="form.wordType">
+            <el-radio :label="1">黑名单</el-radio>
+            <el-radio :label="2">白名单</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="敏感词" prop="word">
           <el-input v-model="form.word" placeholder="请输入敏感词" maxlength="50" show-word-limit />
         </el-form-item>
-        <el-form-item label="分类" prop="category">
+        <el-form-item v-if="form.wordType === 1" label="分类" prop="category">
           <el-select v-model="form.category" style="width: 100%">
             <el-option :value="1" label="政治敏感" />
             <el-option :value="2" label="色情低俗" />
@@ -92,14 +118,14 @@
             <el-option :value="5" label="其他违规" />
           </el-select>
         </el-form-item>
-        <el-form-item label="等级" prop="level">
+        <el-form-item v-if="form.wordType === 1" label="等级" prop="level">
           <el-radio-group v-model="form.level">
             <el-radio :label="1">弱级(标记可疑)</el-radio>
             <el-radio :label="2">中级(转人工)</el-radio>
             <el-radio :label="3">强级(直接拒绝)</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="替换词">
+        <el-form-item v-if="form.wordType === 1" label="替换词">
           <el-input v-model="form.replacement" placeholder="可选，命中时自动替换（留空则不替换）" />
         </el-form-item>
         <el-form-item label="备注">
@@ -126,10 +152,17 @@ const isEdit = ref(false)
 const formRef = ref(null)
 
 const tableData = ref([])
-const query = reactive({ category: null, keyword: '' })
+const total = ref(0)
+const query = reactive({ current: 1, size: 10, wordType: 1, category: null, keyword: '' })
+
+const typeOptions = [
+  { label: '黑名单', value: 1 },
+  { label: '白名单', value: 2 }
+]
 
 const form = reactive({
   id: null,
+  wordType: 1,
   word: '',
   category: 1,
   level: 1,
@@ -140,19 +173,22 @@ const form = reactive({
 
 const formRules = {
   word: [{ required: true, message: '请输入敏感词', trigger: 'blur' }],
+  wordType: [{ required: true, message: '请选择词库类型', trigger: 'change' }],
   category: [{ required: true, message: '请选择分类', trigger: 'change' }],
   level: [{ required: true, message: '请选择等级', trigger: 'change' }]
 }
 
-const totalCount = computed(() => tableData.value.length)
-const filteredData = computed(() => {
-  let list = tableData.value
-  if (query.keyword) {
-    const kw = query.keyword.toLowerCase()
-    list = list.filter(item => item.word.toLowerCase().includes(kw))
+const activeRules = computed(() => {
+  if (form.wordType === 2) {
+    const rules = { ...formRules }
+    delete rules.category
+    delete rules.level
+    return rules
   }
-  return list
+  return formRules
 })
+
+const currentTypeLabel = computed(() => typeText(query.wordType) + '词库')
 
 const levelStats = computed(() => {
   const stats = { 1: 0, 2: 0, 3: 0 }
@@ -179,27 +215,41 @@ function levelTagType(l) {
   return map[l] || ''
 }
 
+function typeText(type) {
+  return type === 2 ? '白名单' : '黑名单'
+}
+
 async function loadData() {
   loading.value = true
   try {
-    const params = {}
+    const params = { current: query.current, size: query.size, wordType: query.wordType }
     if (query.category) params.category = query.category
+    if (query.keyword) params.keyword = query.keyword
     const res = await getSensitiveWords(params)
-    tableData.value = Array.isArray(res) ? res : (res.data || [])
+    const page = res.data || res
+    tableData.value = page.records || []
+    total.value = page.total || 0
   } catch (_) {
   } finally {
     loading.value = false
   }
 }
 
+function handleSearch() {
+  query.current = 1
+  loadData()
+}
+
 function handleReset() {
+  query.wordType = 1
   query.category = null
   query.keyword = ''
+  query.current = 1
   loadData()
 }
 
 function resetForm() {
-  Object.assign(form, { id: null, word: '', category: 1, level: 1, replacement: '', remark: '', isEnabled: 1 })
+  Object.assign(form, { id: null, wordType: query.wordType, word: '', category: 1, level: 1, replacement: '', remark: '', isEnabled: 1 })
 }
 
 function showAddDialog() {
@@ -261,4 +311,5 @@ onMounted(loadData)
 .search-card { margin-bottom: 16px; }
 .card-header-row { display: flex; justify-content: space-between; align-items: center; }
 .header-stats { display: flex; gap: 6px; }
+.pagination-row { display: flex; justify-content: flex-end; margin-top: 16px; }
 </style>

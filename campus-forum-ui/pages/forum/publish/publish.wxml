@@ -42,5 +42,5 @@
   </view>
 
   <!-- 提交按钮 -->
-  <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="submit">发布帖子</button>
+  <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="submit">{{isEdit ? '保存修改' : '发布帖子'}}</button>
 </view>

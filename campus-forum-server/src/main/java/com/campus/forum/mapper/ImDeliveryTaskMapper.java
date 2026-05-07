@@ -38,7 +38,7 @@ public interface ImDeliveryTaskMapper {
               create_time AS createTime, update_time AS updateTime
             FROM message_delivery_task
             WHERE status = 0
-              AND next_retry_time &lt;= #{now}
+              AND next_retry_time <= #{now}
             ORDER BY next_retry_time ASC
             LIMIT #{size}
             """)

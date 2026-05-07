@@ -1,9 +1,52 @@
 {
   "settings": {
     "analysis": {
+      "filter": {
+        "synonym_filter": {
+          "type": "synonym",
+          "synonyms_path": "analysis/synonyms.txt"
+        },
+        "pinyin_filter": {
+          "type": "pinyin",
+          "keep_full_pinyin": true,
+          "keep_joined_full_pinyin": true,
+          "keep_original": true,
+          "keep_first_letter": true,
+          "keep_separate_first_letter": false,
+          "none_chinese_pinyin_tokenize": false,
+          "remove_duplicated_term": true
+        },
+        "pinyin_uv_norm": {
+          "type": "pattern_replace",
+          "pattern": "ü",
+          "replacement": "v"
+        }
+      },
       "analyzer": {
-        "default": {
-          "type": "standard"
+        "ik_smart_synonym": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": ["lowercase", "synonym_filter"]
+        },
+        "ik_max_word_synonym": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": ["lowercase", "synonym_filter"]
+        },
+        "ik_max_word_pinyin": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": ["lowercase", "synonym_filter", "pinyin_filter", "pinyin_uv_norm"]
+        },
+        "ik_smart_pinyin": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": ["lowercase", "pinyin_filter", "pinyin_uv_norm"]
+        },
+        "keyword_lowercase": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": ["lowercase"]
         }
       }
     }
@@ -12,12 +55,35 @@
     "dynamic": false,
     "properties": {
       "id": { "type": "long" },
-      "title": { "type": "text" },
-      "description": { "type": "text" },
-      "location": { "type": "keyword" },
+      "title": {
+        "type": "text",
+        "analyzer": "ik_max_word_pinyin",
+        "search_analyzer": "ik_smart"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "ik_max_word_synonym",
+        "search_analyzer": "ik_smart_synonym"
+      },
+      "location": {
+        "type": "text",
+        "analyzer": "ik_smart_synonym",
+        "fields": { "keyword": { "type": "keyword" } }
+      },
       "organizer": { "type": "keyword" },
-      "startTime": { "type": "date", "format": "strict_date_optional_time||epoch_millis" },
-      "updateTime": { "type": "date", "format": "strict_date_optional_time||epoch_millis" }
+      "startTime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis"
+      },
+      "updateTime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis"
+      },
+      "suggest": {
+        "type": "completion",
+        "analyzer": "ik_smart_pinyin",
+        "search_analyzer": "keyword_lowercase"
+      }
     }
   }
 }

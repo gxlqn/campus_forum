@@ -11,6 +11,8 @@ Page({
     data: {
         postId: null,
         post: null,
+        isOwner: false,
+        showOwnerMenu: false,
         comments: [],
         commentContent: '',
         replyTo: null,
@@ -39,9 +41,14 @@ Page({
             if (this.data.initedAt && Date.now() - this.data.initedAt < 1200) {
                 return;
             }
-            this.refreshPostDetail();
-            this.loadComments(true);
+            if (this.data.post) {
+                this.refreshPostDetail();
+            }
         }
+    },
+
+    onPageTap() {
+        this.closeOwnerMenu();
     },
 
     onPullDownRefresh() {
@@ -224,44 +231,19 @@ Page({
     async loadPostDetail() {
         try {
             this.setData({ pageLoading: true });
-            wx.showLoading({ title: '加载中...' });
-            
             const res = await api.getPostDetail(this.data.postId);
             const post = res.data;
-            
+
             if (!post) {
                 throw new Error('帖子不存在');
             }
-            
-            console.log('原始帖子数据:', post);
-            console.log('原始图片字段:', post.images, '类型:', typeof post.images);
-            
-            // 处理帖子数据中的图片
+
             const processedPost = this.processPostImages(post);
-            
-            console.log('处理后的帖子数据:', processedPost);
-            console.log('处理后的图片列表:', processedPost.imageList);
-            
-            // 真机调试诊断信息
-            if (processedPost.imageList && processedPost.imageList.length > 0) {
-                console.log('=== 图片URL诊断 ===');
-                console.log('staticBaseUrl:', app.globalData?.staticBaseUrl);
-                console.log('baseUrl:', app.globalData?.baseUrl);
-                console.log('系统信息:', wx.getSystemInfoSync());
-                processedPost.imageList.forEach((url, idx) => {
-                    console.log(`图片[${idx}]:`, url);
-                });
-            }
-            
-            this.setData({ post: processedPost });
-            
-            wx.setNavigationBarTitle({
-                title: post.section?.sectionName || '帖子详情'
-            });
-            
-            // 注释：已回退预下载方案，使用 urlCheck:false 跳过域名检测
-            // await this.downloadAllImages();
-            
+
+            const postUserId = post.userId || (post.author && post.author.id);
+            const currentUserId = this.data.currentUserInfo.id;
+            const owner = postUserId && currentUserId && Number(postUserId) === Number(currentUserId);
+            this.setData({ post: processedPost, isOwner: !!owner });
         } catch (err) {
             console.error('加载帖子详情失败', err);
             wx.showToast({
@@ -269,7 +251,6 @@ Page({
                 icon: 'none'
             });
         } finally {
-            wx.hideLoading();
             this.setData({ pageLoading: false });
         }
     },
@@ -277,27 +258,23 @@ Page({
     // 刷新帖子详情（静默刷新，不显示loading，不增加浏览量）
     async refreshPostDetail() {
         try {
-            // 传入 incrementView=false 避免重复计算浏览量
             const res = await api.getPostDetail(this.data.postId, { incrementView: false });
             const post = res.data;
-            
+
             if (!post) {
                 return;
             }
-            
-            // 处理帖子数据中的图片
+
             const processedPost = this.processPostImages(post);
-            
-            // 检查浏览量是否有变化
-            const oldViewCount = this.data.post?.viewCount || 0;
-            const newViewCount = processedPost.viewCount || 0;
-            
-            if (oldViewCount !== newViewCount) {
-                console.log(`浏览量更新: ${oldViewCount} -> ${newViewCount}`);
+
+            const postUserId = post.userId || (post.author && post.author.id);
+            const currentUserId = this.data.currentUserInfo.id;
+            const owner = postUserId && currentUserId && Number(postUserId) === Number(currentUserId);
+            if (owner !== this.data.isOwner) {
+                this.setData({ isOwner: owner });
             }
-            
+
             this.setData({ post: processedPost });
-            
         } catch (err) {
             console.error('刷新帖子详情失败', err);
         }
@@ -647,6 +624,47 @@ Page({
         const app = getApp();
         if (app.checkNeedLogin && app.checkNeedLogin()) return;
         this.selectComponent('#reportDialog').show(1, this.data.postId);
+    },
+
+    toggleOwnerMenu() {
+        this.setData({ showOwnerMenu: !this.data.showOwnerMenu });
+    },
+
+    closeOwnerMenu() {
+        if (this.data.showOwnerMenu) {
+            this.setData({ showOwnerMenu: false });
+        }
+    },
+
+    // 编辑帖子
+    handleEdit() {
+        const post = this.data.post;
+        if (!post) return;
+        const images = post.imageList || [];
+        wx.navigateTo({
+            url: `/pages/forum/publish/publish?edit=1&postId=${post.id}&sectionId=${post.sectionId || ''}&title=${encodeURIComponent(post.title || '')}&content=${encodeURIComponent(post.content || '')}&images=${encodeURIComponent(JSON.stringify(images))}&isAnonymous=${post.isAnonymous || 0}`
+        });
+    },
+
+    // 删除帖子
+    handleDelete() {
+        this.closeOwnerMenu();
+        wx.showModal({
+            title: '确认删除',
+            content: '删除后不可恢复，确定要删除这条帖子吗？',
+            confirmColor: '#E74C3C',
+            success: async (res) => {
+                if (!res.confirm) return;
+                try {
+                    await api.deletePost(this.data.postId);
+                    wx.showToast({ title: '已删除', icon: 'success' });
+                    wx.setStorageSync('refresh_forum_list', true);
+                    setTimeout(() => { wx.navigateBack(); }, 1000);
+                } catch (err) {
+                    wx.showToast({ title: err.message || '删除失败', icon: 'none' });
+                }
+            }
+        });
     },
 
     async loadCurrentUserInfo() {

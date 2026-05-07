@@ -9,6 +9,8 @@ const FORUM_LIST_REFRESH_KEY = 'refresh_forum_list';
 
 Page({
     data: {
+        isEdit: false,
+        editPostId: null,
         sections: [],
         sectionId: null,
         sectionName: '选择板块',
@@ -26,6 +28,24 @@ Page({
                 sectionName: options.sectionName || '选择板块'
             });
         }
+        // 编辑模式：从参数中读取帖子数据
+        if (options.edit === '1' && options.postId) {
+            this.setData({
+                isEdit: true,
+                editPostId: options.postId,
+                sectionId: options.sectionId || null,
+                title: decodeURIComponent(options.title || ''),
+                content: decodeURIComponent(options.content || ''),
+                isAnonymous: parseInt(options.isAnonymous) === 1
+            });
+            try {
+                const imagesArr = JSON.parse(decodeURIComponent(options.images || '[]'));
+                this.setData({ images: Array.isArray(imagesArr) ? imagesArr : [] });
+            } catch (e) {
+                this.setData({ images: [] });
+            }
+            wx.setNavigationBarTitle({ title: '编辑帖子' });
+        }
         this.loadSections();
     },
 
@@ -33,7 +53,15 @@ Page({
     async loadSections() {
         try {
             const res = await api.getSections();
-            this.setData({ sections: (res && res.data) || [] });
+            const sections = (res && res.data) || [];
+            this.setData({ sections });
+            // 编辑模式下，设置板块名称
+            if (this.data.isEdit && this.data.sectionId) {
+                const sec = sections.find(s => String(s.id) === String(this.data.sectionId));
+                if (sec) {
+                    this.setData({ sectionName: sec.sectionName });
+                }
+            }
         } catch (err) {
             console.error('加载板块失败', err);
         }
@@ -112,9 +140,9 @@ Page({
         this.setData({ isAnonymous: !this.data.isAnonymous });
     },
 
-    // 发布
+    // 发布/编辑
     async submit() {
-        const { sectionId, title, content, images, isAnonymous } = this.data;
+        const { sectionId, title, content, images, isAnonymous, isEdit, editPostId } = this.data;
 
         // 验证
         if (!sectionId) {
@@ -133,28 +161,25 @@ Page({
         this.setData({ submitting: true });
 
         try {
-            const res = await api.publishPost({
+            const postData = {
                 sectionId: sectionId,
                 title: title.trim(),
                 content: content.trim(),
                 images: images.length > 0 ? JSON.stringify(images) : null,
                 isAnonymous: isAnonymous ? 1 : 0
-            });
+            };
 
-            // 根据审核状态给用户不同提示
-            const post = res.data;
-            if (post && post.auditStatus === 0) {
-                wx.showToast({
-                    title: '发布成功，等待审核',
-                    icon: 'none',
-                    duration: 1500
-                });
+            if (isEdit) {
+                await api.updatePost(editPostId, postData);
+                wx.showToast({ title: '修改成功', icon: 'success', duration: 1500 });
             } else {
-                wx.showToast({
-                    title: '发布成功',
-                    icon: 'success',
-                    duration: 1500
-                });
+                const res = await api.publishPost(postData);
+                const post = res.data;
+                if (post && post.auditStatus === 0) {
+                    wx.showToast({ title: '发布成功，等待审核', icon: 'none', duration: 1500 });
+                } else {
+                    wx.showToast({ title: '发布成功', icon: 'success', duration: 1500 });
+                }
             }
 
             wx.setStorageSync(FORUM_LIST_REFRESH_KEY, true);
@@ -163,10 +188,9 @@ Page({
                 wx.navigateBack();
             }, 1500);
         } catch (err) {
-            console.error('发布失败', err);
-            // request.js 已对服务端错误自动 showToast，此处补充兜底提示
+            console.error('提交失败', err);
             if (err && !err.message) {
-                wx.showToast({ title: '发布失败，请稍后重试', icon: 'none' });
+                wx.showToast({ title: '提交失败，请稍后重试', icon: 'none' });
             }
         } finally {
             this.setData({ submitting: false });

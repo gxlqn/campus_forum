@@ -238,7 +238,7 @@ public interface MessageMapper {
 
     @Select("""
             SELECT id, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId,
-              client_message_id AS clientMessageId, is_read AS isRead
+              client_message_id AS clientMessageId, is_read AS isRead, create_time AS createTime
             FROM message_private
             WHERE id = #{messageId}
               AND deleted = 0

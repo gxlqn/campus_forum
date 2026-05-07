@@ -19,53 +19,60 @@
           class="custom-menu"
           router
         >
+          <!-- 仪表盘：所有已登录用户可见 -->
           <el-menu-item index="/dashboard">
             <el-icon><Odometer /></el-icon>
             <template #title>仪表盘</template>
           </el-menu-item>
 
-          <el-sub-menu index="system">
+          <!-- 系统管理（根据权限动态过滤） -->
+          <el-sub-menu v-if="hasAnyMenuPermission(systemMenus)" index="system">
             <template #title>
               <el-icon><Setting /></el-icon>
               <span>系统管理</span>
             </template>
-            <el-menu-item index="/system/user">用户管理</el-menu-item>
-            <el-menu-item index="/system/role">角色权限</el-menu-item>
-            <el-menu-item index="/system/audit">内容审核</el-menu-item>
-            <el-menu-item index="/system/sensitive-words">敏感词库</el-menu-item>
-            <el-menu-item index="/system/report">举报处理</el-menu-item>
+            <el-menu-item v-for="item in systemMenus" :key="item.index"
+                          :index="item.index" v-show="hasPermission(item.permission)">
+              {{ item.label }}
+            </el-menu-item>
+            <!-- 版主管理仅 SUPER_ADMIN 可见 -->
+            <el-menu-item v-if="isSuperAdmin" index="/system/moderator">版主管理</el-menu-item>
           </el-sub-menu>
 
-          <el-sub-menu index="forum">
+          <!-- 论坛管理 -->
+          <el-sub-menu v-if="hasAnyMenuPermission(forumMenus)" index="forum">
             <template #title>
               <el-icon><ChatDotRound /></el-icon>
               <span>论坛管理</span>
             </template>
-            <el-menu-item index="/forum/section">板块管理</el-menu-item>
-            <el-menu-item index="/forum/post">帖子管理</el-menu-item>
+            <el-menu-item v-for="item in forumMenus" :key="item.index"
+                          :index="item.index" v-show="hasPermission(item.permission)">
+              {{ item.label }}
+            </el-menu-item>
           </el-sub-menu>
 
-          <el-sub-menu index="service">
+          <!-- 服务管理 -->
+          <el-sub-menu v-if="hasAnyMenuPermission(serviceMenus)" index="service">
             <template #title>
               <el-icon><Service /></el-icon>
               <span>服务管理</span>
             </template>
-            <el-menu-item index="/service/product">商品分类</el-menu-item>
-            <el-menu-item index="/service/product/manage">商品管理</el-menu-item>
-            <el-menu-item index="/service/lostfound">失物招领</el-menu-item>
-            <el-menu-item index="/service/lostfound/claim">认领审核</el-menu-item>
-            <el-menu-item index="/service/activity">活动管</el-menu-item>
-            <el-menu-item index="/service/help">互助管理</el-menu-item>
-            <el-menu-item index="/service/help/arbitration">互助仲裁</el-menu-item>
+            <el-menu-item v-for="item in serviceMenus" :key="item.index"
+                          :index="item.index" v-show="hasPermission(item.permission)">
+              {{ item.label }}
+            </el-menu-item>
           </el-sub-menu>
 
-          <el-sub-menu index="info">
+          <!-- 信息管理 -->
+          <el-sub-menu v-if="hasAnyMenuPermission(infoMenus)" index="info">
             <template #title>
               <el-icon><Notification /></el-icon>
               <span>信息管理</span>
             </template>
-            <el-menu-item index="/info/news">校园资讯</el-menu-item>
-            <el-menu-item index="/info/nav">服务导航</el-menu-item>
+            <el-menu-item v-for="item in infoMenus" :key="item.index"
+                          :index="item.index" v-show="hasPermission(item.permission)">
+              {{ item.label }}
+            </el-menu-item>
           </el-sub-menu>
         </el-menu>
       </div>
@@ -88,7 +95,6 @@
 
         <div class="header-right">
           <div class="header-actions">
-            <!-- 预留操作区，如通知、全屏等 -->
             <el-tooltip content="通知中心" placement="bottom">
               <div class="action-item">
                 <el-icon><Bell /></el-icon>
@@ -96,14 +102,17 @@
               </div>
             </el-tooltip>
           </div>
-          
+
           <el-dropdown @command="handleCommand" trigger="click">
             <div class="user-info">
               <el-avatar :size="36" src="" class="user-avatar">
                 <template #default>管</template>
               </el-avatar>
               <div class="user-desc">
-                <span class="user-name">{{ userInfo?.nickname || '超级管理员' }}</span>
+                <span class="user-name">{{ userInfo?.nickname || '管理员' }}</span>
+                <el-tag v-if="userRoles.length > 0" size="small" type="primary" style="margin-left: 6px;">
+                  {{ primaryRoleLabel }}
+                </el-tag>
                 <el-icon class="user-dropdown-icon"><CaretBottom /></el-icon>
               </div>
             </div>
@@ -144,6 +153,89 @@ const userInfo = computed(() => {
   const info = localStorage.getItem('userInfo')
   return info ? JSON.parse(info) : null
 })
+
+// 用户角色列表
+const userRoles = computed(() => userInfo.value?.roles || [])
+
+// 主角角色显示名
+const primaryRoleLabel = computed(() => {
+  const roleMap = {
+    'SUPER_ADMIN': '超管',
+    'ADMIN': '管理员',
+    'MODERATOR': '版主',
+    'MODERATOR_FORUM': '论坛版主',
+    'MODERATOR_MARKET': '市场版主',
+    'MODERATOR_LOSTFOUND': '失物招领版主',
+    'MODERATOR_ACTIVITY': '活动版主',
+    'MODERATOR_HELP': '互助版主',
+    'MODERATOR_INFO': '资讯导航版主'
+  }
+  for (const r of userRoles.value) {
+    if (roleMap[r]) return roleMap[r]
+  }
+  return '用户'
+})
+
+// 是否是超级管理员（可访问版主管理等系统配置功能）
+const isSuperAdmin = computed(() => {
+  return userRoles.value.includes('SUPER_ADMIN')
+})
+
+// 用户权限码列表
+const userPermissions = computed(() => userInfo.value?.permissions || [])
+
+// 权限检查方法
+const hasPermission = (permission) => {
+  // 无 permission 字段的菜单项始终可见（如仪表盘）
+  if (!permission) return true
+  // 超级管理员拥有所有权限
+  if (userRoles.value.includes('SUPER_ADMIN')) return true
+  // 普通管理员：有系统权限但无角色权限管理
+  if (userRoles.value.includes('ADMIN')) {
+    // 管理员不能访问角色/权限管理
+    if (permission === 'system:role') return false
+    return true
+  }
+  // 版主类角色（含 MODERATOR 和 MODERATOR_*）：严格按权限码校验
+  const isModerator = userRoles.value.some(r => r === 'MODERATOR' || r.startsWith('MODERATOR_'))
+  if (isModerator) {
+    return userPermissions.value.includes(permission)
+  }
+  return false
+}
+
+const hasAnyMenuPermission = (menus) => {
+  return menus.some(m => hasPermission(m.permission))
+}
+
+// ===== 各分组菜单定义（含权限标识） =====
+const systemMenus = [
+  { index: '/system/user', label: '用户管理', permission: 'system:user' },
+  { index: '/system/role', label: '角色权限', permission: 'system:role' },
+  { index: '/system/audit', label: '内容审核', permission: 'system:audit' },
+  { index: '/system/sensitive-words', label: '敏感词库', permission: 'system:sensitive' },
+  { index: '/system/report', label: '举报处理', permission: 'system:report' },
+]
+
+const forumMenus = [
+  { index: '/forum/section', label: '板块管理', permission: 'forum:section' },
+  { index: '/forum/post', label: '帖子管理', permission: 'forum:post' },
+]
+
+const serviceMenus = [
+  { index: '/service/product', label: '商品分类', permission: 'service:category' },
+  { index: '/service/product/manage', label: '商品管理', permission: 'market:manage' },
+  { index: '/service/lostfound', label: '失物招领', permission: 'lostfound:manage' },
+  { index: '/service/lostfound/claim', label: '认领审核', permission: 'lostfound:manage' },
+  { index: '/service/activity', label: '活动管理', permission: 'activity:manage' },
+  { index: '/service/help', label: '互助管理', permission: 'help:manage' },
+  { index: '/service/help/arbitration', label: '互助仲裁', permission: 'help:manage' },
+]
+
+const infoMenus = [
+  { index: '/info/news', label: '校园资讯', permission: 'info:news' },
+  { index: '/info/nav', label: '服务导航', permission: 'info:nav' },
+]
 
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value

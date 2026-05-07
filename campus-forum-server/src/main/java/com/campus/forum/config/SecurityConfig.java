@@ -2,6 +2,7 @@ package com.campus.forum.config;
 
 import com.campus.forum.security.JwtAuthenticationFilter;
 import com.campus.forum.security.JwtAuthenticationEntryPoint;
+import com.campus.forum.security.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -51,7 +52,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    JwtAuthenticationFilter jwtAuthenticationFilter,
-                                                   JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) throws Exception {
+                                                   JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+                                                   CustomAccessDeniedHandler customAccessDeniedHandler) throws Exception {
         http
                 // 启用CORS并禁用CSRF
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -62,8 +64,10 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 // 使用无状态Session
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 配置异常处理
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                // 配置异常处理（认证失败 + 权限不足均返回统一 JSON）
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler))
                 // 配置请求授权
                 .authorizeHttpRequests(auth -> auth
                         // 公开接口
@@ -131,8 +135,9 @@ public class SecurityConfig {
                                 "/banners/**")
                         .permitAll()
 
-                        // ========== 管理员接口配置（修复 403 问题）==========
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                        // ========== 管理员接口配置 ==========
+                        // SUPER_ADMIN / ADMIN / MODERATOR / MODERATOR_* 均可访问（具体权限由 @PreAuthorize 控制）
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN", "MODERATOR", "MODERATOR_FORUM", "MODERATOR_MARKET", "MODERATOR_LOSTFOUND", "MODERATOR_ACTIVITY", "MODERATOR_HELP", "MODERATOR_INFO")
 
                         // 其他请求需要认证
                         .anyRequest().authenticated())

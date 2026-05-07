@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -86,6 +91,8 @@ public class SearchSyncServiceImpl implements SearchSyncService {
         deleteById(helpIndex, "help", id);
     }
 
+    private static final DateTimeFormatter DT_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private void syncById(String index, String entityType, Long id, Map<String, Object> doc) {
         if (!isEnabled() || id == null) {
             return;
@@ -95,11 +102,34 @@ public class SearchSyncServiceImpl implements SearchSyncService {
                 deleteById(index, entityType, id);
                 return;
             }
-            elasticsearchClient.index(req -> req.index(index).id(String.valueOf(id)).document(doc));
+            elasticsearchClient.index(req -> req.index(index).id(String.valueOf(id)).document(sanitizeDoc(doc)));
         } catch (Exception ex) {
             log.warn("Search sync upsert failed. index={}, id={}, reason={}", index, id, ex.getMessage());
             enqueueFailure(index, entityType, id, "UPSERT", doc, ex.getMessage());
         }
+    }
+
+    /**
+     * 将文档中的 LocalDateTime/LocalDate 转为字符串，避免 ES Jackson 序列化异常
+     */
+    private Map<String, Object> sanitizeDoc(Map<String, Object> doc) {
+        Map<String, Object> sanitized = new HashMap<>(doc.size());
+        for (Map.Entry<String, Object> entry : doc.entrySet()) {
+            Object val = entry.getValue();
+            if (val instanceof LocalDateTime) {
+                sanitized.put(entry.getKey(), ((LocalDateTime) val).format(DT_FMT));
+            } else if (val instanceof LocalDate) {
+                sanitized.put(entry.getKey(), val.toString());
+            } else {
+                sanitized.put(entry.getKey(), val);
+            }
+        }
+        // 注入 completion suggest 字段（取 title 作为补全候选）
+        Object title = sanitized.get("title");
+        if (title != null && !String.valueOf(title).isBlank()) {
+            sanitized.put("suggest", Map.of("input", List.of(String.valueOf(title))));
+        }
+        return sanitized;
     }
 
     private void deleteById(String index, String entityType, Long id) {

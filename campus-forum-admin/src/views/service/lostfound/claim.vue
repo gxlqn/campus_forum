@@ -200,7 +200,7 @@ const parseImages = (jsonStr) => {
   try {
     const rawImages = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr
     if (!Array.isArray(rawImages)) return []
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
     return rawImages.map(url => {
       if (url.startsWith('http')) return url
       let path = url
@@ -219,7 +219,7 @@ const getFullUrl = (url) => {
   let path = url
   if (!path.startsWith('/')) path = '/' + path
   if (!path.includes('/uploads/')) path = '/uploads' + path
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
   return baseUrl + path
 }
 

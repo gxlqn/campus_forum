@@ -16,6 +16,8 @@ public interface SysUserService {
 
     List<String> getUserRoles(Long userId);
 
+    List<String> getUserPermissionCodes(Long userId);
+
     SysUser wxLogin(String code, String rawUserInfo);
 
     SysUser adminLogin(String username, String password);

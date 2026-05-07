@@ -16,6 +16,8 @@ public interface SearchIndexMapper {
                    p.content,
                    s.section_name AS sectionName,
                    u.nickname AS authorNickname,
+                   p.like_count AS likeCount,
+                   p.view_count AS viewCount,
                    p.create_time AS createTime
             FROM forum_post p
             LEFT JOIN forum_section s ON s.id = p.section_id
@@ -33,6 +35,8 @@ public interface SearchIndexMapper {
                    p.content,
                    s.section_name AS sectionName,
                    u.nickname AS authorNickname,
+                   p.like_count AS likeCount,
+                   p.view_count AS viewCount,
                    p.create_time AS createTime
             FROM forum_post p
             LEFT JOIN forum_section s ON s.id = p.section_id

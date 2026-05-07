@@ -7,7 +7,10 @@ server:
   servlet:
     context-path: /api
 
+#配置ES连接地址
 spring:
+  elasticsearch:
+    uris: http://localhost:9200
   application:
     name: campus-forum-server
   
@@ -123,9 +126,10 @@ auth:
   # 开发模式（允许通过用户ID切换账号，生产环境请设为false）
   dev-mode: true
 
+
 # 统一搜索配置（db|es）
 search:
-  engine: db
+  engine: es
   es:
     index:
       posts: forum_post
@@ -153,3 +157,15 @@ im:
     mode: local
     channel: im:dispatch
     node-id: ${HOSTNAME:node}-${random.uuid}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  metrics:
+    tags:
+      application: ${spring.application.name}

@@ -37,7 +37,7 @@ export function auditLostFound(id, auditStatus) {
 }
 
 export function deleteLostFound(id) {
-  return http.delete(`/lostfound/${id}`)
+  return http.delete(`/lostfound/admin/${id}`)
 }
 
 export function getLostFoundDetail(id) {
@@ -53,12 +53,12 @@ export function auditProduct(id, auditStatus) {
   return http.post(`/products/${id}/audit`, null, { params: { auditStatus } })
 }
 
-export function offProduct(id) {
-  return http.post(`/products/admin/${id}/status`, null, { params: { status: 0 } })
+export function offProduct(id, status = 0) {
+  return http.post(`/products/admin/${id}/status`, null, { params: { status } })
 }
 
 export function deleteProduct(id) {
-  return http.delete(`/products/${id}`)
+  return http.delete(`/products/admin/${id}`)
 }
 
 export function getProductDetail(id) {

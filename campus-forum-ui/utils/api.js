@@ -161,6 +161,14 @@ function unfavoritePost(id) {
     return http.del(`/forum/posts/${id}/favorite`);
 }
 
+function updatePost(id, data) {
+    return http.put(`/forum/posts/${id}`, data);
+}
+
+function deletePost(id) {
+    return http.del(`/forum/posts/${id}`);
+}
+
 // Comment
 function getComments(postId, params) {
     return http.get(`/forum/posts/${postId}/comments`, params);
@@ -362,6 +370,25 @@ function getSearchRecommend(params) {
     return http.get('/search/recommend', params);
 }
 
+function searchSuggest(params) {
+    const keyword = (params && params.keyword) || '';
+    if (USE_MOCK) {
+        const mockSuggestions = [
+            { text: keyword + '推荐', type: 'post' },
+            { text: keyword + '最新', type: 'post' },
+            { text: keyword + '热门', type: 'post' },
+            { text: '二手' + keyword, type: 'product' },
+            { text: keyword + '活动', type: 'activity' }
+        ].slice(0, (params && params.size) || 6);
+        return delay(150).then(() => ({ data: mockSuggestions }));
+    }
+    // 后端接口期望参数名为 prefix，做映射
+    const { size } = params || {};
+    const queryParams = { prefix: keyword };
+    if (size) queryParams.size = size;
+    return http.get('/search/suggest', queryParams);
+}
+
 // User
 function getUserInfo() {
     return http.get('/user/info');
@@ -432,8 +459,8 @@ function getMessages(conversationId, params) {
     return http.get(`/message/conversations/${conversationId}`, params);
 }
 
-function sendMessage(receiverId, content, contentType = 1) {
-    return http.post('/message/send', { receiverId, content, contentType });
+function sendMessage(receiverId, content, contentType = 1, clientMessageId = null) {
+    return http.post('/message/send', { receiverId, content, contentType, clientMessageId });
 }
 
 function markNotificationRead(id) {
@@ -500,6 +527,8 @@ module.exports = {
     unlikePost,
     favoritePost,
     unfavoritePost,
+    updatePost,
+    deletePost,
     // Comment
     getComments,
     addComment,
@@ -541,6 +570,7 @@ module.exports = {
     helperAppealHelp,
     searchAll,
     getSearchRecommend,
+    searchSuggest,
     // User
     getUserInfo,
     getPublicUserProfile,

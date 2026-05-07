@@ -28,6 +28,7 @@
     "pages/mine/index/index",
     "pages/mine/records/records",
     "pages/mine/profile/profile",
+    "pages/mine/posts/posts",
     "pages/mine/wallet/wallet",
     "pages/auth/login/login",
     "pages/auth/bindStudent/bindStudent",

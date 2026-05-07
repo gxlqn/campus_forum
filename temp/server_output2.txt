@@ -1,0 +1,1516 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.campus:campus-forum-server >-------------------
+[INFO] Building campus-forum-server 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ campus-forum-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ campus-forum-server ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ campus-forum-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ campus-forum-server ---
+[INFO] skip non existing resourceDirectory D:\graduationProject\campus-forum\campus-forum-server\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ campus-forum-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ campus-forum-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ campus-forum-server ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-04-24 20:21:06 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Starting CampusForumServerApplication using Java 17.0.8 with PID 35936 (D:\graduationProject\campus-forum\campus-forum-server\target\classes started by 马炒饭 in D:\graduationProject\campus-forum\campus-forum-server)
+2026-04-24 20:21:06 [restartedMain] DEBUG com.campus.forum.CampusForumServerApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-04-24 20:21:06 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 20:21:06 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-24 20:21:06 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-24 20:21:08 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Searching for mappers annotated with @Mapper
+2026-04-24 20:21:08 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Using auto-configuration base package 'com.campus.forum'
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 0 Elasticsearch repository interfaces.
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-24 20:21:08 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2026-04-24 20:21:10 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-04-24 20:21:10 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.4].
+2026-04-24 20:21:10 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-04-24 20:21:10 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-24 20:21:10 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-04-24 20:21:10 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-24 20:21:10 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4362 ms
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+2026-04-24 20:21:11 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Registered plugin: 'com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor@75282c80'
+2026-04-24 20:21:11 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+Initialization Sequence datacenterId:21 workerId:27
+2026-04-24 20:21:11 [restartedMain] DEBUG com.campus.forum.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3d3689ef] was not registered for synchronization because synchronization is not active
+2026-04-24 20:21:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Starting...
+2026-04-24 20:21:12 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - CampusForumHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d
+2026-04-24 20:21:12 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Start completed.
+JDBC Connection [HikariProxyConnection@17551977 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM audit_sensitive_word WHERE is_enabled = 1 ORDER BY level DESC, LENGTH(word) DESC
+==> Parameters: 
+<==    Columns: id, word, category, level, replacement, is_enabled, remark, creator_id, create_time, update_time
+<==        Row: 6, 天安门事件, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 24, 恐怖袭击, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 1, 法轮功, 1, 3, null, 1, 邪教组织, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 14, 一夜情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 2, 台独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 3, 藏独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 4, 疆独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 5, 六四, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 7, 反党, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 8, 推翻, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 9, 暴动, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 10, 颠覆, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 11, 色情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 12, 淫秽, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 13, 裸聊, 2, 3, null, 1, 色情服务, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 15, 约炮, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 16, 援交, 2, 3, null, 1, 色情交易, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 17, 包养, 2, 3, null, 1, 不当关系, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 23, 炸药, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 20, 黄片, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 21, 杀人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 22, 炸弹, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 25, 砍人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 37, 赌博, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 38, 博彩, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 40, 毒品, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 41, 吸毒, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 42, 假币, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 29, 扫码关注, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 30, 兼职赚钱, 4, 2, null, 1, 广告, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 27, 加微信, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 26, 血腥, 3, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 44, 办证, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 31, 日赚, 4, 2, null, 1, 诈骗嫌疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 32, 刷单, 4, 2, null, 1, 违规行为, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 39, 彩票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 43, 发票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 28, 加QQ, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 19, AV, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 18, sm, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 35, 优惠券, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 33, 代购, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 36, 打折, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 34, 代理, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==      Total: 44
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3d3689ef]
+2026-04-24 20:21:12 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - DFA引擎重建完成，内置+DB词库已加载, DB自定义词数量=44
+2026-04-24 20:21:12 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - 敏感词DFA引擎初始化完成，DB自定义词库数量=44
+=== 静态资源配置 ===
+配置路径: D:/graduationProject/campus-forum/campus-forum-server/uploads/
+访问路径: /uploads/** -> file:///D:/graduationProject/campus-forum/campus-forum-server/uploads/
+2026-04-24 20:21:14 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-04-24 20:21:14 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@dfe75e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e2d6e94, org.springframework.security.web.context.SecurityContextHolderFilter@3a6866fd, org.springframework.security.web.header.HeaderWriterFilter@1cb79d01, org.springframework.web.filter.CorsFilter@301999ff, org.springframework.security.web.authentication.logout.LogoutFilter@23b41a8a, com.campus.forum.security.JwtAuthenticationFilter@759ce99f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7526f397, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a4e8a16, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@12646a2d, org.springframework.security.web.session.SessionManagementFilter@701cdbed, org.springframework.security.web.access.ExceptionTranslationFilter@115544f0, org.springframework.security.web.access.intercept.AuthorizationFilter@1e7cd1a5]
+2026-04-24 20:21:15 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Starting...
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@568b339d]]
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Started.
+2026-04-24 20:21:16 [restartedMain] INFO  o.s.scheduling.config.TaskSchedulerRouter - More than one TaskScheduler bean exists within the context, and none is named 'taskScheduler'. Mark one of them as primary or name it 'taskScheduler' (possibly as an alias); or implement the SchedulingConfigurer interface and call ScheduledTaskRegistrar#setScheduler explicitly within the configureTasks() callback: [messageBrokerTaskScheduler, imHeartbeatTaskScheduler]
+2026-04-24 20:21:16 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Started CampusForumServerApplication in 10.504 seconds (process running for 11.47)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1f7e2129] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@811540331 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:16.329905300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1f7e2129]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2b65ef45] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1726218508 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2b65ef45]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+JDBC Connection [HikariProxyConnection@288292747 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4e1fa7e8]
+2026-04-24 20:21:16 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL start create  ...  
+2026-04-24 20:21:16 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL end create  ...  
+==========================================
+  校园服务平台启动成功！
+  API文档地址: http://localhost:8080/api/doc.html
+==========================================
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4ef138bb] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@502682964 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:21.355607200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4ef138bb]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@dcb5453] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1253605809 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:26.375620800(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@dcb5453]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1c4e7de1] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1265687543 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:31.394749900(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1c4e7de1]
+2026-04-24 20:21:31 [http-nio-8081-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-24 20:21:31 [http-nio-8081-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-24 20:21:31 [http-nio-8081-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-24 20:21:31 [http-nio-8081-exec-1] WARN  o.s.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/ws-im' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79b6aed6] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@376989044 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:36.413348600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79b6aed6]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@45beec0b] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@154282612 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:41.424365300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@45beec0b]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5279b689] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1620432505 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5279b689]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+JDBC Connection [HikariProxyConnection@1349830692 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1ced0de]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3db5c7a1] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@564668660 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:46.440689700(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3db5c7a1]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1e529bd2] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1094112376 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:51.456207600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1e529bd2]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9b68c6d] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@53480066 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:21:56.469098700(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9b68c6d]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13d42b5f] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@784079020 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:01.487669200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13d42b5f]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@313ef914] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@398575004 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:06.496928300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@313ef914]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5619b7ed] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2147031905 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:11.507513300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5619b7ed]
+2026-04-24 20:22:16 [MessageBroker-1] INFO  o.s.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 32, active threads = 0, queued tasks = 0, completed tasks = 33], outboundChannel[pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 4], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2b8e1fd] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@419797144 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2b8e1fd]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+JDBC Connection [HikariProxyConnection@1555055632 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c367b8a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@796aa231] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1639067369 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:16.521107800(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@796aa231]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@14021100] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2108719414 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:21.539919300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@14021100]
+2026-04-24 20:22:23 [http-nio-8081-exec-9] INFO  com.campus.forum.controller.AuthController - 管理员登录请求: username=admin
+2026-04-24 20:22:23 [http-nio-8081-exec-9] INFO  com.campus.forum.service.impl.SysUserServiceImpl - Admin login: admin
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@722583ad] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1611153612 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM sys_user WHERE username = ? AND deleted = 0
+==> Parameters: admin(String)
+<==    Columns: id, openid, union_id, student_id, username, password, nickname, avatar, gender, phone, email, bio, college, major, grade, user_type, status, is_verified, last_login_time, last_login_ip, create_time, update_time, deleted, balance, credit_score
+<==        Row: 1, null, null, null, admin, $2y$10$t8qe5E9QzYrj41Y/rTX0ZONhNRH4YTwCkOXdTt6PJdThSm1OHfxye, 系统管理员, /static/images/admin-avatar.png, 0, null, null, null, null, null, null, 3, 1, 1, null, null, 2026-04-08 16:26:18, 2026-04-08 17:10:29, 0, 0.00, 100
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@722583ad]
+2026-04-24 20:22:23 [http-nio-8081-exec-9] WARN  com.campus.forum.exception.GlobalExceptionHandler - Business exception: 密码错误
+2026-04-24 20:22:23 [http-nio-8081-exec-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.campus.forum.exception.BusinessException: 密码错误]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6bb1ff22] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1874815301 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:26.555279100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6bb1ff22]
+2026-04-24 20:22:29 [http-nio-8081-exec-1] INFO  com.campus.forum.controller.AuthController - 管理员登录请求: username=admin
+2026-04-24 20:22:29 [http-nio-8081-exec-1] INFO  com.campus.forum.service.impl.SysUserServiceImpl - Admin login: admin
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5eaae882] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@934308215 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM sys_user WHERE username = ? AND deleted = 0
+==> Parameters: admin(String)
+<==    Columns: id, openid, union_id, student_id, username, password, nickname, avatar, gender, phone, email, bio, college, major, grade, user_type, status, is_verified, last_login_time, last_login_ip, create_time, update_time, deleted, balance, credit_score
+<==        Row: 1, null, null, null, admin, $2y$10$t8qe5E9QzYrj41Y/rTX0ZONhNRH4YTwCkOXdTt6PJdThSm1OHfxye, 系统管理员, /static/images/admin-avatar.png, 0, null, null, null, null, null, null, 3, 1, 1, null, null, 2026-04-08 16:26:18, 2026-04-08 17:10:29, 0, 0.00, 100
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5eaae882]
+2026-04-24 20:22:29 [http-nio-8081-exec-1] WARN  com.campus.forum.exception.GlobalExceptionHandler - Business exception: 密码错误
+2026-04-24 20:22:29 [http-nio-8081-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.campus.forum.exception.BusinessException: 密码错误]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a951236] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1130809733 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:31.575023100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a951236]
+2026-04-24 20:22:35 [http-nio-8081-exec-4] INFO  com.campus.forum.controller.AuthController - 管理员登录请求: username=admin
+2026-04-24 20:22:35 [http-nio-8081-exec-4] INFO  com.campus.forum.service.impl.SysUserServiceImpl - Admin login: admin
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1b4b6f73] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@591928599 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM sys_user WHERE username = ? AND deleted = 0
+==> Parameters: admin(String)
+<==    Columns: id, openid, union_id, student_id, username, password, nickname, avatar, gender, phone, email, bio, college, major, grade, user_type, status, is_verified, last_login_time, last_login_ip, create_time, update_time, deleted, balance, credit_score
+<==        Row: 1, null, null, null, admin, $2y$10$t8qe5E9QzYrj41Y/rTX0ZONhNRH4YTwCkOXdTt6PJdThSm1OHfxye, 系统管理员, /static/images/admin-avatar.png, 0, null, null, null, null, null, null, 3, 1, 1, null, null, 2026-04-08 16:26:18, 2026-04-08 17:10:29, 0, 0.00, 100
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1b4b6f73]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@72bf97a3] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@844062320 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT r.role_code FROM sys_role r INNER JOIN sys_user_role ur ON r.id = ur.role_id WHERE ur.user_id = ? AND r.status = 1
+==> Parameters: 1(Long)
+<==    Columns: role_code
+<==        Row: SUPER_ADMIN
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@72bf97a3]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@23954664] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@127995618 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT r.role_code FROM sys_role r INNER JOIN sys_user_role ur ON r.id = ur.role_id WHERE ur.user_id = ? AND r.status = 1
+==> Parameters: 1(Long)
+<==    Columns: role_code
+<==        Row: SUPER_ADMIN
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@23954664]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4caef683] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1157705492 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT DISTINCT p.permission_code FROM sys_permission p INNER JOIN sys_role_permission rp ON p.id = rp.permission_id INNER JOIN sys_user_role ur ON rp.role_id = ur.role_id WHERE ur.user_id = ? AND p.status = 1
+==> Parameters: 1(Long)
+<==    Columns: permission_code
+<==        Row: system
+<==        Row: forum
+<==        Row: service
+<==        Row: info
+<==        Row: system:user
+<==        Row: system:role
+<==        Row: system:audit
+<==        Row: system:report
+<==        Row: system:sensitive
+<==        Row: forum:section
+<==        Row: forum:post
+<==        Row: service:category
+<==        Row: market:manage
+<==        Row: lostfound:manage
+<==        Row: activity:manage
+<==        Row: help:manage
+<==        Row: info:news
+<==        Row: info:nav
+<==      Total: 18
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4caef683]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35f663ea] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@291707717 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:36.588848400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35f663ea]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@26244afe] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@550208739 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:41.599571200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@26244afe]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@249173b4] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@328811182 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM sys_user WHERE id = ? AND deleted = 0
+==> Parameters: 1(Long)
+<==    Columns: id, openid, union_id, student_id, username, password, nickname, avatar, gender, phone, email, bio, college, major, grade, user_type, status, is_verified, last_login_time, last_login_ip, create_time, update_time, deleted, balance, credit_score
+<==        Row: 1, null, null, null, admin, $2y$10$t8qe5E9QzYrj41Y/rTX0ZONhNRH4YTwCkOXdTt6PJdThSm1OHfxye, 系统管理员, /static/images/admin-avatar.png, 0, null, null, null, null, null, null, 3, 1, 1, null, null, 2026-04-08 16:26:18, 2026-04-08 17:10:29, 0, 0.00, 100
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@249173b4]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6b9d5eef] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1153338619 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT r.role_code FROM sys_role r INNER JOIN sys_user_role ur ON r.id = ur.role_id WHERE ur.user_id = ? AND r.status = 1
+==> Parameters: 1(Long)
+<==    Columns: role_code
+<==        Row: SUPER_ADMIN
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6b9d5eef]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@70993740] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1089516796 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT DISTINCT p.permission_code FROM sys_permission p INNER JOIN sys_role_permission rp ON p.id = rp.permission_id INNER JOIN sys_user_role ur ON rp.role_id = ur.role_id WHERE ur.user_id = ? AND p.status = 1
+==> Parameters: 1(Long)
+<==    Columns: permission_code
+<==        Row: system
+<==        Row: forum
+<==        Row: service
+<==        Row: info
+<==        Row: system:user
+<==        Row: system:role
+<==        Row: system:audit
+<==        Row: system:report
+<==        Row: system:sensitive
+<==        Row: forum:section
+<==        Row: forum:post
+<==        Row: service:category
+<==        Row: market:manage
+<==        Row: lostfound:manage
+<==        Row: activity:manage
+<==        Row: help:manage
+<==        Row: info:news
+<==        Row: info:nav
+<==      Total: 18
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@70993740]
+2026-04-24 20:22:44 [http-nio-8081-exec-7] INFO  c.campus.forum.search.impl.SearchIndexServiceImpl - Synonyms file loaded (241 bytes), will be inlined in mapping
+2026-04-24 20:22:44 [http-nio-8081-exec-7] WARN  org.elasticsearch.client.RestClient - request [HEAD http://localhost:9200/forum_post] returned 1 warnings: [299 Elasticsearch-7.17.5-8d61b4f7ddf931f219e3745f295ed2bbc50c8e84 "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."]
+2026-04-24 20:22:44 [http-nio-8081-exec-7] WARN  org.elasticsearch.client.RestClient - request [DELETE http://localhost:9200/forum_post] returned 1 warnings: [299 Elasticsearch-7.17.5-8d61b4f7ddf931f219e3745f295ed2bbc50c8e84 "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."]
+2026-04-24 20:22:44 [http-nio-8081-exec-7] INFO  c.campus.forum.search.impl.SearchIndexServiceImpl - Creating index 'forum_post' with mapping from elasticsearch/mappings/forum_post.json
+2026-04-24 20:22:45 [http-nio-8081-exec-7] WARN  org.elasticsearch.client.RestClient - request [PUT http://localhost:9200/forum_post] returned 1 warnings: [299 Elasticsearch-7.17.5-8d61b4f7ddf931f219e3745f295ed2bbc50c8e84 "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."]
+2026-04-24 20:22:45 [http-nio-8081-exec-7] ERROR c.campus.forum.search.impl.SearchIndexServiceImpl - Rebuild search indices failed
+co.elastic.clients.elasticsearch._types.ElasticsearchException: [es/indices.create] failed: [illegal_argument_exception] Custom Analyzer [pinyin_analyzer] failed to find tokenizer under name [pinyin]
+	at co.elastic.clients.transport.ElasticsearchTransportBase.getApiResponse(ElasticsearchTransportBase.java:338)
+	at co.elastic.clients.transport.ElasticsearchTransportBase.performRequest(ElasticsearchTransportBase.java:140)
+	at co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient.create(ElasticsearchIndicesClient.java:266)
+	at co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient.create(ElasticsearchIndicesClient.java:282)
+	at com.campus.forum.search.impl.SearchIndexServiceImpl.recreateIndex(SearchIndexServiceImpl.java:153)
+	at com.campus.forum.search.impl.SearchIndexServiceImpl.rebuildAll(SearchIndexServiceImpl.java:59)
+	at com.campus.forum.controller.AdminSearchController.rebuildAllIndices(AdminSearchController.java:30)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at com.campus.forum.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:82)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2627aebc] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@584086332 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2627aebc]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+JDBC Connection [HikariProxyConnection@356490259 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f1e4937]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@71fdfa5d] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2007568313 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:46.608738100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@71fdfa5d]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@389a766c] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@648760368 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:51.614735100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@389a766c]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@707ead34] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@465341505 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:22:56.626061600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@707ead34]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7c8d1a33] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2040471451 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:01.636140500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7c8d1a33]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35c9c7a9] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@553721761 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:06.659263400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35c9c7a9]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54fae48e] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@796235063 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:11.671080600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54fae48e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3b803131] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@954039387 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3b803131]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+JDBC Connection [HikariProxyConnection@1470318967 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3efc6546]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@12574602] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@148706570 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:16.691051400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@12574602]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e21358e] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1986924318 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:21.705417100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e21358e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6aae501e] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1031050624 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:26.714956500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6aae501e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@745c5aee] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1818938075 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:31.726775300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@745c5aee]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6d892d2a] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2064941407 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:36.742614400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6d892d2a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6842c307] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1283867480 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:41.757654900(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6842c307]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4786aa72] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@958530430 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4786aa72]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+JDBC Connection [HikariProxyConnection@922078555 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dc2e6ca]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@24d48400] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@601743969 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:46.762704400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@24d48400]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@8095dd7] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@150813778 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:51.776007900(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@8095dd7]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f01d8e9] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@757389115 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:23:56.784765800(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f01d8e9]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7057e015] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@300988518 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:01.790951500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7057e015]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5289328] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1253088464 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:06.796712300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5289328]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7519d88e] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@879342806 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:11.808929(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7519d88e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1df2edcf] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@647273303 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1df2edcf]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+JDBC Connection [HikariProxyConnection@582541064 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ae2aa64]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@311dbf1f] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1939203279 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:16.822780400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@311dbf1f]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@611b5a38] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1034085443 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:21.836948100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@611b5a38]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@77cd290a] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1279031121 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:26.857398400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@77cd290a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6931caf3] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2007640998 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:31.883048300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6931caf3]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@ed008ce] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1775320501 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:36.893353100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@ed008ce]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d26859b] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@54426249 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:41.908799200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d26859b]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a4ae2cc] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@335130691 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a4ae2cc]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+JDBC Connection [HikariProxyConnection@247787220 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@356eab97]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3a19222] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1858429633 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:46.924830700(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3a19222]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@347dcf79] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@994212694 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:51.938833600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@347dcf79]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76c6a1e2] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@739946052 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:24:56.957149500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76c6a1e2]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5c8a6d37] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@520101621 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:01.966603300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5c8a6d37]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@352a277f] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@986056504 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:06.984901500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@352a277f]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4c08895a] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@687689339 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:11.991007200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4c08895a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@75f889a0] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2108853276 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@75f889a0]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+JDBC Connection [HikariProxyConnection@112474081 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8bb388]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7a5cd3de] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1779513854 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:17.001267800(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7a5cd3de]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4cd5408] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@403940716 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:22.009017500(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4cd5408]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@37d70dc0] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1498706470 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:27.024877400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@37d70dc0]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@52434218] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1568013469 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:32.098660900(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@52434218]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@379604b7] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2140001247 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:37.112052700(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@379604b7]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79524885] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2120636580 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:42.122765700(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79524885]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@10b8a0b6] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2076562500 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@10b8a0b6]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+JDBC Connection [HikariProxyConnection@2066003373 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7b7e9116]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@52d75705] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@979948985 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:47.144210100(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@52d75705]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1f51ad0a] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2002169498 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:52.166217800(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1f51ad0a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@48f344f7] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1524140318 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:25:57.189175400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@48f344f7]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@68e1bcaa] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@988252605 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:02.200147600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@68e1bcaa]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7a7ae86c] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@530255717 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:07.210176(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7a7ae86c]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@760d46bd] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1536817560 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:12.226078600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@760d46bd]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3b943ce3] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@665894274 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3b943ce3]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+JDBC Connection [HikariProxyConnection@1721239754 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e8fad6f]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ddbd0d5] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@597304417 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:17.237238600(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2ddbd0d5]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@26db01dc] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1442132138 wrapping com.mysql.cj.jdbc.ConnectionImpl@1ebeb14d] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:22.248666300(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@26db01dc]
+2026-04-24 20:26:26 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 179 class path changes (0 additions, 175 deletions, 4 modifications)
+2026-04-24 20:26:26 [Thread-5] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Stopping...
+2026-04-24 20:26:26 [Thread-5] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@568b339d]]
+2026-04-24 20:26:26 [Thread-5] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Stopped.
+2026-04-24 20:26:26 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Shutdown initiated...
+2026-04-24 20:26:26 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-04-24 20:26:26 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Starting CampusForumServerApplication using Java 17.0.8 with PID 35936 (D:\graduationProject\campus-forum\campus-forum-server\target\classes started by 马炒饭 in D:\graduationProject\campus-forum\campus-forum-server)
+2026-04-24 20:26:26 [restartedMain] DEBUG com.campus.forum.CampusForumServerApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-04-24 20:26:26 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 20:26:27 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Searching for mappers annotated with @Mapper
+2026-04-24 20:26:27 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Using auto-configuration base package 'com.campus.forum'
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Elasticsearch repository interfaces.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-04-24 20:26:27 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.campus.forum]' package. Please check your configuration.
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-04-24 20:26:27 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.4].
+2026-04-24 20:26:27 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-04-24 20:26:27 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-24 20:26:27 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-04-24 20:26:27 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-24 20:26:27 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1342 ms
+2026-04-24 20:26:28 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+2026-04-24 20:26:28 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2026-04-24 20:26:29 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: de5f7a14-328b-406b-91f2-f623c51b0224
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-04-24 20:26:29 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-04-24 20:26:30 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4abf41da, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25b43c9c, org.springframework.security.web.context.SecurityContextHolderFilter@32565f52, org.springframework.security.web.header.HeaderWriterFilter@182423a6, org.springframework.web.filter.CorsFilter@23f95ab3, org.springframework.security.web.csrf.CsrfFilter@77b48539, org.springframework.security.web.authentication.logout.LogoutFilter@16e66abf, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5b0be606, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1d13edf6, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@2734dfd6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4993bb1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1be98259, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@62c99aaf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1735eb7b, org.springframework.security.web.access.ExceptionTranslationFilter@4a860737, org.springframework.security.web.access.intercept.AuthorizationFilter@2620cec3]
+2026-04-24 20:26:30 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-24 20:26:30 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2026-04-24 20:26:30 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Started CampusForumServerApplication in 3.833 seconds (process running for 325.497)
+2026-04-24 20:26:30 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL start create  ...  
+2026-04-24 20:26:30 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL end create  ...  
+2026-04-24 20:26:30 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   JacksonAutoConfiguration.JacksonObjectMapperConfiguration#jacksonObjectMapper matched:
+      - @ConditionalOnMissingBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ManagementWebSecurityAutoConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration matched:
+      - @ConditionalOnBean (names: org.springframework.context.annotation.internalScheduledAnnotationProcessor; SearchStrategy: all) found bean 'org.springframework.context.annotation.internalScheduledAnnotationProcessor'; @ConditionalOnMissingBean (types: org.springframework.scheduling.TaskScheduler,java.util.concurrent.ScheduledExecutorService; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration#taskScheduler matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager'; @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.security.config.annotation.ObjectPostProcessor; SearchStrategy: all) found bean 'objectPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration#taskSchedulerVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   WebSocketMessagingAutoConfiguration.WebSocketMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration,com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) did not find any beans of type org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'com.fasterxml.jackson.databind.ObjectMapper', 'org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+==========================================
+  校园服务平台启动成功！
+  API文档地址: http://localhost:8080/api/doc.html
+==========================================
+2026-04-24 20:26:37 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 175 class path changes (175 additions, 0 deletions, 0 modifications)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-04-24 20:26:38 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Starting CampusForumServerApplication using Java 17.0.8 with PID 35936 (D:\graduationProject\campus-forum\campus-forum-server\target\classes started by 马炒饭 in D:\graduationProject\campus-forum\campus-forum-server)
+2026-04-24 20:26:38 [restartedMain] DEBUG com.campus.forum.CampusForumServerApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-04-24 20:26:38 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 20:26:38 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Searching for mappers annotated with @Mapper
+2026-04-24 20:26:38 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Using auto-configuration base package 'com.campus.forum'
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 26 ms. Found 0 Elasticsearch repository interfaces.
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-24 20:26:38 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-04-24 20:26:39 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-04-24 20:26:39 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.4].
+2026-04-24 20:26:39 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-04-24 20:26:39 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-24 20:26:39 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-04-24 20:26:39 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-24 20:26:39 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1046 ms
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+2026-04-24 20:26:39 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Registered plugin: 'com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor@56ec07fc'
+2026-04-24 20:26:39 [restartedMain] DEBUG c.b.m.e.spring.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2026-04-24 20:26:39 [restartedMain] DEBUG com.campus.forum.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@69de49f1] was not registered for synchronization because synchronization is not active
+2026-04-24 20:26:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Starting...
+2026-04-24 20:26:39 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - CampusForumHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@c81e50f
+2026-04-24 20:26:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - CampusForumHikariCP - Start completed.
+JDBC Connection [HikariProxyConnection@386643119 wrapping com.mysql.cj.jdbc.ConnectionImpl@c81e50f] will not be managed by Spring
+==>  Preparing: SELECT * FROM audit_sensitive_word WHERE is_enabled = 1 ORDER BY level DESC, LENGTH(word) DESC
+==> Parameters: 
+<==    Columns: id, word, category, level, replacement, is_enabled, remark, creator_id, create_time, update_time
+<==        Row: 6, 天安门事件, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 24, 恐怖袭击, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 1, 法轮功, 1, 3, null, 1, 邪教组织, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 14, 一夜情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 2, 台独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 3, 藏独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 4, 疆独, 1, 3, null, 1, 分裂国家, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 5, 六四, 1, 3, null, 1, 政治事件, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 7, 反党, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 8, 推翻, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 9, 暴动, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 10, 颠覆, 1, 3, null, 1, 政治敏感, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 11, 色情, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 12, 淫秽, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 13, 裸聊, 2, 3, null, 1, 色情服务, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 15, 约炮, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 16, 援交, 2, 3, null, 1, 色情交易, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 17, 包养, 2, 3, null, 1, 不当关系, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 23, 炸药, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 20, 黄片, 2, 3, null, 1, 色情, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 21, 杀人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 22, 炸弹, 3, 3, null, 1, 危险品, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 25, 砍人, 3, 3, null, 1, 暴力, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 37, 赌博, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 38, 博彩, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 40, 毒品, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 41, 吸毒, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 42, 假币, 5, 3, null, 1, 违法, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 29, 扫码关注, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 30, 兼职赚钱, 4, 2, null, 1, 广告, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 27, 加微信, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 26, 血腥, 3, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 44, 办证, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 31, 日赚, 4, 2, null, 1, 诈骗嫌疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 32, 刷单, 4, 2, null, 1, 违规行为, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 39, 彩票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 43, 发票, 5, 2, null, 1, 需注意, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 28, 加QQ, 4, 2, null, 1, 引流, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 19, AV, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 18, sm, 2, 2, null, 1, 可疑, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 35, 优惠券, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 33, 代购, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 36, 打折, 4, 1, null, 1, 促销, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==        Row: 34, 代理, 4, 1, null, 1, 商业推广, null, 2026-04-16 18:38:31, 2026-04-16 18:38:31
+<==      Total: 44
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@69de49f1]
+2026-04-24 20:26:39 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - DFA引擎重建完成，内置+DB词库已加载, DB自定义词数量=44
+2026-04-24 20:26:39 [restartedMain] INFO  com.campus.forum.service.impl.SensitiveWordEngine - 敏感词DFA引擎初始化完成，DB自定义词库数量=44
+=== 静态资源配置 ===
+配置路径: D:/graduationProject/campus-forum/campus-forum-server/uploads/
+访问路径: /uploads/** -> file:///D:/graduationProject/campus-forum/campus-forum-server/uploads/
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1299a2c4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c37ea48, org.springframework.security.web.context.SecurityContextHolderFilter@1c035e91, org.springframework.security.web.header.HeaderWriterFilter@543e169e, org.springframework.web.filter.CorsFilter@16759188, org.springframework.security.web.authentication.logout.LogoutFilter@2c85040c, com.campus.forum.security.JwtAuthenticationFilter@18995850, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7af1b883, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@111a968b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1091a102, org.springframework.security.web.session.SessionManagementFilter@1778b7e1, org.springframework.security.web.access.ExceptionTranslationFilter@688f221, org.springframework.security.web.access.intercept.AuthorizationFilter@78ddfc37]
+2026-04-24 20:26:41 [restartedMain] DEBUG c.b.m.autoconfigure.MybatisPlusAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Starting...
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@12cc2ab9]]
+2026-04-24 20:26:41 [restartedMain] INFO  o.s.m.simp.broker.SimpleBrokerMessageHandler - Started.
+2026-04-24 20:26:42 [restartedMain] INFO  o.s.scheduling.config.TaskSchedulerRouter - More than one TaskScheduler bean exists within the context, and none is named 'taskScheduler'. Mark one of them as primary or name it 'taskScheduler' (possibly as an alias); or implement the SchedulingConfigurer interface and call ScheduledTaskRegistrar#setScheduler explicitly within the configureTasks() callback: [messageBrokerTaskScheduler, imHeartbeatTaskScheduler]
+2026-04-24 20:26:42 [restartedMain] INFO  com.campus.forum.CampusForumServerApplication - Started CampusForumServerApplication in 3.9 seconds (process running for 337.151)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@839792] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1166084582 wrapping com.mysql.cj.jdbc.ConnectionImpl@c81e50f] will not be managed by Spring
+2026-04-24 20:26:42 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL start create  ...  
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+2026-04-24 20:26:42 [restartedMain] DEBUG c.b.mybatisplus.autoconfigure.DdlApplicationRunner -   ...  DDL end create  ...  
+==> Parameters: 2026-04-24T20:26:42.002745200(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@839792]
+2026-04-24 20:26:42 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   LocalImClusterMessageBroadcaster matched:
+      - @ConditionalOnProperty (im.cluster.mode=local) matched (OnPropertyCondition)
+
+   WebSocketMessagingAutoConfiguration.WebSocketMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required classes 'com.fasterxml.jackson.databind.ObjectMapper', 'org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration,com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) found beans 'objectMapper', 'org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration' (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   ImRedisClusterConfig:
+      Did not match:
+         - @ConditionalOnProperty (im.cluster.mode=redis) found different value in property 'mode' (OnPropertyCondition)
+
+   JacksonAutoConfiguration.JacksonObjectMapperConfiguration#jacksonObjectMapper:
+      Did not match:
+         - @ConditionalOnMissingBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) found beans of type 'com.fasterxml.jackson.databind.ObjectMapper' objectMapper (OnBeanCondition)
+
+   ManagementWebSecurityAutoConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' securityFilterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+      Matched:
+         - found 'session' scope (OnWebApplicationCondition)
+
+   RedisImClusterMessageBroadcaster:
+      Did not match:
+         - @ConditionalOnProperty (im.cluster.mode=redis) found different value in property 'mode' (OnPropertyCondition)
+
+   RedisImClusterSubscriber:
+      Did not match:
+         - @ConditionalOnProperty (im.cluster.mode=redis) found different value in property 'mode' (OnPropertyCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) found beans named springSecurityFilterChain (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' clientInboundChannelExecutor, clientOutboundChannelExecutor, brokerChannelExecutor, imHeartbeatTaskScheduler (OnBeanCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.scheduling.TaskScheduler,java.util.concurrent.ScheduledExecutorService; SearchStrategy: all) found beans of type 'org.springframework.scheduling.TaskScheduler' messageBrokerTaskScheduler, imHeartbeatTaskScheduler (OnBeanCondition)
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) found beans of type 'org.springframework.security.authentication.AuthenticationManager' authenticationManager (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager'; @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+Creating a new SqlSession
+==========================================
+  校园服务平台启动成功！
+  API文档地址: http://localhost:8080/api/doc.html
+==========================================
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@68ad1c63] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@632223401 wrapping com.mysql.cj.jdbc.ConnectionImpl@c81e50f] will not be managed by Spring
+==>  Preparing: SELECT * FROM search_sync_task WHERE status = 0 AND next_retry_time <= NOW() ORDER BY id ASC LIMIT ?
+==> Parameters: 20(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@68ad1c63]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+JDBC Connection [HikariProxyConnection@568373166 wrapping com.mysql.cj.jdbc.ConnectionImpl@c81e50f] will be managed by Spring
+==>  Preparing: UPDATE service_help_request SET status = 4, update_time = NOW() WHERE deleted = 0 AND status = 1 AND helper_id IS NULL AND expected_time IS NOT NULL AND expected_time <= NOW()
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7] from current transaction
+==>  Preparing: UPDATE service_help_request SET lock_deadline = DATE_ADD(COALESCE(audit_pass_time, create_time), INTERVAL 180 SECOND), update_time = NOW() WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NULL AND (expected_time IS NULL OR expected_time > NOW())
+==> Parameters: 
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7] from current transaction
+==>  Preparing: SELECT * FROM service_help_request WHERE deleted = 0 AND audit_status = 1 AND status = 1 AND helper_id IS NULL AND lock_deadline IS NOT NULL AND lock_deadline <= NOW() AND (expected_time IS NULL OR expected_time > NOW()) ORDER BY lock_deadline ASC, id ASC
+==> Parameters: 
+<==      Total: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@736750c7]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7dff10a5] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@55415062 wrapping com.mysql.cj.jdbc.ConnectionImpl@c81e50f] will not be managed by Spring
+==>  Preparing: SELECT id, message_id AS messageId, conversation_id AS conversationId, sender_id AS senderId, receiver_id AS receiverId, client_message_id AS clientMessageId, status, retry_count AS retryCount, next_retry_time AS nextRetryTime, last_error AS lastError, create_time AS createTime, update_time AS updateTime FROM message_delivery_task WHERE status = 0 AND next_retry_time <= ? ORDER BY next_retry_time ASC LIMIT ?
+==> Parameters: 2026-04-24T20:26:47.008560400(LocalDateTime), 200(Integer)
+<==      Total: 0
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7dff10a5]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:50 min
+[INFO] Finished at: 2026-04-24T20:26:50+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:run (default-cli) on project campus-forum-server: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

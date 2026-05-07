@@ -1,7 +1,7 @@
 {
     "name": "campus-forum-admin",
     "version": "1.0.0",
-    "description": "校园服务论坛系统 - 管理后台",
+    "description": "校园服务服务平台系统 - 管理后台",
     "type": "module",
     "scripts": {
         "dev": "vite",

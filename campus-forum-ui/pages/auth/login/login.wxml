@@ -1,52 +1,123 @@
 <!-- pages/auth/login/login.wxml -->
 <view class="login-container">
-  <!-- Logo 部分 -->
-  <view class="logo-section">
-    <image class="logo" src="/static/images/logo.png" mode="aspectFit"></image>
-    <text class="app-name">校园服务论坛</text>
-    <text class="app-desc">连接校园生活的每一刻</text>
-  </view>
+  <!-- 装饰性背景元素 -->
+  <view class="deco-bubble bubble-1"></view>
+  <view class="deco-bubble bubble-2"></view>
+  <view class="deco-bubble bubble-3"></view>
+  <view class="deco-sparkle sparkle-1">✦</view>
+  <view class="deco-sparkle sparkle-2">✧</view>
+  <view class="deco-sparkle sparkle-3">✦</view>
 
-  <!-- 微信登录提示 -->
-  <view class="user-info-section">
-    <view class="wx-login-tip">
-      <text class="tip-icon">👤</text>
-      <text class="tip-text">点击下方按钮使用微信登录</text>
-    </view>
-  </view>
+  <scroll-view scroll-y class="content-scroll" enhanced show-scrollbar="{{false}}">
+    <view class="main-wrapper">
+      <!-- 品牌头部区域 -->
+      <view class="brand-section">
+        <view class="brand-logo-wrap">
+          <view class="brand-logo">
+            <text class="logo-text">CF</text>
+            <view class="logo-shine"></view>
+          </view>
+          <view class="brand-ring"></view>
+        </view>
+        <view class="brand-info">
+          <text class="brand-title">校园服务论坛</text>
+          <text class="brand-subtitle">Campus Life Portal</text>
+        </view>
+      </view>
 
-  <!-- 功能特性展示（保持不变） -->
-  <view class="features-section">
-    <view class="feature-item">
-      <text class="feature-icon">💬</text>
-      <text class="feature-title">论坛交流</text>
-      <text class="feature-desc">分享校园生活</text>
-    </view>
-    <view class="feature-item">
-      <text class="feature-icon">🛒</text>
-      <text class="feature-title">二手交易</text>
-      <text class="feature-desc">闲置物品买卖</text>
-    </view>
-    <view class="feature-item">
-      <text class="feature-icon">🔍</text>
-      <text class="feature-title">失物招领</text>
-      <text class="feature-desc">丢失物品找回</text>
-    </view>
-    <view class="feature-item">
-      <text class="feature-icon">🤝</text>
-      <text class="feature-title">互助服务</text>
-      <text class="feature-desc">校园互帮互助</text>
-    </view>
-  </view>
+      <!-- 欢迎标题区域 -->
+      <view class="welcome-section">
+        <view class="welcome-badge">
+          <text class="badge-emoji">🎉</text>
+          <text class="badge-text">欢迎回来</text>
+        </view>
+        <view class="hero-title">
+          <text class="title-line line-1">开启你的</text>
+          <text class="title-line line-2">校园生活</text>
+          <text class="title-line line-3">新体验</text>
+        </view>
+        <text class="hero-desc">发现精彩 · 分享生活 · 互助成长</text>
+      </view>
 
-  <!-- 登录按钮区域 -->
-  <view class="login-section">
-    <button class="login-btn" 
-            loading="{{loading}}" 
-            disabled="{{loading}}"
-            bindtap="handleLogin">
-      微信登录
-    </button>
-    <text class="login-tips">登录即表示同意《用户协议》和《隐私政策》</text>
+      <!-- 功能特色卡片 -->
+      <view class="features-grid">
+        <view class="feature-card" hover-class="card-hover">
+          <view class="feature-icon-wrap icon-forum">
+            <text class="feature-icon">💬</text>
+          </view>
+          <text class="feature-name">论坛交流</text>
+          <text class="feature-desc">分享观点</text>
+        </view>
+
+        <view class="feature-card" hover-class="card-hover">
+          <view class="feature-icon-wrap icon-market">
+            <text class="feature-icon">🛒</text>
+          </view>
+          <text class="feature-name">二手集市</text>
+          <text class="feature-desc">闲置交易</text>
+        </view>
+
+        <view class="feature-card" hover-class="card-hover">
+          <view class="feature-icon-wrap icon-lost">
+            <text class="feature-icon">🔍</text>
+          </view>
+          <text class="feature-name">失物招领</text>
+          <text class="feature-desc">寻物互助</text>
+        </view>
+
+        <view class="feature-card" hover-class="card-hover">
+          <view class="feature-icon-wrap icon-help">
+            <text class="feature-icon">🤝</text>
+          </view>
+          <text class="feature-name">校园互助</text>
+          <text class="feature-desc">温暖同行</text>
+        </view>
+      </view>
+
+      <!-- 标语卡片 -->
+      <view class="slogan-card">
+        <view class="slogan-decoration">
+          <view class="deco-dot dot-1"></view>
+          <view class="deco-dot dot-2"></view>
+          <view class="deco-dot dot-3"></view>
+        </view>
+        <text class="slogan-text">把校园信息、交易和互助放进一个入口</text>
+        <text class="slogan-sub">让每一次登录都更高效、更有温度</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 登录操作区域 -->
+  <view class="action-section">
+    <view class="action-inner">
+      <button class="login-btn {{loading ? 'btn-loading' : ''}}"
+              loading="{{loading}}"
+              disabled="{{loading}}"
+              bindtap="handleLogin"
+              hover-class="btn-hover">
+        <view class="btn-content">
+          <view class="btn-icon-wrap">
+            <text class="wechat-icon">💚</text>
+          </view>
+          <text class="btn-text">微信一键登录</text>
+          <view class="btn-arrow">
+            <text class="arrow-icon">→</text>
+          </view>
+        </view>
+        <view class="btn-shine"></view>
+      </button>
+
+      <view class="footer-info">
+        <view class="security-badge">
+          <text class="security-icon">🛡️</text>
+          <text class="security-text">微信授权 · 安全可控</text>
+        </view>
+        <view class="legal-links">
+          <text class="legal-link" catchtap="onTapAgreement" data-type="user">用户协议</text>
+          <text class="legal-divider">·</text>
+          <text class="legal-link" catchtap="onTapAgreement" data-type="privacy">隐私政策</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

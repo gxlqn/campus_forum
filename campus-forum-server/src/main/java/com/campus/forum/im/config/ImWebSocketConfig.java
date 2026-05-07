@@ -1,5 +1,6 @@
 package com.campus.forum.im.config;
 
+import com.campus.forum.im.security.ImHandshakeHandler;
 import com.campus.forum.im.security.JwtHandshakeInterceptor;
 import com.campus.forum.im.security.StompAuthChannelInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,7 @@ public class ImWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint(imProperties.getEndpoint())
                 .addInterceptors(jwtHandshakeInterceptor)
+                .setHandshakeHandler(new ImHandshakeHandler())
                 .setAllowedOriginPatterns("*");
     }
 

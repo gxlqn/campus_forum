@@ -54,6 +54,12 @@ http.interceptors.response.use(
             }
             return Promise.reject(res)
         }
+
+        // 权限不足（业务层返回的 code=403）
+        if (res.code === 403) {
+            ElMessage.error(res.message || '无权访问该资源')
+            return Promise.reject(res)
+        }
         
         ElMessage.error(res.message || `请求失败 (${res.code})`)
         return Promise.reject(res)
@@ -65,7 +71,27 @@ http.interceptors.response.use(
         } else if (error.message.includes('Network Error')) {
             ElMessage.error('网络连接失败，请检查网络')
         } else if (error.response) {
-            const { status, data } = error.response
+            const { status, data } = error.request ? { status: error.response.status, data: null } : { status: 500, data: null }
+            
+            // HTTP 401：未认证 → 跳转登录页
+            if (status === 401) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('userInfo')
+                if (window.location.pathname !== '/login') {
+                    ElMessage.error('登录已过期，请重新登录')
+                    window.location.href = '/login'
+                }
+                return Promise.reject(error)
+            }
+            
+            // HTTP 403：权限不足
+            if (status === 403) {
+                const errorMsg = (data && typeof data === 'string') ? data
+                    : (data?.message) || '无权访问该资源，权限不足'
+                ElMessage.error(errorMsg)
+                return Promise.reject(error)
+            }
+
             const errorMsg = data?.message || `请求失败 (${status})`
             ElMessage.error(errorMsg)
         } else {

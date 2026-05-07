@@ -1,5 +1,6 @@
 package com.campus.forum.service;
 
+import com.campus.forum.common.PageResult;
 import com.campus.forum.entity.AuditLog;
 import com.campus.forum.entity.AuditSensitiveWord;
 
@@ -17,6 +18,8 @@ public interface ContentFilterService {
 
     List<AuditSensitiveWord> getAllSensitiveWords();
 
+    List<AuditSensitiveWord> getSensitiveWordsByType(Integer wordType);
+
     AuditSensitiveWord addSensitiveWord(AuditSensitiveWord word);
 
     boolean updateSensitiveWord(AuditSensitiveWord word);
@@ -24,6 +27,8 @@ public interface ContentFilterService {
     boolean deleteSensitiveWord(Integer id);
 
     List<AuditSensitiveWord> getSensitiveWordsByCategory(Integer category);
+
+    PageResult<AuditSensitiveWord> getSensitiveWordsPage(Long current, Long size, Integer wordType, Integer category, String keyword);
 
     enum FilterResult {
         PASS(0, "通过"),

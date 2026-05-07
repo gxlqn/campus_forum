@@ -112,12 +112,13 @@ public class ForumController {
             @AuthenticationPrincipal SysUser currentUser,
             @RequestParam(required = false) Long current,
             @RequestParam(required = false) Long page,
-            @RequestParam(defaultValue = "10") Long size) {
+            @RequestParam(defaultValue = "10") Long size,
+            @RequestParam(required = false) String keyword) {
         Long pageNo = current != null ? current : page;
         if (pageNo == null) {
             pageNo = 1L;
         }
-        return Result.success(forumService.getMyPosts(currentUser.getId(), pageNo, size));
+        return Result.success(forumService.getMyPosts(currentUser.getId(), pageNo, size, keyword));
     }
 
     @GetMapping("/my/favorites")

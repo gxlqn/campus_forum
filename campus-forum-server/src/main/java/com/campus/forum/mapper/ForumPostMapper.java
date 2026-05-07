@@ -30,7 +30,7 @@ public interface ForumPostMapper {
               )
             </if>
             <if test='orderBy == "hot"'>
-              AND (is_top = 1 OR create_time &gt;= DATE_SUB(NOW(), INTERVAL #{hotWindowHours} HOUR))
+              AND (is_top = 1 OR create_time >= DATE_SUB(NOW(), INTERVAL #{hotWindowHours} HOUR))
             </if>
             <choose>
               <when test='orderBy == "hot"'>
@@ -71,7 +71,7 @@ public interface ForumPostMapper {
               )
             </if>
             <if test='orderBy == "hot"'>
-              AND (is_top = 1 OR create_time &gt;= DATE_SUB(NOW(), INTERVAL #{hotWindowHours} HOUR))
+              AND (is_top = 1 OR create_time >= DATE_SUB(NOW(), INTERVAL #{hotWindowHours} HOUR))
             </if>
             </script>
             """)
@@ -137,17 +137,31 @@ public interface ForumPostMapper {
     int updateFavoriteCount(@Param("postId") Long postId, @Param("delta") Integer delta);
 
     @Select("""
+            <script>
             SELECT * FROM forum_post
             WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             ORDER BY create_time DESC
             LIMIT #{offset}, #{size}
+            </script>
             """)
     List<ForumPost> selectMyPosts(@Param("userId") Long userId,
             @Param("offset") Long offset,
-            @Param("size") Long size);
+            @Param("size") Long size,
+            @Param("keyword") String keyword);
 
-    @Select("SELECT COUNT(1) FROM forum_post WHERE deleted = 0 AND user_id = #{userId}")
-    Long countMyPosts(@Param("userId") Long userId);
+    @Select("""
+            <script>
+            SELECT COUNT(1) FROM forum_post
+            WHERE deleted = 0 AND user_id = #{userId}
+            <if test='keyword != null and keyword != ""'>
+              AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            </script>
+            """)
+    Long countMyPosts(@Param("userId") Long userId, @Param("keyword") String keyword);
 
     @Select("""
             SELECT p.*

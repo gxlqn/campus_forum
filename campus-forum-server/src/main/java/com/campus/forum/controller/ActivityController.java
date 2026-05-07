@@ -6,6 +6,7 @@ import com.campus.forum.entity.ServiceActivity;
 import com.campus.forum.entity.SysUser;
 import com.campus.forum.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,7 @@ public class ActivityController {
         return Result.success();
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('activity:manage')")
     @GetMapping("/admin")
     public Result<PageResult<ServiceActivity>> getAdminList(
             @RequestParam(required = false) Long current,
@@ -80,6 +82,7 @@ public class ActivityController {
         return Result.success(activityService.getAdminActivityList(pageNo, size, type, status, auditStatus, keyword));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('activity:manage')")
     @PostMapping("/{id}/audit")
     public Result<Void> auditActivity(@PathVariable Long id,
             @RequestParam Integer auditStatus) {

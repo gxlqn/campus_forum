@@ -166,6 +166,15 @@
             >
               {{ Number(row.tradeType) === 2 ? '关闭' : '下架' }}
             </el-button>
+            <el-button
+              v-if="row.status !== 1 && row.auditStatus === 1 && row.status !== 2"
+              type="success"
+              size="small"
+              link
+              @click="changeStatus(row, 1)"
+            >
+              {{ Number(row.tradeType) === 2 ? '重新开放' : '上架' }}
+            </el-button>
             <el-button type="danger" size="small" link @click="deleteItem(row)">删除</el-button>
           </template>
         </el-table-column>
@@ -430,7 +439,7 @@ const viewDetail = (row) => {
   // 解析图片
   try {
     const rawImages = row.images ? JSON.parse(row.images) : []
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
     parsedImages.value = rawImages.map(url => {
       if (url.startsWith('http')) return url
       let path = url
@@ -481,7 +490,8 @@ const changeStatus = async (row, status) => {
     if (status === 0) {
       await offProduct(row.id)
     } else {
-      // 如果有上架接口，可以调用
+      // 上架/重新开放：调用管理员状态修改接口
+      await offProduct(row.id, status)
     }
 
     ElMessage.success(`${action}成功`)

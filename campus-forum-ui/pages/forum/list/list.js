@@ -18,7 +18,8 @@ Page({
         page: 1,
         size: 10,
         hasMore: true,
-        loading: true
+        loading: true,
+        searchKeyword: ''
     },
 
     onLoad(options) {
@@ -98,6 +99,7 @@ Page({
             const res = await api.getPostList({
                 sectionId: requestSectionId,
                 orderBy: this.data.orderBy,
+                keyword: this.data.searchKeyword || undefined,
                 current: this.data.page,
                 size: this.data.size
             });
@@ -130,7 +132,7 @@ Page({
         const id = e.currentTarget.dataset.id;
         const sectionId = id === '' || id === undefined || id === null ? '' : Number(id);
         const nextSectionId = Number.isNaN(sectionId) ? '' : sectionId;
-        this.setData({ currentSection: nextSectionId });
+        this.setData({ currentSection: nextSectionId, searchKeyword: '' });
         this.loadPosts(true, nextSectionId);
     },
 
@@ -166,12 +168,18 @@ Page({
     },
 
     onSearch(e) {
-        const keyword = e.detail.value;
-        if (keyword) {
-            wx.navigateTo({
-                url: `/pages/search/search?keyword=${keyword}`
-            });
-        }
+        const keyword = (e.detail.value || '').trim();
+        this.setData({ searchKeyword: keyword });
+        this.loadPosts(true);
+    },
+
+    onSearchInput(e) {
+        this.setData({ searchKeyword: e.detail.value || '' });
+    },
+
+    onClearSearch() {
+        this.setData({ searchKeyword: '' });
+        this.loadPosts(true);
     },
 
     goToDetail(e) {

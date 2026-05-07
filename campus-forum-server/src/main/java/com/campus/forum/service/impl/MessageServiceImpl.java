@@ -5,6 +5,10 @@ import com.campus.forum.common.ResultCode;
 import com.campus.forum.dto.message.SendMessageRequest;
 import com.campus.forum.entity.SysUser;
 import com.campus.forum.exception.BusinessException;
+import com.campus.forum.im.config.ImProperties;
+import com.campus.forum.im.service.ImPresenceService;
+import com.campus.forum.im.service.ImClusterMessageBroadcaster;
+import com.campus.forum.mapper.ImDeliveryTaskMapper;
 import com.campus.forum.mapper.MessageMapper;
 import com.campus.forum.mapper.SysUserMapper;
 import com.campus.forum.service.MessageService;
@@ -27,6 +31,18 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Autowired
+    private ImClusterMessageBroadcaster imClusterMessageBroadcaster;
+
+    @Autowired
+    private ImDeliveryTaskMapper imDeliveryTaskMapper;
+
+    @Autowired
+    private ImProperties imProperties;
+
+    @Autowired
+    private ImPresenceService presenceService;
 
     @Override
     public Map<String, Object> getNotifications(Long userId, Long current, Long size, Integer type, Integer isRead) {
@@ -64,6 +80,9 @@ public class MessageServiceImpl implements MessageService {
         long offset = (pageNo - 1) * pageSize;
 
         List<Map<String, Object>> records = messageMapper.selectConversationPage(userId, keyword, offset, pageSize);
+        for (Map<String, Object> record : records) {
+            record.put("isOnline", presenceService.isOnline(parseLong(record.get("targetUserId"))));
+        }
         Long total = messageMapper.countConversationPage(userId, keyword);
 
         Map<String, Object> data = new LinkedHashMap<>();
@@ -81,6 +100,8 @@ public class MessageServiceImpl implements MessageService {
         if (conversation == null) {
             throw new BusinessException(ResultCode.NOT_FOUND, "会话不存在");
         }
+        Long targetUserId = parseLong(conversation.get("targetUserId"));
+        conversation.put("isOnline", presenceService.isOnline(targetUserId));
 
         long pageNo = current == null || current < 1 ? 1 : current;
         long pageSize = size == null || size < 1 ? 20 : size;
@@ -88,7 +109,6 @@ public class MessageServiceImpl implements MessageService {
         List<Map<String, Object>> records = messageMapper.selectConversationMessages(conversationId, userId, offset, pageSize);
         Collections.reverse(records);
         Long total = messageMapper.countConversationMessages(conversationId, userId);
-        Long targetUserId = parseLong(conversation.get("targetUserId"));
         Map<String, Object> sendPolicy = buildSendPolicy(conversationId, userId, targetUserId);
 
         messageMapper.markConversationMessagesRead(conversationId, userId);
@@ -116,7 +136,6 @@ public class MessageServiceImpl implements MessageService {
         }
 
         String conversationId = buildConversationId(senderId, request.getReceiverId());
-        validateInitiatorSendRule(conversationId, senderId, request.getReceiverId());
         Integer contentType = request.getContentType() == null ? 1 : request.getContentType();
         String content = request.getContent().trim();
         String clientMessageId = StringUtils.hasText(request.getClientMessageId())
@@ -127,6 +146,8 @@ public class MessageServiceImpl implements MessageService {
         if (duplicated != null) {
             return buildSendMessageResult(duplicated, senderId, request.getReceiverId(), contentType);
         }
+
+        validateInitiatorSendRule(conversationId, senderId, request.getReceiverId());
 
         messageMapper.insertPrivateMessage(conversationId, senderId, request.getReceiverId(), content, contentType,
             clientMessageId);
@@ -148,6 +169,20 @@ public class MessageServiceImpl implements MessageService {
             inserted.put("contentType", contentType);
             inserted.put("clientMessageId", clientMessageId);
             inserted.put("createTime", LocalDateTime.now());
+        }
+
+        if (messageId != null) {
+            LocalDateTime nextRetry = LocalDateTime.now()
+                .plusNanos((long) imProperties.getAckTimeoutMs() * 1_000_000L);
+            imDeliveryTaskMapper.upsertPendingTask(
+                messageId,
+                conversationId,
+                senderId,
+                request.getReceiverId(),
+                clientMessageId,
+                nextRetry
+            );
+            imClusterMessageBroadcaster.broadcastMessage(messageId, request.getReceiverId());
         }
 
         return buildSendMessageResult(inserted, senderId, request.getReceiverId(), contentType);

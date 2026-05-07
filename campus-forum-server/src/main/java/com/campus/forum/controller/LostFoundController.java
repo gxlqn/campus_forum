@@ -6,6 +6,7 @@ import com.campus.forum.entity.ServiceLostFound;
 import com.campus.forum.entity.SysUser;
 import com.campus.forum.service.LostFoundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,7 @@ public class LostFoundController {
         return Result.success();
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('lostfound:manage')")
     @GetMapping("/admin")
     public Result<PageResult<ServiceLostFound>> getAdminList(
             @RequestParam(required = false) Long current,
@@ -88,10 +90,19 @@ public class LostFoundController {
         return Result.success(lostFoundService.getAdminList(pageNo, size, type, status, auditStatus, keyword));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('lostfound:manage')")
     @PostMapping("/{id}/audit")
     public Result<Void> auditItem(@PathVariable Long id,
             @RequestParam Integer auditStatus) {
         lostFoundService.auditItem(id, auditStatus);
+        return Result.success();
+    }
+
+    /** 管理员删除（不限制 owner） */
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('lostfound:manage')")
+    @DeleteMapping("/admin/{id}")
+    public Result<Void> deleteById(@PathVariable Long id) {
+        lostFoundService.deleteById(id);
         return Result.success();
     }
 

@@ -37,6 +37,12 @@ public interface SysUserMapper {
             "WHERE ur.user_id = #{userId} AND r.status = 1")
     List<String> selectUserRoles(@Param("userId") Long userId);
 
+    @Select("SELECT DISTINCT p.permission_code FROM sys_permission p " +
+            "INNER JOIN sys_role_permission rp ON p.id = rp.permission_id " +
+            "INNER JOIN sys_user_role ur ON rp.role_id = ur.role_id " +
+            "WHERE ur.user_id = #{userId} AND p.status = 1")
+    List<String> selectUserPermissionCodes(@Param("userId") Long userId);
+
     @Insert("""
             INSERT INTO sys_user(openid, union_id, student_id, username, password, nickname, avatar, gender, phone,
               email, bio, college, major, grade, user_type, status, is_verified, create_time, update_time, deleted)

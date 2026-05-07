@@ -57,6 +57,28 @@
   font-size: 27rpx;
 }
 
+.search-clear {
+  font-size: 28rpx;
+  color: #C4B5CD;
+  padding: 4rpx 12rpx;
+  margin-left: 8rpx;
+}
+
+.search-clear:active {
+  color: #FF6B9D;
+}
+
+/* ========== 搜索状态 ========== */
+.search-status {
+  padding: 8rpx 0 16rpx;
+}
+
+.search-status-text {
+  font-size: 25rpx;
+  color: #FF6B9D;
+  font-weight: 500;
+}
+
 /* ========== 板块标签 - 胶囊�?========== */
 .section-tabs {
   white-space: nowrap;

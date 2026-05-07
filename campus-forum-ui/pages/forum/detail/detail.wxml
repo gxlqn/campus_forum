@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" bindtap="onPageTap">
   <!-- 帖子内容卡片 -->
   <scroll-view scroll-y class="post-scroll" enhanced show-scrollbar="{{false}}">
     <!-- 帖子主体 -->
@@ -20,8 +20,17 @@
             </view>
           </view>
         </view>
-        <view class="section-badge">
-          <text class="badge-text">{{post.section.sectionName}}</text>
+        <view class="post-tools">
+          <view class="section-badge">
+            <text class="badge-text">{{post.section.sectionName}}</text>
+          </view>
+          <view class="owner-menu-wrap" wx:if="{{isOwner}}" catchtap="toggleOwnerMenu">
+            <text class="owner-menu-icon">⋮</text>
+            <view class="owner-menu" wx:if="{{showOwnerMenu}}" catchtap="noop">
+              <view class="owner-menu-item" bindtap="handleEdit">编辑帖子</view>
+              <view class="owner-menu-item danger" bindtap="handleDelete">删除帖子</view>
+            </view>
+          </view>
         </view>
       </view>
 

@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS `audit_sensitive_word`;
 CREATE TABLE `audit_sensitive_word`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `word` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '敏感词',
+  `word_type` tinyint NOT NULL DEFAULT 1 COMMENT '词类型: 1-黑名单 2-白名单',
   `category` tinyint NOT NULL DEFAULT 1 COMMENT '类别: 1-政治敏感 2-色情低俗 3-暴力恐怖 4-广告营销 5-其他违规',
   `level` tinyint NOT NULL DEFAULT 1 COMMENT '等级: 1-弱(标记可疑) 2-中(转人工) 3-强(直接拒绝)',
   `replacement` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '替换词(可选)',
@@ -68,59 +69,61 @@ CREATE TABLE `audit_sensitive_word`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_word`(`word` ASC) USING BTREE,
+  UNIQUE INDEX `uk_word_type`(`word` ASC, `word_type` ASC) USING BTREE,
   INDEX `idx_category`(`category` ASC) USING BTREE,
   INDEX `idx_level`(`level` ASC) USING BTREE,
+  INDEX `idx_word_type`(`word_type` ASC) USING BTREE,
   INDEX `idx_enabled`(`is_enabled` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '敏感词库' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of audit_sensitive_word
 -- ----------------------------
-INSERT INTO `audit_sensitive_word` VALUES (1, '法轮功', 1, 3, NULL, 1, '邪教组织', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (2, '台独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (3, '藏独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (4, '疆独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (5, '六四', 1, 3, NULL, 1, '政治事件', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (6, '天安门事件', 1, 3, NULL, 1, '政治事件', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (7, '反党', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (8, '推翻', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (9, '暴动', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (10, '颠覆', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (11, '色情', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (12, '淫秽', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (13, '裸聊', 2, 3, NULL, 1, '色情服务', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (14, '一夜情', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (15, '约炮', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (16, '援交', 2, 3, NULL, 1, '色情交易', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (17, '包养', 2, 3, NULL, 1, '不当关系', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (18, 'sm', 2, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (19, 'AV', 2, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (20, '黄片', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (21, '杀人', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (22, '炸弹', 3, 3, NULL, 1, '危险品', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (23, '炸药', 3, 3, NULL, 1, '危险品', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (24, '恐怖袭击', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (25, '砍人', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (26, '血腥', 3, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (27, '加微信', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (28, '加QQ', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (29, '扫码关注', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (30, '兼职赚钱', 4, 2, NULL, 1, '广告', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (31, '日赚', 4, 2, NULL, 1, '诈骗嫌疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (32, '刷单', 4, 2, NULL, 1, '违规行为', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (33, '代购', 4, 1, NULL, 1, '商业推广', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (34, '代理', 4, 1, NULL, 1, '商业推广', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (35, '优惠券', 4, 1, NULL, 1, '促销', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (36, '打折', 4, 1, NULL, 1, '促销', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (37, '赌博', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (38, '博彩', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (39, '彩票', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (40, '毒品', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (41, '吸毒', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (42, '假币', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (43, '发票', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
-INSERT INTO `audit_sensitive_word` VALUES (44, '办证', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (1, '法轮功', 1, 3, NULL, 1, '邪教组织', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (2, '台独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (3, '藏独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (4, '疆独', 1, 3, NULL, 1, '分裂国家', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (5, '六四', 1, 3, NULL, 1, '政治事件', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (6, '天安门事件', 1, 3, NULL, 1, '政治事件', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (7, '反党', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (8, '推翻', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (9, '暴动', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (10, '颠覆', 1, 3, NULL, 1, '政治敏感', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (11, '色情', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (12, '淫秽', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (13, '裸聊', 2, 3, NULL, 1, '色情服务', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (14, '一夜情', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (15, '约炮', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (16, '援交', 2, 3, NULL, 1, '色情交易', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (17, '包养', 2, 3, NULL, 1, '不当关系', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (18, 'sm', 2, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (19, 'AV', 2, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (20, '黄片', 2, 3, NULL, 1, '色情', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (21, '杀人', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (22, '炸弹', 3, 3, NULL, 1, '危险品', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (23, '炸药', 3, 3, NULL, 1, '危险品', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (24, '恐怖袭击', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (25, '砍人', 3, 3, NULL, 1, '暴力', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (26, '血腥', 3, 2, NULL, 1, '可疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (27, '加微信', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (28, '加QQ', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (29, '扫码关注', 4, 2, NULL, 1, '引流', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (30, '兼职赚钱', 4, 2, NULL, 1, '广告', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (31, '日赚', 4, 2, NULL, 1, '诈骗嫌疑', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (32, '刷单', 4, 2, NULL, 1, '违规行为', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (33, '代购', 4, 1, NULL, 1, '商业推广', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (34, '代理', 4, 1, NULL, 1, '商业推广', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (35, '优惠券', 4, 1, NULL, 1, '促销', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (36, '打折', 4, 1, NULL, 1, '促销', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (37, '赌博', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (38, '博彩', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (39, '彩票', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (40, '毒品', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (41, '吸毒', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (42, '假币', 5, 3, NULL, 1, '违法', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (43, '发票', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (44, '办证', 5, 2, NULL, 1, '需注意', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
+INSERT INTO `audit_sensitive_word` (`id`, `word`, `word_type`, `category`, `level`, `replacement`, `is_enabled`, `remark`, `creator_id`, `create_time`, `update_time`) VALUES (45, '求购', 2, 5, 1, NULL, 1, '业务白名单', NULL, '2026-04-16 18:38:31', '2026-04-16 18:38:31');
 
 -- ----------------------------
 -- Table structure for forum_comment

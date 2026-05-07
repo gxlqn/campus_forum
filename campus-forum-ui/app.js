@@ -1,18 +1,20 @@
 /**
  * 校园服务论坛系统 - 小程序入口
  */
+const imSocket = require('./utils/imSocket');
+
 App({
   globalData: {
     userInfo: null,
     token: null,
     isLogin: false,
     baseUrl: 'http://localhost:8081/api',
-    //baseUrl: 'http://10.139.248.115:8080/api',
+    //baseUrl: 'http://10.139.248.115:8081/api',
     // 静态资源地址（图片等，不带/api前缀）
-    //staticBaseUrl: 'http://10.139.248.115:8080/api',
-    staticBaseUrl: 'http://localhost:8081/api'
+   //staticBaseUrl: 'http://10.139.248.115:8081/api',
+   staticBaseUrl: 'http://localhost:8081/api'
   },
-
+ 
   onLaunch() {
     // 检查登录状态
     this.checkLoginStatus();
@@ -27,6 +29,7 @@ App({
       this.globalData.token = token;
       this.globalData.userInfo = userInfo;
       this.globalData.isLogin = true;
+      imSocket.ensureConnected();
     }
   },
 
@@ -38,6 +41,7 @@ App({
     
     wx.setStorageSync('token', token);
     wx.setStorageSync('userInfo', userInfo);
+    imSocket.ensureConnected();
   },
 
   // 清除登录信息
@@ -48,6 +52,7 @@ App({
     
     wx.removeStorageSync('token');
     wx.removeStorageSync('userInfo');
+    imSocket.disconnect();
   },
 
   // 检查是否需要登录

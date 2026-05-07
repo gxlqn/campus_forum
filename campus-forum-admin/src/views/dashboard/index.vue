@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="dashboard">
     <div class="welcome-header">
       <h1 class="welcome-title">管理中心控制台</h1>

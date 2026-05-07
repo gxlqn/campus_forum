@@ -94,6 +94,10 @@ public interface ServiceLostFoundMapper {
     @Update("UPDATE service_lost_found SET deleted = 1, update_time = NOW() WHERE id = #{id} AND user_id = #{userId} AND deleted = 0")
     int deleteByOwner(@Param("id") Long id, @Param("userId") Long userId);
 
+    /** 管理员删除（不限制 owner） */
+    @Update("UPDATE service_lost_found SET deleted = 1, update_time = NOW() WHERE id = #{id} AND deleted = 0")
+    int deleteById(@Param("id") Long id);
+
     @Update("UPDATE service_lost_found SET status = 2, update_time = NOW() WHERE id = #{id} AND user_id = #{userId} AND deleted = 0")
     int markComplete(@Param("id") Long id, @Param("userId") Long userId);
 

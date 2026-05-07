@@ -15,6 +15,9 @@ public interface LostFoundService {
 
     void delete(Long id, Long userId);
 
+    /** 管理员删除（不限制 owner） */
+    void deleteById(Long id);
+
     void markComplete(Long id, Long userId);
 
     PageResult<ServiceLostFound> getAdminList(Long current, Long size, Integer type, Integer status, Integer auditStatus, String keyword);

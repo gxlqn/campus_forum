@@ -1,22 +1,31 @@
 <view class="chat-container">
-  <!-- 聊天头部信息 -->
-  <view class="chat-header-bar">
+  <!-- 动态背景光晕 -->
+  <view class="bg-blob blob-1"></view>
+  <view class="bg-blob blob-2"></view>
+
+  <!-- 背景纹理 -->
+  <view class="bg-pattern"></view>
+
+  <!-- 聊天头部信息 - 毛玻璃风格 -->
+  <view class="chat-header-bar glass-panel">
     <view class="user-info">
       <text class="user-name">{{targetNickname}}</text>
-      <text class="online-status">在线</text>
+      <view class="online-status {{isOnline ? 'online' : 'offline'}}">
+        <view class="status-dot"></view>
+        <text>{{isOnline ? '在线' : '离线'}}</text>
+      </view>
     </view>
-    <text class="chat-hint">消息已加密保护</text>
-    <view class="policy-hint {{sendRestricted ? 'policy-restricted' : 'policy-free'}}" wx:if="{{sendPolicyText}}">
-      <text>{{sendPolicyText}}</text>
+    <view class="header-right">
+      <text class="chat-hint">消息已加密保护</text>
     </view>
   </view>
 
   <!-- 消息列表 -->
-  <scroll-view 
-    class="message-area" 
-    scroll-y 
+  <scroll-view
+    class="message-area"
+    scroll-y
     scroll-into-view="{{scrollIntoView}}"
-    enhanced 
+    enhanced
     show-scrollbar="{{false}}"
     scroll-with-animation
   >
@@ -42,19 +51,21 @@
     <view class="msg-list" wx:if="{{messages.length > 0}}">
       <!-- 时间分隔线 -->
       <view class="time-divider" wx:if="{{messages.length > 0}}">
-        <text class="time-text">{{messages[0].createTime || '今天'}}</text>
+        <view class="divider-line"></view>
+        <text class="time-capsule">{{messages[0].createTime || '今天'}}</text>
+        <view class="divider-line"></view>
       </view>
 
-      <view 
-        class="msg-item {{item.isSelf ? 'self' : 'other'}}" 
-        wx:for="{{messages}}" 
+      <view
+        class="msg-item {{item.isSelf ? 'self' : 'other'}}"
+        wx:for="{{messages}}"
         wx:key="id"
         id="msg-{{item.id}}"
       >
-        <!-- 对方头像（非自己） -->
-        <image 
-          class="msg-avatar other-avatar" 
-          src="/static/images/default-avatar.png" 
+        <!-- 对方头像 -->
+        <image
+          class="msg-avatar other-avatar"
+          src="{{item.avatar || '/static/images/default-avatar.png'}}"
           mode="aspectFill"
           wx:if="{{!item.isSelf}}"
         ></image>
@@ -64,21 +75,35 @@
           <view class="msg-bubble {{item.isSelf ? 'self' : 'other'}}">
             <text class="msg-content">{{item.content}}</text>
             <text class="msg-time">{{item.createTime}}</text>
-          </view>
-          
-          <!-- 发送状态 -->
-          <view class="send-status" wx:if="{{item.isSelf}}">
-            <text class="status-icon sent">✓✓</text>
+            <!-- 消息状态（仅自己消息） -->
+            <view class="send-status" wx:if="{{item.isSelf}}">
+              <text class="status-icon sent" wx:if="{{item.status === 'sent'}}">✓</text>
+              <text class="status-icon delivered" wx:if="{{item.status === 'delivered'}}">✓✓</text>
+              <text class="status-icon read" wx:if="{{item.status === 'read'}}">✓✓</text>
+            </view>
           </view>
         </view>
 
         <!-- 自己头像 -->
-        <image 
-          class="msg-avatar self-avatar" 
-          src="/static/images/default-avatar.png" 
+        <image
+          class="msg-avatar self-avatar"
+          src="{{item.avatar || '/static/images/default-avatar.png'}}"
           mode="aspectFill"
           wx:if="{{item.isSelf}}"
         ></image>
+      </view>
+    </view>
+
+
+    <!-- 对方正在输入提示 (浮动) -->
+    <view class="typing-float-wrap" wx:if="{{isTyping}}">
+      <image class="typing-avatar" src="{{targetAvatar || '/static/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="typing-bubble">
+        <view class="typing-dots">
+          <view class="typing-dot"></view>
+          <view class="typing-dot delay-1"></view>
+          <view class="typing-dot delay-2"></view>
+        </view>
       </view>
     </view>
 
@@ -86,36 +111,37 @@
     <view class="bottom-spacer"></view>
   </scroll-view>
 
-  <!-- 输入区域 -->
-  <view class="input-bar">
-    <view class="input-wrapper">
-      <input 
-        class="msg-input"
-        value="{{content}}"
-        placeholder="输入消息..."
-        placeholder-class="input-placeholder"
-        bindinput="onInput"
-        confirm-type="send"
-        bindconfirm="send"
-        maxlength="500"
-        cursor-spacing="16"
-      />
-      <view class="input-actions">
-        <text class="char-count">{{content.length}}/500</text>
-        <button 
-          class="send-btn {{!canSend ? 'disabled' : ''}}" 
-          bindtap="send" 
-          disabled="{{!canSend}}"
-          loading="{{sending}}"
-        >
-          <text class="btn-label">{{sending ? '发送中' : '发送'}}</text>
-        </button>
+
+  <!-- 输入区域 - 悬浮胶囊风格 -->
+  <view class="input-bar glass-panel">
+    <view class="input-row">
+      <view class="action-btn-circle" hover-class="btn-hover">
+        <text class="icon-plus">＋</text>
       </view>
+      <view class="input-wrapper">
+        <input
+          class="msg-input"
+          value="{{content}}"
+          placeholder="说点什么..."
+          placeholder-class="input-placeholder"
+          bindinput="onInput"
+          confirm-type="send"
+          bindconfirm="send"
+          maxlength="500"
+          cursor-spacing="16"
+        />
+      </view>
+      <button
+        class="send-btn-circle {{!canSend ? 'disabled' : ''}}"
+        bindtap="send"
+        disabled="{{!canSend}}"
+        loading="{{sending}}"
+        hover-class="btn-hover"
+      >
+        <text class="icon-send" wx:if="{{!sending}}">↑</text>
+      </button>
     </view>
-    
-    <!-- 安全提示 -->
-    <view class="security-notice">
-      <text class="notice-text">🔒 端到端加密传输</text>
-    </view>
+    <view class="safe-area-bottom"></view>
   </view>
+
 </view>

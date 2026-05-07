@@ -11,9 +11,12 @@
       <text class="search-icon">🔍</text>
       <input class="search-input"
              placeholder="搜索帖子..."
+             value="{{searchKeyword}}"
              confirm-type="search"
              placeholder-class="search-placeholder"
+             bindinput="onSearchInput"
              bindconfirm="onSearch"/>
+      <text class="search-clear" wx:if="{{searchKeyword}}" bindtap="onClearSearch">✕</text>
     </view>
   </view>
 
@@ -45,6 +48,11 @@
           data-order="hot">
       <text>🔥 最热</text>
     </view>
+  </view>
+
+  <!-- 搜索结果提示 -->
+  <view class="search-status" wx:if="{{searchKeyword}}">
+    <text class="search-status-text">搜索 "{{searchKeyword}}" 的结果</text>
   </view>
 
   <!-- 帖子列表 -->

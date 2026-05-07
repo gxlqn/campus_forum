@@ -17,6 +17,7 @@ Page({
         menuList: [
             { icon: '👤', title: '个人资料', url: '/pages/mine/profile/profile', iconBg: 'bg-pink-light' },
             { icon: '💰', title: '我的钱包', url: '/pages/mine/wallet/wallet', iconBg: 'bg-amber-light' },
+            { icon: '📝', title: '我的帖子', url: '/pages/mine/posts/posts', iconBg: 'bg-purple-light' },
             { icon: '📚', title: '我的记录', url: '/pages/mine/records/records', iconBg: 'bg-mint-light' },
             { icon: '📦', title: '我的订单', url: '/pages/service/product/orders/orders', iconBg: 'bg-sky-light' },
             { icon: '🔄', title: '切换账号（开发）', url: '/pages/auth/switchAccount/switchAccount', iconBg: 'bg-purple-light' },

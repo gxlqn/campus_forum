@@ -43,7 +43,7 @@
       </el-form>
       
       <div class="login-footer">
-        <p>默认账号：admin / admin123</p>
+        <p>默认账号：admin / 123456</p>
       </div>
     </div>
   </div>
@@ -79,7 +79,13 @@ const handleLogin = async () => {
     const res = await http.post('/auth/admin/login', form)
     
     localStorage.setItem('token', res.token)
-    localStorage.setItem('userInfo', JSON.stringify(res.user))
+    // 保存用户信息（包含 roles 和 permissions 供权限控制使用）
+    const userInfo = {
+      ...res.user,
+      roles: res.roles || [],
+      permissions: res.permissions || []
+    }
+    localStorage.setItem('userInfo', JSON.stringify(userInfo))
     
     ElMessage.success('登录成功')
     

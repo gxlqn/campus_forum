@@ -134,6 +134,17 @@ public class LostFoundServiceImpl implements LostFoundService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        if (id == null) {
+            throw new BusinessException(ResultCode.PARAM_ERROR);
+        }
+        int changed = lostFoundMapper.deleteById(id);
+        if (changed == 0) {
+            throw new BusinessException(ResultCode.NOT_FOUND, "信息不存在或已被删除");
+        }
+    }
+
+    @Override
     public void markComplete(Long id, Long userId) {
         int changed = lostFoundMapper.markComplete(id, userId);
         if (changed == 0) {

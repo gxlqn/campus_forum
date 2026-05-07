@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page-card">
     <el-card>
       <template #header>

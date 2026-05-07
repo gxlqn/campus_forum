@@ -227,13 +227,13 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public PageResult<ForumPost> getMyPosts(Long userId, Long current, Long size) {
+    public PageResult<ForumPost> getMyPosts(Long userId, Long current, Long size, String keyword) {
         long pageNo = current == null || current < 1 ? 1 : current;
         long pageSize = size == null || size < 1 ? 10 : size;
         long offset = (pageNo - 1) * pageSize;
-        List<ForumPost> records = postMapper.selectMyPosts(userId, offset, pageSize);
+        List<ForumPost> records = postMapper.selectMyPosts(userId, offset, pageSize, keyword);
         fillPostRelations(records, userId);
-        Long total = postMapper.countMyPosts(userId);
+        Long total = postMapper.countMyPosts(userId, keyword);
         return new PageResult<>(pageNo, pageSize, total == null ? 0L : total, records);
     }
 

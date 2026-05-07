@@ -9,6 +9,7 @@ public class AuditSensitiveWord implements Serializable {
 
     private Integer id;
     private String word;
+    private Integer wordType;
     private Integer category;
     private Integer level;
     private String replacement;
@@ -32,6 +33,14 @@ public class AuditSensitiveWord implements Serializable {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public Integer getWordType() {
+        return wordType;
+    }
+
+    public void setWordType(Integer wordType) {
+        this.wordType = wordType;
     }
 
     public Integer getCategory() {

@@ -1,5 +1,6 @@
 package com.campus.forum.service.impl;
 
+import com.campus.forum.common.PageResult;
 import com.campus.forum.entity.AuditSensitiveWord;
 import com.campus.forum.mapper.AuditSensitiveWordMapper;
 import com.campus.forum.service.ContentFilterService;
@@ -25,9 +26,7 @@ public class ContentFilterServiceImpl implements ContentFilterService {
         /**
          * 业务白名单词：这些词在特定业务语境中是正常表达，不应触发拦截。
          */
-        private static final Set<String> BUSINESS_ALLOW_WORDS = Set.of(
-            "求购"
-        );
+        private static final Set<String> BUSINESS_ALLOW_WORDS = Set.of("求购");
 
     @Override
     public FilterResult filter(String content) {
@@ -73,16 +72,14 @@ public class ContentFilterServiceImpl implements ContentFilterService {
 
         List<SensitiveWordEngine.WordWithLevel> effectiveMatches = matchResult.getMatchedWords().stream()
             .filter(item -> item != null && item.getWord() != null)
-            .filter(item -> !BUSINESS_ALLOW_WORDS.contains(item.getWord().toLowerCase()))
+            .filter(item -> !BUSINESS_ALLOW_WORDS.contains(item.getWord()))
             .toList();
 
         if (effectiveMatches.isEmpty()) {
             return new FilterDetail(FilterResult.PASS, Collections.emptyList(), 0, fullText);
         }
 
-        List<String> keywords = effectiveMatches.stream()
-            .map(SensitiveWordEngine.WordWithLevel::getWord)
-            .toList();
+        List<String> keywords = effectiveMatches.stream().map(SensitiveWordEngine.WordWithLevel::getWord).toList();
         int maxLevel = effectiveMatches.stream()
             .map(SensitiveWordEngine.WordWithLevel::getLevel)
             .max(Integer::compareTo)
@@ -147,11 +144,17 @@ public class ContentFilterServiceImpl implements ContentFilterService {
 
     @Override
     public List<AuditSensitiveWord> getAllSensitiveWords() {
-        return sensitiveWordMapper.selectPage(0, 1000);
+        return sensitiveWordMapper.selectPageWithFilter(0, 1000, null, null, null);
+    }
+
+    @Override
+    public List<AuditSensitiveWord> getSensitiveWordsByType(Integer wordType) {
+        return sensitiveWordMapper.selectPageWithFilter(0, 1000, wordType, null, null);
     }
 
     @Override
     public AuditSensitiveWord addSensitiveWord(AuditSensitiveWord word) {
+        normalizeWordType(word);
         sensitiveWordMapper.insert(word);
         wordEngine.refreshDbCache();  // 同步刷新DFA引擎
         log.info("新增敏感词: {} (level={})", word.getWord(), word.getLevel());
@@ -160,6 +163,7 @@ public class ContentFilterServiceImpl implements ContentFilterService {
 
     @Override
     public boolean updateSensitiveWord(AuditSensitiveWord word) {
+        normalizeWordType(word);
         int rows = sensitiveWordMapper.update(word);
         wordEngine.refreshDbCache();
         log.info("更新敏感词: id={}", word.getId());
@@ -176,7 +180,15 @@ public class ContentFilterServiceImpl implements ContentFilterService {
 
     @Override
     public List<AuditSensitiveWord> getSensitiveWordsByCategory(Integer category) {
-        return sensitiveWordMapper.selectByCategory(category);
+        return sensitiveWordMapper.selectPageWithFilter(0, 1000, null, category, null);
+    }
+
+    @Override
+    public PageResult<AuditSensitiveWord> getSensitiveWordsPage(Long current, Long size, Integer wordType, Integer category, String keyword) {
+        long offset = (current - 1) * size;
+        List<AuditSensitiveWord> records = sensitiveWordMapper.selectPageWithFilter(offset, size, wordType, category, keyword);
+        int total = sensitiveWordMapper.countWithFilter(wordType, category, keyword);
+        return new PageResult<>(current, size, (long) total, records);
     }
 
     /**
@@ -190,6 +202,12 @@ public class ContentFilterServiceImpl implements ContentFilterService {
                     .orElse(null);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    private void normalizeWordType(AuditSensitiveWord word) {
+        if (word != null && word.getWordType() == null) {
+            word.setWordType(1);
         }
     }
 }

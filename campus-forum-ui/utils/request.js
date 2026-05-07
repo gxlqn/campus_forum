@@ -1,8 +1,6 @@
 /**
  * HTTP Request Module
  */
-const app = getApp();
-const BASE_URL = app.globalData?.baseUrl || 'http://localhost:8080/api';
 const REQUEST_TIMEOUT = 15000;
 const UPLOAD_TIMEOUT = 30000;
 const MAX_CONCURRENT_REQUESTS = 6;
@@ -57,18 +55,31 @@ function isRetryableError(err) {
     return msg.includes('timeout') || msg.includes('fail') || msg.includes('Network');
 }
 
+function getBaseUrl() {
+    try {
+        const app = getApp();
+        if (app && app.globalData && app.globalData.baseUrl) {
+            return app.globalData.baseUrl;
+        }
+    } catch (e) {
+        // ignore getApp error before App init
+    }
+    return 'http://localhost:8081/api';
+}
+
 function buildUrl(url, params) {
+    const baseUrl = getBaseUrl();
     if (!params) {
-        return BASE_URL + url;
+        return baseUrl + url;
     }
     const query = Object.keys(params)
         .filter((key) => params[key] !== undefined && params[key] !== null && params[key] !== '' && params[key] !== 'null')
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
         .join('&');
     if (!query) {
-        return BASE_URL + url;
+        return baseUrl + url;
     }
-    return `${BASE_URL}${url}${url.includes('?') ? '&' : '?'}${query}`;
+    return `${baseUrl}${url}${url.includes('?') ? '&' : '?'}${query}`;
 }
 
 function request(url, method, data, options = {}) {
@@ -155,7 +166,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const token = wx.getStorageSync('token');
             wx.uploadFile({
-                url: BASE_URL + '/file/upload',
+                url: getBaseUrl() + '/file/upload',
                 filePath: filePath,
                 name: 'file',
                 timeout: UPLOAD_TIMEOUT,

@@ -32,7 +32,7 @@ public interface ForumService {
 
     void unfavoritePost(Long postId, Long userId);
 
-    PageResult<ForumPost> getMyPosts(Long userId, Long current, Long size);
+    PageResult<ForumPost> getMyPosts(Long userId, Long current, Long size, String keyword);
 
     PageResult<ForumPost> getMyFavoritePosts(Long userId, Long current, Long size);
 

@@ -269,9 +269,10 @@ public class AdminSystemController {
     public Result<PageResult<AuditSensitiveWord>> getSensitiveWords(
             @RequestParam(defaultValue = "1") Long current,
             @RequestParam(defaultValue = "10") Long size,
+            @RequestParam(required = false) Integer wordType,
             @RequestParam(required = false) Integer category,
             @RequestParam(required = false) String keyword) {
-        return Result.success(contentFilterService.getSensitiveWordsPage(current, size, category, keyword));
+        return Result.success(contentFilterService.getSensitiveWordsPage(current, size, wordType, category, keyword));
     }
 
     @PreAuthorize("hasAuthority('system:sensitive')")

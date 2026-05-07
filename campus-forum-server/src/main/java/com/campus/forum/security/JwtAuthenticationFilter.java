@@ -59,6 +59,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                             .collect(Collectors.toList());
 
+                    // 加载用户权限码到Authority（供@PreAuthorize("hasAuthority('xxx')")使用）
+                    List<String> permissionCodes = userService.getUserPermissionCodes(userId);
+                    if (permissionCodes != null) {
+                        permissionCodes.stream()
+                                .map(code -> new SimpleGrantedAuthority(code))
+                                .forEach(authorities::add);
+                    }
+
                     // 创建认证对象
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,
                             null, authorities);

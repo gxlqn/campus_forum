@@ -124,6 +124,10 @@ public interface ServiceProductMapper {
     @Update("UPDATE service_product SET deleted = 1, update_time = NOW() WHERE id = #{id} AND user_id = #{userId} AND deleted = 0")
     int deleteByOwner(@Param("id") Long id, @Param("userId") Long userId);
 
+    /** 管理员删除（不限制 owner） */
+    @Update("UPDATE service_product SET deleted = 1, update_time = NOW() WHERE id = #{id} AND deleted = 0")
+    int deleteById(@Param("id") Long id);
+
     @Insert("INSERT IGNORE INTO forum_favorite(user_id, target_type, target_id, create_time) VALUES(#{userId}, 2, #{productId}, NOW())")
     int insertWant(@Param("productId") Long productId, @Param("userId") Long userId);
 

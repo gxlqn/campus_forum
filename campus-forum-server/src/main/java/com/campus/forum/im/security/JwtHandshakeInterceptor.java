@@ -9,12 +9,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class JwtHandshakeInterceptor implements HandshakeInterceptor {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtHandshakeInterceptor.class);
 
     public static final String ATTR_USER_ID = "imUserId";
 
@@ -29,13 +33,16 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
             WebSocketHandler wsHandler, Map<String, Object> attributes) {
         String token = resolveToken(request);
         if (!StringUtils.hasText(token) || !jwtUtils.validateToken(token)) {
+            log.warn("IM WebSocket handshake rejected: token missing or invalid, uri={}", request.getURI());
             return false;
         }
         Long userId = jwtUtils.getUserIdFromToken(token);
         if (userId == null) {
+            log.warn("IM WebSocket handshake rejected: cannot resolve userId, uri={}", request.getURI());
             return false;
         }
         attributes.put(ATTR_USER_ID, userId);
+        log.info("IM WebSocket handshake accepted: userId={}, uri={}", userId, request.getURI());
         return true;
     }
 

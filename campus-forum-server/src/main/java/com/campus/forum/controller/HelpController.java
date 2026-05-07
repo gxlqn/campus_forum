@@ -6,6 +6,7 @@ import com.campus.forum.entity.ServiceHelpRequest;
 import com.campus.forum.entity.SysUser;
 import com.campus.forum.service.HelpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,6 +76,7 @@ public class HelpController {
         return Result.success();
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('help:manage')")
     @GetMapping("/admin")
     public Result<PageResult<ServiceHelpRequest>> getAdminHelpList(
             @RequestParam(defaultValue = "1") Long current,
@@ -86,6 +88,7 @@ public class HelpController {
         return Result.success(helpService.getAdminHelpList(current, size, type, status, auditStatus, keyword));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('help:manage')")
     @PostMapping("/admin/{id}/audit")
     public Result<Void> auditHelp(@PathVariable Long id,
                                    @RequestParam Integer auditStatus) {
@@ -93,6 +96,7 @@ public class HelpController {
         return Result.success();
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('help:manage')")
     @GetMapping("/admin/arbitration/list")
     public Result<PageResult<ServiceHelpRequest>> getArbitrationList(
             @RequestParam(defaultValue = "1") Integer page,
@@ -100,6 +104,7 @@ public class HelpController {
         return Result.success(helpService.getArbitrationList(page, size));
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN') or hasAuthority('help:manage')")
     @PostMapping("/admin/arbitration/resolve")
     public Result<Void> resolveArbitration(@RequestBody Map<String, Object> params) {
         Long id = Long.valueOf(params.get("id").toString());

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page-card">
     <el-card class="search-card">
       <el-form :inline="true" :model="query">
@@ -296,7 +296,7 @@ const handleDelete = async (row) => {
 const getImageUrl = (url) => {
   if (!url) return ''
   if (url.startsWith('http')) return url
-  const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+  const base = import.meta.env.VITE_API_BASE_URL || '/api'
   return base + (url.startsWith('/') ? '' : '/') + url
 }
 

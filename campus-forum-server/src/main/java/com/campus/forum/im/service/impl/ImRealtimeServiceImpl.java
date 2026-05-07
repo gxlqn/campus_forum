@@ -14,6 +14,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -30,6 +31,7 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
     private final ImRateLimitService rateLimitService;
     private final SimpMessagingTemplate messagingTemplate;
     private final ImProperties imProperties;
+    private final ImMetricsService imMetricsService;
 
     public ImRealtimeServiceImpl(MessageService messageService,
             MessageMapper messageMapper,
@@ -37,7 +39,8 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
             ImClusterMessageBroadcaster broadcaster,
             ImRateLimitService rateLimitService,
             SimpMessagingTemplate messagingTemplate,
-            ImProperties imProperties) {
+            ImProperties imProperties,
+            ImMetricsService imMetricsService) {
         this.messageService = messageService;
         this.messageMapper = messageMapper;
         this.taskMapper = taskMapper;
@@ -45,14 +48,17 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
         this.rateLimitService = rateLimitService;
         this.messagingTemplate = messagingTemplate;
         this.imProperties = imProperties;
+        this.imMetricsService = imMetricsService;
     }
 
     @Override
     public Map<String, Object> send(Long senderId, ImSendMessageRequest request) {
         if (senderId == null || request == null || request.getToUserId() == null || !StringUtils.hasText(request.getContent())) {
+            imMetricsService.incrementWithReason("im.send.rejected.total", "param_missing");
             return error("PARAM_MISSING", "参数缺失");
         }
         if (!rateLimitService.allow(senderId)) {
+            imMetricsService.incrementWithReason("im.send.rejected.total", "rate_limit");
             return error("RATE_LIMIT", "发送过于频繁，请稍后再试");
         }
 
@@ -72,6 +78,9 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
             LocalDateTime nextRetry = LocalDateTime.now().plusNanos((long) imProperties.getAckTimeoutMs() * 1_000_000L);
             taskMapper.upsertPendingTask(messageId, conversationId, senderId, receiverId, clientMessageId, nextRetry);
             broadcaster.broadcastMessage(messageId, receiverId);
+            imMetricsService.increment("im.send.accepted.total", "type", "ok");
+        } else {
+            imMetricsService.incrementWithReason("im.send.rejected.total", "message_id_missing");
         }
 
         Map<String, Object> ack = new LinkedHashMap<>();
@@ -84,15 +93,18 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
     @Override
     public Map<String, Object> ack(Long userId, ImAckRequest request) {
         if (userId == null || request == null || request.getMessageId() == null) {
+            imMetricsService.incrementWithReason("im.ack.rejected.total", "param_missing");
             return error("PARAM_MISSING", "ACK参数缺失");
         }
         Map<String, Object> message = messageMapper.selectMessageSimpleById(request.getMessageId());
         if (message == null) {
+            imMetricsService.incrementWithReason("im.ack.rejected.total", "message_not_found");
             return error("NOT_FOUND", "消息不存在");
         }
 
         Long receiverId = toLong(message.get("receiverId"));
         if (!userId.equals(receiverId)) {
+            imMetricsService.incrementWithReason("im.ack.rejected.total", "forbidden");
             return error("FORBIDDEN", "无权ACK该消息");
         }
 
@@ -110,6 +122,13 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
 
         messageMapper.insertReadReceipt(request.getMessageId(), userId, receiptType, clientMessageId);
         taskMapper.markAcked(request.getMessageId());
+        imMetricsService.increment("im.ack.accepted.total", "receiptType", receiptType);
+
+        LocalDateTime createTime = parseLocalDateTime(message.get("createTime"));
+        if (createTime != null) {
+            imMetricsService.duration("im.ack.e2e.latency", Duration.between(createTime, LocalDateTime.now()),
+                "receiptType", receiptType);
+        }
 
         Long senderId = toLong(message.get("senderId"));
         if (senderId != null) {
@@ -117,6 +136,7 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
             notify.put("messageId", request.getMessageId());
             notify.put("receiptType", receiptType);
             notify.put("fromUserId", userId);
+            notify.put("clientMessageId", clientMessageId);
             notify.put("time", LocalDateTime.now());
             messagingTemplate.convertAndSendToUser(String.valueOf(senderId), "/queue/im-delivery", notify);
         }
@@ -132,11 +152,13 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
     @Override
     public Map<String, Object> sync(Long userId, ImSyncRequest request) {
         if (userId == null || request == null || !StringUtils.hasText(request.getConversationId())) {
+            imMetricsService.incrementWithReason("im.sync.rejected.total", "param_missing");
             return error("PARAM_MISSING", "同步参数缺失");
         }
 
         Map<String, Object> conversation = messageMapper.selectConversationById(request.getConversationId(), userId);
         if (conversation == null) {
+            imMetricsService.incrementWithReason("im.sync.rejected.total", "conversation_not_found");
             return error("NOT_FOUND", "会话不存在");
         }
 
@@ -148,6 +170,7 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
         if (messages == null) {
             messages = Collections.emptyList();
         }
+        imMetricsService.distribution("im.sync.records.count", messages.size(), "conversation", "private");
 
         Long nextCursor = cursor;
         if (!messages.isEmpty()) {
@@ -200,5 +223,19 @@ public class ImRealtimeServiceImpl implements ImRealtimeService {
             return "READ";
         }
         return "DELIVERED";
+    }
+
+    private LocalDateTime parseLocalDateTime(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof LocalDateTime dateTime) {
+            return dateTime;
+        }
+        try {
+            return LocalDateTime.parse(String.valueOf(value));
+        } catch (Exception ignore) {
+            return null;
+        }
     }
 }
